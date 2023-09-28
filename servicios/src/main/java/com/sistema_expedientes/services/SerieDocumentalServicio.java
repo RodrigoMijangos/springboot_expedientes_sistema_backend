@@ -31,6 +31,14 @@ public class SerieDocumentalServicio implements ISerieDocumentalRepositorioDTO {
         return repositorio.findAll();
     }
 
+    public List<SerieDocumental> list_hijos(Short id){
+
+        Optional<SerieDocumental> in_db = repositorio.findById(id);
+
+        return in_db.map(serieDocumental -> repositorio.findAllBySeriePadre(serieDocumental)).orElse(null);
+
+    }
+
     @Override
     public SerieDocumental create(SerieDocumentalRequestDTO request) {
         Optional<SerieDocumental> in_bd = repositorio.findById(request.getId());

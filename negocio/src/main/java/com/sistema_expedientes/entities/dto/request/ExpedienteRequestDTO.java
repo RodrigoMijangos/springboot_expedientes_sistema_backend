@@ -1,17 +1,41 @@
 package com.sistema_expedientes.entities.dto.request;
 
-public class ExpedienteRequestDTO extends _DTO{
+public class ExpedienteRequestDTO extends _DTO {
+
+    private Short identificador_numerico;
 
     private final Short periodo_apertura;
     private final Byte unidad_administrativa;
     private final Short serie_documental;
-    private final Short periodo_cierre;
+    private Short periodo_cierre;
+
+    public ExpedienteRequestDTO(Short identificador_numerico, Short periodo_apertura, Byte unidad_administrativa, Short serie_documental, Short periodo_cierre) {
+        this.identificador_numerico = identificador_numerico;
+        this.periodo_apertura = periodo_apertura;
+        this.unidad_administrativa = unidad_administrativa;
+        this.serie_documental = serie_documental;
+        this.periodo_cierre = periodo_cierre;
+    }
 
     public ExpedienteRequestDTO(Short periodo_apertura, Byte unidad_administrativa, Short serie_documental, Short periodo_cierre) {
         this.periodo_apertura = periodo_apertura;
         this.unidad_administrativa = unidad_administrativa;
         this.serie_documental = serie_documental;
         this.periodo_cierre = periodo_cierre;
+    }
+
+    public ExpedienteRequestDTO(Short periodo_apertura, Byte unidad_administrativa, Short serie_documental) {
+        this.periodo_apertura = periodo_apertura;
+        this.unidad_administrativa = unidad_administrativa;
+        this.serie_documental = serie_documental;
+    }
+
+    public Short getIdentificador_numerico() {
+        return identificador_numerico;
+    }
+
+    public void setIdentificador_numerico(Short identificador_numerico) {
+        this.identificador_numerico = identificador_numerico;
     }
 
     public Short getPeriodo_apertura() {
@@ -30,4 +54,7 @@ public class ExpedienteRequestDTO extends _DTO{
         return periodo_cierre;
     }
 
+    public void setPeriodo_cierre(Short periodo_cierre) {
+        this.periodo_cierre = periodo_cierre;
+    }
 }
