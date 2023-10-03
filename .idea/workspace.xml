@@ -5,15 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ce0eb79-1545-49c5-9b67-ac25bf7b7a2a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/api/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/dto/request/ExpedienteRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/dto/request/ExpedienteRequestDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/repositories/ExpedienteRepositorio.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/repositories/ExpedienteRepositorio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/repositories/SerieDocumentalRepositorio.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/repositories/SerieDocumentalRepositorio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servicios/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/servicios/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/ExpedienteServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/ExpedienteServicio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/SerieDocumentalServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/SerieDocumentalServicio.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/interfaces/IExpedienteServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/interfaces/IExpedienteServicio.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,21 +36,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "jdk.selected.JAVA_MODULE": "17",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="EndpointExpediente" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="api" />
@@ -80,7 +74,9 @@
       <workItem from="1695429596445" duration="6962000" />
       <workItem from="1695585849180" duration="11475000" />
       <workItem from="1695709558670" duration="5630000" />
-      <workItem from="1695762393201" duration="16982000" />
+      <workItem from="1695762393201" duration="20637000" />
+      <workItem from="1695914616843" duration="3218000" />
+      <workItem from="1696005259802" duration="950000" />
     </task>
     <servers />
   </component>

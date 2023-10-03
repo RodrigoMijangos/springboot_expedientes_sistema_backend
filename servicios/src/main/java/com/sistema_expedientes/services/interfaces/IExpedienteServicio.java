@@ -5,10 +5,11 @@ import com.sistema_expedientes.entities.compositesKeys.ExpedienteCompositeKey;
 import com.sistema_expedientes.entities.dto.request.ExpedienteRequestDTO;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IExpedienteServicio {
 
-    public Expediente get(ExpedienteCompositeKey key);
+    public Optional<Expediente> get(ExpedienteCompositeKey key);
 
     public List<Expediente> list();
 

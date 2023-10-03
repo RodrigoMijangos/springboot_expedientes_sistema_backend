@@ -19,8 +19,8 @@ public class ExpedienteServicio implements IExpedienteServicio {
     private ExpedienteRepositorio repositorio;
 
     @Override
-    public Expediente get(ExpedienteCompositeKey key) {
-        return repositorio.findById(key).orElse(null);
+    public Optional<Expediente> get(ExpedienteCompositeKey key) {
+        return repositorio.findById(key);
     }
 
     @Override
