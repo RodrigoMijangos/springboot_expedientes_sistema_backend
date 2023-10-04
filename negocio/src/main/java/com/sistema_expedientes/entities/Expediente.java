@@ -4,6 +4,8 @@ import com.sistema_expedientes.entities.compositesKeys.ExpedienteCompositeKey;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
+import java.math.BigInteger;
+
 @Entity
 @Table(name = "expedientes")
 @IdClass(ExpedienteCompositeKey.class)

@@ -3,11 +3,13 @@ package com.sistema_expedientes.entities.dto.request;
 public class ExpedienteRequestDTO extends _DTO {
 
     private Short identificador_numerico;
-
-    private final Short periodo_apertura;
-    private final Byte unidad_administrativa;
-    private final Short serie_documental;
+    private Short periodo_apertura;
+    private Byte unidad_administrativa;
+    private Short serie_documental;
     private Short periodo_cierre;
+
+    public ExpedienteRequestDTO() {
+    }
 
     public ExpedienteRequestDTO(Short identificador_numerico, Short periodo_apertura, Byte unidad_administrativa, Short serie_documental, Short periodo_cierre) {
         this.identificador_numerico = identificador_numerico;
