@@ -34,31 +34,25 @@ public class SerieDocumental {
     private SerieDocumental seriePadre;
 
     @NotNull
-    @NotEmpty
     private Boolean valor_documental_legal;
 
     @NotNull
-    @NotEmpty
     private Boolean valor_documental_administrativo;
 
     @NotNull
-    @NotEmpty
     private Boolean valor_documental_contable;
 
-    @Max(value = 1)
-    @Min(value = 20)
+    @Max(value = 20)
+    @Min(value = 1)
     @NotNull
-    @NotEmpty
     private Byte enTramite;
 
-    @Max(value = 1)
-    @Min(value = 20)
+    @Max(value = 20)
+    @Min(value = 1)
     @NotNull
-    @NotEmpty
     private Byte enConcentracion;
 
     @NotNull
-    @NotEmpty
     private Byte procedimientoFinal;
 
     @Nullable
@@ -70,13 +64,7 @@ public class SerieDocumental {
     public SerieDocumental() {
     }
 
-    public SerieDocumental(
-            Short id, String nombre, String serie,
-            @Nullable SerieDocumental seriePadre,
-            Boolean valor_documental_legal, Boolean valor_documental_administrativo,
-            Boolean valor_documental_contable, Byte enTramite, Byte enConcentracion,
-            Byte procedimientoFinal, @Nullable String observaciones, Set<SerieDocumental> subseries
-    ) {
+    public SerieDocumental(Short id, String nombre, String serie, @Nullable SerieDocumental seriePadre, Boolean valor_documental_legal, Boolean valor_documental_administrativo, Boolean valor_documental_contable, Byte enTramite, Byte enConcentracion, Byte procedimientoFinal, @Nullable String observaciones, Set<SerieDocumental> subseries) {
         this.id = id;
         this.nombre = nombre;
         this.serie = serie;
@@ -89,62 +77,6 @@ public class SerieDocumental {
         this.procedimientoFinal = procedimientoFinal;
         this.observaciones = observaciones;
         this.subseries = subseries;
-    }
-
-    public SerieDocumental(
-            Short id, String nombre, String serie, @Nullable SerieDocumental seriePadre,
-            Boolean valor_documental_legal, Boolean valor_documental_administrativo,
-            Boolean valor_documental_contable, Byte enTramite, Byte enConcentracion,
-            Byte procedimientoFinal, @Nullable String observaciones
-    ) {
-        this.id = id;
-        this.nombre = nombre;
-        this.serie = serie;
-        this.seriePadre = seriePadre;
-        this.valor_documental_legal = valor_documental_legal;
-        this.valor_documental_administrativo = valor_documental_administrativo;
-        this.valor_documental_contable = valor_documental_contable;
-        this.enTramite = enTramite;
-        this.enConcentracion = enConcentracion;
-        this.procedimientoFinal = procedimientoFinal;
-        this.observaciones = observaciones;
-    }
-
-    public SerieDocumental(
-            String nombre, String serie, @Nullable SerieDocumental seriePadre,
-            Boolean valor_documental_legal, Boolean valor_documental_administrativo,
-            Boolean valor_documental_contable, Byte enTramite, Byte enConcentracion,
-            Byte procedimientoFinal, @Nullable String observaciones, Set<SerieDocumental> subseries
-    ) {
-        this.nombre = nombre;
-        this.serie = serie;
-        this.seriePadre = seriePadre;
-        this.valor_documental_legal = valor_documental_legal;
-        this.valor_documental_administrativo = valor_documental_administrativo;
-        this.valor_documental_contable = valor_documental_contable;
-        this.enTramite = enTramite;
-        this.enConcentracion = enConcentracion;
-        this.procedimientoFinal = procedimientoFinal;
-        this.observaciones = observaciones;
-        this.subseries = subseries;
-    }
-
-    public SerieDocumental(
-            String nombre, String serie, @Nullable SerieDocumental seriePadre,
-            Boolean valor_documental_legal, Boolean valor_documental_administrativo,
-            Boolean valor_documental_contable, Byte enTramite, Byte enConcentracion,
-            Byte procedimientoFinal, @Nullable String observaciones
-    ) {
-        this.nombre = nombre;
-        this.serie = serie;
-        this.seriePadre = seriePadre;
-        this.valor_documental_legal = valor_documental_legal;
-        this.valor_documental_administrativo = valor_documental_administrativo;
-        this.valor_documental_contable = valor_documental_contable;
-        this.enTramite = enTramite;
-        this.enConcentracion = enConcentracion;
-        this.procedimientoFinal = procedimientoFinal;
-        this.observaciones = observaciones;
     }
 
     public Short getId() {

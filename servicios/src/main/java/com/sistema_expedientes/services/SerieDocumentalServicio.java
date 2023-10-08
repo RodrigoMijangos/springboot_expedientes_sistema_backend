@@ -68,6 +68,7 @@ public class SerieDocumentalServicio implements ISerieDocumentalRepositorioDTO {
 
     private SerieDocumental dtoToEntity(SerieDocumentalRequestDTO dto){
         TypeMap<SerieDocumentalRequestDTO, SerieDocumental> propertyManager = this.mapper.createTypeMap(SerieDocumentalRequestDTO.class, SerieDocumental.class);
+        propertyManager.addMapping(SerieDocumentalRequestDTO::getSerie_padre, SerieDocumental::setSeriePadre);
         propertyManager.addMapping(SerieDocumentalRequestDTO::getEn_tramite, SerieDocumental::setEnTramite);
         propertyManager.addMapping(SerieDocumentalRequestDTO::getEn_concentracion, SerieDocumental::setEnConcentracion);
         propertyManager.addMapping(SerieDocumentalRequestDTO::getProcedimiento_final, SerieDocumental::setProcedimientoFinal);
