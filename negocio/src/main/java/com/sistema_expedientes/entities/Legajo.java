@@ -3,6 +3,8 @@ package com.sistema_expedientes.entities;
 import com.sistema_expedientes.entities.compositesKeys.LegajoCompositeKey;
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "legajos")
 public class Legajo {
