@@ -1,5 +1,7 @@
 package com.sistema_expedientes.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -28,8 +30,9 @@ public class SerieDocumental {
     @NotEmpty
     private String serie;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "serie_padre", referencedColumnName = "id", table = "series_documentales")
+    @JsonBackReference
     @Nullable
     private SerieDocumental seriePadre;
 
@@ -59,6 +62,7 @@ public class SerieDocumental {
     private String observaciones;
 
     @OneToMany(mappedBy = "seriePadre")
+    @JsonManagedReference
     private Set<SerieDocumental> subseries;
 
     public SerieDocumental() {

@@ -32,7 +32,7 @@ public class UnidadAdministrativaServicio implements IUnidadAdministrativaReposi
     @Override
     public UnidadAdministrativa create(UnidadAdministrativaRequestDTO request) {
 
-        return repositorio.save(new UnidadAdministrativa(request.getId(), request.getClave(), request.getClave()));
+        return repositorio.save(new UnidadAdministrativa(request.getId(), request.getClave(), request.getNombre()));
     }
 
     @Override
