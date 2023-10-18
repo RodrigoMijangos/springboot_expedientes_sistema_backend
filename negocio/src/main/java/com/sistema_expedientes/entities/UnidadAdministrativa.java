@@ -1,49 +1,42 @@
 package com.sistema_expedientes.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import jakarta.validation.Constraint;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-import org.springframework.lang.NonNull;
+
+import java.util.Set;
 
 @Entity
 @Table(name = "unidades_administrativas")
 public class UnidadAdministrativa {
 
     @Id
-    @Max(value = 99)
-    @Min(value = 1)
-    private Byte id;
-
-    @Size(max = 10)
     @NotBlank
-    @Column(unique = true)
     private String clave;
-
     @NotBlank
-    @Column(unique = true)
     private String nombre;
+    @NotBlank
+    private String piso;
+    @Column(name = "extension_telefonica")
+    private String extensionTelefonica;
+    @OneToMany(mappedBy = "unidadPrincipal")
+    @JsonManagedReference
+    private Set<UnidadAdministrativa> unidadesGeneradoras;
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinColumn(name = "unidad_principal", referencedColumnName = "clave")
+    @JsonBackReference
+    private UnidadAdministrativa unidadPrincipal;
 
     public UnidadAdministrativa(){}
 
-    public UnidadAdministrativa(Byte id, String clave, String nombre) {
-        this.id = id;
+    public UnidadAdministrativa(String clave, String nombre, String piso, String extensionTelefonica, Set<UnidadAdministrativa> unidadesGeneradoras, UnidadAdministrativa unidadPrincipal) {
         this.clave = clave;
         this.nombre = nombre;
-    }
-
-    public UnidadAdministrativa(String clave, String nombre) {
-        this.clave = clave;
-        this.nombre = nombre;
-    }
-    public Byte getId() {
-        return id;
-    }
-
-    public void setId(Byte id) {
-        this.id = id;
+        this.piso = piso;
+        this.extensionTelefonica = extensionTelefonica;
+        this.unidadesGeneradoras = unidadesGeneradoras;
+        this.unidadPrincipal = unidadPrincipal;
     }
 
     public String getClave() {
@@ -60,5 +53,37 @@ public class UnidadAdministrativa {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getPiso() {
+        return piso;
+    }
+
+    public void setPiso(String piso) {
+        this.piso = piso;
+    }
+
+    public String getExtensionTelefonica() {
+        return extensionTelefonica;
+    }
+
+    public void setExtensionTelefonica(String extensionTelefonica) {
+        this.extensionTelefonica = extensionTelefonica;
+    }
+
+    public Set<UnidadAdministrativa> getUnidadesGeneradoras() {
+        return unidadesGeneradoras;
+    }
+
+    public void setUnidadesGeneradoras(Set<UnidadAdministrativa> unidadesGeneradoras) {
+        this.unidadesGeneradoras = unidadesGeneradoras;
+    }
+
+    public UnidadAdministrativa getUnidadPrincipal() {
+        return unidadPrincipal;
+    }
+
+    public void setUnidadPrincipal(UnidadAdministrativa unidadPrincipal) {
+        this.unidadPrincipal = unidadPrincipal;
     }
 }

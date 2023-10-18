@@ -1,66 +1,47 @@
 package com.sistema_expedientes.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
+import com.sistema_expedientes.entities.catalog_entities.CatalagoTecnicaSeleccion;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-import org.hibernate.validator.constraints.UniqueElements;
 
 import java.util.Set;
 
 @Entity
 @Table(name = "series_documentales")
-public class SerieDocumental {
+public class SerieDocumental{
 
     @Id
-    @Max(value = 999)
-    @Min(value = 1)
-    private Short id;
-
-    @Column(unique = true)
-    @NotBlank
-    @NotNull
-    @NotEmpty
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Short identificador;
+    private String clave;
     private String nombre;
-
-    @Column(unique = true)
-    @NotBlank
-    @NotNull
-    @NotEmpty
-    private String serie;
-
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinColumn(name = "serie_padre", referencedColumnName = "id", table = "series_documentales")
-    @JsonBackReference
-    @Nullable
-    private SerieDocumental seriePadre;
-
-    @NotNull
-    private Boolean valor_documental_legal;
-
-    @NotNull
-    private Boolean valor_documental_administrativo;
-
-    @NotNull
-    private Boolean valor_documental_contable;
-
-    @Max(value = 20)
-    @Min(value = 1)
-    @NotNull
-    private Byte enTramite;
-
-    @Max(value = 20)
-    @Min(value = 1)
-    @NotNull
-    private Byte enConcentracion;
-
-    @NotNull
-    private Byte procedimientoFinal;
-
-    @Nullable
+    @Column(name = "valor_documental_administrativo")
+    private Boolean valorDocumentalAdministrativo;
+    @Column(name = "valor_documental_legal")
+    private Boolean valorDocumentalLegal;
+    @Column(name = "valor_documental_contable")
+    private Boolean valorDocumentalContable;
+    @Column(name = "periodos_conservacion_tramite")
+    private Short periodosEnTramite;
+    @Column(name = "periodos_conservacion_concentracion")
+    private Short periodosEnConcentracion;
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn(name = "tecnica_seleccion")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+    property = "identificador")
+    private CatalagoTecnicaSeleccion tecnicaSeleccion;
     private String observaciones;
-
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    @JoinColumn(name = "seccion")
+    @Nullable
+    @JsonBackReference
+    private Seccion seccion;
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    @JoinColumn(name = "serie_documental_padre")
+    @Nullable
+    @JsonBackReference
+    private SerieDocumental seriePadre;
     @OneToMany(mappedBy = "seriePadre")
     @JsonManagedReference
     private Set<SerieDocumental> subseries;
@@ -68,27 +49,32 @@ public class SerieDocumental {
     public SerieDocumental() {
     }
 
-    public SerieDocumental(Short id, String nombre, String serie, @Nullable SerieDocumental seriePadre, Boolean valor_documental_legal, Boolean valor_documental_administrativo, Boolean valor_documental_contable, Byte enTramite, Byte enConcentracion, Byte procedimientoFinal, @Nullable String observaciones, Set<SerieDocumental> subseries) {
-        this.id = id;
+    public SerieDocumental(Short identificador, String clave, String nombre, Boolean valorDocumentalAdministrativo, Boolean valorDocumentalLegal, Boolean valorDocumentalContable, Short periodosEnTramite, Short periodosEnConcentracion, CatalagoTecnicaSeleccion tecnicaSeleccion, String observaciones, @Nullable Seccion seccion, @Nullable SerieDocumental seriePadre, Set<SerieDocumental> subseries) {
+        this.identificador = identificador;
+        this.clave = clave;
         this.nombre = nombre;
-        this.serie = serie;
-        this.seriePadre = seriePadre;
-        this.valor_documental_legal = valor_documental_legal;
-        this.valor_documental_administrativo = valor_documental_administrativo;
-        this.valor_documental_contable = valor_documental_contable;
-        this.enTramite = enTramite;
-        this.enConcentracion = enConcentracion;
-        this.procedimientoFinal = procedimientoFinal;
+        this.valorDocumentalAdministrativo = valorDocumentalAdministrativo;
+        this.valorDocumentalLegal = valorDocumentalLegal;
+        this.valorDocumentalContable = valorDocumentalContable;
+        this.periodosEnTramite = periodosEnTramite;
+        this.periodosEnConcentracion = periodosEnConcentracion;
+        this.tecnicaSeleccion = tecnicaSeleccion;
         this.observaciones = observaciones;
+        this.seccion = seccion;
+        this.seriePadre = seriePadre;
         this.subseries = subseries;
     }
 
-    public Short getId() {
-        return id;
+    public Short getIdentificador() {
+        return identificador;
     }
 
-    public void setId(Short id) {
-        this.id = id;
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
     }
 
     public String getNombre() {
@@ -99,12 +85,69 @@ public class SerieDocumental {
         this.nombre = nombre;
     }
 
-    public String getSerie() {
-        return serie;
+    public Boolean getValorDocumentalAdministrativo() {
+        return valorDocumentalAdministrativo;
     }
 
-    public void setSerie(String serie) {
-        this.serie = serie;
+    public void setValorDocumentalAdministrativo(Boolean valorDocumentalAdministrativo) {
+        this.valorDocumentalAdministrativo = valorDocumentalAdministrativo;
+    }
+
+    public Boolean getValorDocumentalLegal() {
+        return valorDocumentalLegal;
+    }
+
+    public void setValorDocumentalLegal(Boolean valorDocumentalLegal) {
+        this.valorDocumentalLegal = valorDocumentalLegal;
+    }
+
+    public Boolean getValorDocumentalContable() {
+        return valorDocumentalContable;
+    }
+
+    public void setValorDocumentalContable(Boolean valorDocumentalContable) {
+        this.valorDocumentalContable = valorDocumentalContable;
+    }
+
+    public Short getPeriodosEnTramite() {
+        return periodosEnTramite;
+    }
+
+    public void setPeriodosEnTramite(Short periodosEnTramite) {
+        this.periodosEnTramite = periodosEnTramite;
+    }
+
+    public Short getPeriodosEnConcentracion() {
+        return periodosEnConcentracion;
+    }
+
+    public void setPeriodosEnConcentracion(Short periodosEnConcentracion) {
+        this.periodosEnConcentracion = periodosEnConcentracion;
+    }
+
+    public CatalagoTecnicaSeleccion getTecnicaSeleccion() {
+        return tecnicaSeleccion;
+    }
+
+    public void setTecnicaSeleccion(CatalagoTecnicaSeleccion tecnicaSeleccion) {
+        this.tecnicaSeleccion = tecnicaSeleccion;
+    }
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+
+    @Nullable
+    public Seccion getSeccion() {
+        return seccion;
+    }
+
+    public void setSeccion(@Nullable Seccion seccion) {
+        this.seccion = seccion;
     }
 
     @Nullable
@@ -114,63 +157,6 @@ public class SerieDocumental {
 
     public void setSeriePadre(@Nullable SerieDocumental seriePadre) {
         this.seriePadre = seriePadre;
-    }
-
-    public Boolean getValor_documental_legal() {
-        return valor_documental_legal;
-    }
-
-    public void setValor_documental_legal(Boolean valor_documental_legal) {
-        this.valor_documental_legal = valor_documental_legal;
-    }
-
-    public Boolean getValor_documental_administrativo() {
-        return valor_documental_administrativo;
-    }
-
-    public void setValor_documental_administrativo(Boolean valor_documental_administrativo) {
-        this.valor_documental_administrativo = valor_documental_administrativo;
-    }
-
-    public Boolean getValor_documental_contable() {
-        return valor_documental_contable;
-    }
-
-    public void setValor_documental_contable(Boolean valor_documental_contable) {
-        this.valor_documental_contable = valor_documental_contable;
-    }
-
-    public Byte getEnTramite() {
-        return enTramite;
-    }
-
-    public void setEnTramite(Byte enTramite) {
-        this.enTramite = enTramite;
-    }
-
-    public Byte getEnConcentracion() {
-        return enConcentracion;
-    }
-
-    public void setEnConcentracion(Byte enConcentracion) {
-        this.enConcentracion = enConcentracion;
-    }
-
-    public Byte getProcedimientoFinal() {
-        return procedimientoFinal;
-    }
-
-    public void setProcedimientoFinal(Byte procedimientoFinal) {
-        this.procedimientoFinal = procedimientoFinal;
-    }
-
-    @Nullable
-    public String getObservaciones() {
-        return observaciones;
-    }
-
-    public void setObservaciones(@Nullable String observaciones) {
-        this.observaciones = observaciones;
     }
 
     public Set<SerieDocumental> getSubseries() {

@@ -3,9 +3,10 @@ package com.sistema_expedientes.services;
 import com.sistema_expedientes.entities.SerieDocumental;
 import com.sistema_expedientes.entities.dto.request.SerieDocumentalRequestDTO;
 import com.sistema_expedientes.repositories.SerieDocumentalRepositorio;
+import com.sistema_expedientes.services.exceptions.SeccionNoEncontradaException;
+import com.sistema_expedientes.services.exceptions.SerieDocumentalNoEncontradaExcepcion;
 import com.sistema_expedientes.services.interfaces.ISerieDocumentalRepositorioDTO;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,46 +20,39 @@ public class SerieDocumentalServicio implements ISerieDocumentalRepositorioDTO {
     private SerieDocumentalRepositorio repositorio;
 
     @Autowired
-    private ModelMapper mapper;
+    private SeccionServicio seccionServicio;
 
-    @Override
-    public SerieDocumental get(Short id) {
-        return repositorio.findById(id).orElse(null);
-    }
+    @Autowired
+    private ModelMapper mapper;
 
     @Override
     public List<SerieDocumental> list() {
         return repositorio.findAll();
     }
 
-    public List<SerieDocumental> list_hijos(Short id){
-
-        Optional<SerieDocumental> in_db = repositorio.findById(id);
-
-        return in_db.map(serieDocumental -> repositorio.findAllBySeriePadre(serieDocumental)).orElse(null);
-
+    @Override
+    public SerieDocumental get(Short id) throws SerieDocumentalNoEncontradaExcepcion {
+        Optional<SerieDocumental> in_bd = repositorio.findById(id);
+        if(in_bd.isEmpty())
+            throw new SerieDocumentalNoEncontradaExcepcion(id);
+        return in_bd.get();
     }
 
     @Override
-    public SerieDocumental create(SerieDocumentalRequestDTO request) {
-        Optional<SerieDocumental> in_bd = repositorio.findById(request.getId());
-        if(in_bd.isEmpty()){
-            SerieDocumental to_db = dtoToEntity(request);
+    public SerieDocumental create(SerieDocumentalRequestDTO request) throws SerieDocumentalNoEncontradaExcepcion, SeccionNoEncontradaException {
 
-            if(request.getSerie_padre() != null){
-                Optional<SerieDocumental> serie_padre = repositorio.findById(request.getSerie_padre());
-                if(serie_padre.isPresent()){
-                    to_db.setSeriePadre(serie_padre.get());
-                }else{
-                    return null;
-                }
-            }
+        SerieDocumental to_bd = dtoToEntity(request);
+        if (request.getSerie_padre() > 0)
+            to_bd.setSeriePadre(get(request.getSerie_padre()));
 
-            return repositorio.save(to_db);
+        if (request.getSeccion() != null)
+            to_bd.setSeccion(seccionServicio.get(request.getSeccion()));
 
-        }
+        if(request.getObservaciones() == null)
+            to_bd.setObservaciones("");
 
-        return null;
+        return repositorio.save(to_bd);
+
     }
 
     @Override
@@ -67,11 +61,6 @@ public class SerieDocumentalServicio implements ISerieDocumentalRepositorioDTO {
     }
 
     private SerieDocumental dtoToEntity(SerieDocumentalRequestDTO dto){
-        TypeMap<SerieDocumentalRequestDTO, SerieDocumental> propertyManager = this.mapper.createTypeMap(SerieDocumentalRequestDTO.class, SerieDocumental.class);
-        propertyManager.addMapping(SerieDocumentalRequestDTO::getEn_tramite, SerieDocumental::setEnTramite);
-        propertyManager.addMapping(SerieDocumentalRequestDTO::getEn_concentracion, SerieDocumental::setEnConcentracion);
-        propertyManager.addMapping(SerieDocumentalRequestDTO::getProcedimiento_final, SerieDocumental::setProcedimientoFinal);
-
         return this.mapper.map(dto, SerieDocumental.class);
     }
 

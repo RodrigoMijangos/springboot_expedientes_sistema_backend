@@ -2,57 +2,33 @@ package com.sistema_expedientes.entities.dto.request;
 
 public class SerieDocumentalRequestDTO {
 
-    private Short id;
+    private Short serie_padre;
+    private String seccion;
+    private String clave;
     private String nombre;
-    private String serie;
-    private Short serie_padre = null;
-    private Boolean valor_documental_legal = false;
-    private Boolean valor_documental_administrativo = false;
-    private Boolean valor_documental_contable = false;
-    private Byte en_tramite;
-    private Byte en_concentracion;
-    private Byte procedimiento_final;
-    private String observaciones = "";
+    private Boolean valorDocumentalAdministrativo;
+    private Boolean valorDocumentalLegal;
+    private Boolean valorDocumentalContable;
+    private Short periodosEnConcentracion;
+    private Short periodosEnTramite;
+    private Byte tecnicaSeleccion;
+    private String observaciones;
 
     public SerieDocumentalRequestDTO() {
     }
 
-    public SerieDocumentalRequestDTO(Short id, String nombre, String serie, Short serie_padre, Boolean valor_documental_legal, Boolean valor_documental_administrativo, Boolean valor_documental_contable, Byte en_tramite, Byte en_concentracion, Byte procedimiento_final, String observaciones) {
-        this.id = id;
-        this.nombre = nombre;
-        this.serie = serie;
+    public SerieDocumentalRequestDTO(Short serie_padre, String seccion, String clave, String nombre, Boolean valorDocumentalAdministrativo, Boolean valorDocumentalLegal, Boolean valorDocumentalContable, Short periodosEnConcentracion, Short periodosEnTramite, Byte tecnicaSeleccion, String observaciones) {
         this.serie_padre = serie_padre;
-        this.valor_documental_legal = valor_documental_legal;
-        this.valor_documental_administrativo = valor_documental_administrativo;
-        this.valor_documental_contable = valor_documental_contable;
-        this.en_tramite = en_tramite;
-        this.en_concentracion = en_concentracion;
-        this.procedimiento_final = procedimiento_final;
-        this.observaciones = observaciones;
-    }
-
-    public Short getId() {
-        return id;
-    }
-
-    public void setId(Short id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
+        this.seccion = seccion;
+        this.clave = clave;
         this.nombre = nombre;
-    }
-
-    public String getSerie() {
-        return serie;
-    }
-
-    public void setSerie(String serie) {
-        this.serie = serie;
+        this.valorDocumentalAdministrativo = valorDocumentalAdministrativo;
+        this.valorDocumentalLegal = valorDocumentalLegal;
+        this.valorDocumentalContable = valorDocumentalContable;
+        this.periodosEnTramite = periodosEnTramite;
+        this.periodosEnConcentracion = periodosEnConcentracion;
+        this.tecnicaSeleccion = tecnicaSeleccion;
+        this.observaciones = observaciones;
     }
 
     public Short getSerie_padre() {
@@ -63,52 +39,76 @@ public class SerieDocumentalRequestDTO {
         this.serie_padre = serie_padre;
     }
 
-    public Boolean getValor_documental_legal() {
-        return valor_documental_legal;
+    public String getSeccion() {
+        return seccion;
     }
 
-    public void setValor_documental_legal(Boolean valor_documental_legal) {
-        this.valor_documental_legal = valor_documental_legal;
+    public void setSeccion(String seccion) {
+        this.seccion = seccion;
     }
 
-    public Boolean getValor_documental_administrativo() {
-        return valor_documental_administrativo;
+    public String getClave() {
+        return clave;
     }
 
-    public void setValor_documental_administrativo(Boolean valor_documental_administrativo) {
-        this.valor_documental_administrativo = valor_documental_administrativo;
+    public String getNombre() {
+        return nombre;
     }
 
-    public Boolean getValor_documental_contable() {
-        return valor_documental_contable;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public void setValor_documental_contable(Boolean valor_documental_contable) {
-        this.valor_documental_contable = valor_documental_contable;
+    public void setClave(String clave) {
+        this.clave = clave;
     }
 
-    public Byte getEn_tramite() {
-        return en_tramite;
+    public Boolean getValorDocumentalAdministrativo() {
+        return valorDocumentalAdministrativo;
     }
 
-    public void setEn_tramite(Byte en_tramite) {
-        this.en_tramite = en_tramite;
+    public void setValorDocumentalAdministrativo(Boolean valorDocumentalAdministrativo) {
+        this.valorDocumentalAdministrativo = valorDocumentalAdministrativo;
     }
 
-    public Byte getEn_concentracion() {
-        return en_concentracion;
+    public Boolean getValorDocumentalLegal() {
+        return valorDocumentalLegal;
     }
 
-    public void setEn_concentracion(Byte en_concentracion) {
-        this.en_concentracion = en_concentracion;
+    public void setValorDocumentalLegal(Boolean valorDocumentalLegal) {
+        this.valorDocumentalLegal = valorDocumentalLegal;
     }
 
-    public Byte getProcedimiento_final() {
-        return procedimiento_final;
+    public Boolean getValorDocumentalContable() {
+        return valorDocumentalContable;
     }
 
-    public void setProcedimiento_final(Byte procedimiento_final) {
-        this.procedimiento_final = procedimiento_final;
+    public void setValorDocumentalContable(Boolean valorDocumentalContable) {
+        this.valorDocumentalContable = valorDocumentalContable;
+    }
+
+    public Short getPeriodosEnTramite() {
+        return periodosEnTramite;
+    }
+
+    public void setPeriodosEnTramite(Short periodosEnTramite) {
+        this.periodosEnTramite = periodosEnTramite;
+    }
+
+    public Short getPeriodosEnConcentracion() {
+        return periodosEnConcentracion;
+    }
+
+    public void setPeriodosEnConcentracion(Short periodosEnConcentracion) {
+        this.periodosEnConcentracion = periodosEnConcentracion;
+    }
+
+    public Byte getTecnicaSeleccion() {
+        return tecnicaSeleccion;
+    }
+
+    public void setTecnicaSeleccion(Byte tecnicaSeleccion) {
+        this.tecnicaSeleccion = tecnicaSeleccion;
     }
 
     public String getObservaciones() {

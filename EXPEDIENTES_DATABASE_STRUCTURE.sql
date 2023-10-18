@@ -1,84 +1,131 @@
 CREATE DATABASE expedientes_origen_database;
 
+CREATE TABLE IF NOT EXISTS secciones(
+    clave VARCHAR NOT NULL,
+    nombre VARCHAR NOT NULL,
+    descripcion VARCHAR NULL DEFAULT '',
+    CONSTRAINT PK_SECCIONES
+    PRIMARY KEY (clave)
+);
+
+CREATE TABLE IF NOT EXISTS tecnicas_seleccion(
+    identificador SMALLINT NOT NULL,
+    tecnica_seleccion VARCHAR NOT NULL,
+    descripcion VARCHAR NOT NULL DEFAULT '',
+    CONSTRAINT PK_TECNICAS_SELECCION
+    PRIMARY KEY (identificador)
+);
+
 CREATE TABLE IF NOT EXISTS series_documentales(
-                                                  id NUMERIC(3,0) NOT NULL,
-    nombre VARCHAR UNIQUE NOT NULL,
-    serie VARCHAR UNIQUE NOT NULL,
-    serie_padre NUMERIC(3,0) NULL DEFAULT NULL,
-    valor_documental_legal BOOLEAN NOT NULL,
-    valor_documental_administrativo BOOLEAN NOT NULL,
-    valor_documental_contable BOOLEAN NOT NULL,
-    en_tramite NUMERIC(2,0) NOT NULL,
-    en_concentracion NUMERIC(2,0) NOT NULL,
-    procedimiento_final NUMERIC(2,0) NOT NULL,
-    observaciones TEXT NULL,
-    CONSTRAINT PK_SERIE_DOCUMENTAL
-    PRIMARY KEY(id),
-    CONSTRAINT FK_SERIE_SUBSERIE
-    FOREIGN KEY(serie_padre)
-    REFERENCES series_documentales(id)
-    ON DELETE SET NULL ON UPDATE CASCADE
-    );
+    identificador SMALLSERIAL NOT NULL,
+    serie_documental_padre SMALLINT NOT NULL DEFAULT 0,
+    clave VARCHAR(5) NOT NULL,
+    seccion VARCHAR NOT NULL DEFAULT 0,
+    nombre VARCHAR NOT NULL,
+    valor_documental_administrativo BOOLEAN NOT NULL DEFAULT FALSE,
+    valor_documental_legal BOOLEAN NOT NULL DEFAULT FALSE,
+    valor_documental_contable BOOLEAN NOT NULL DEFAULT FALSE,
+    periodos_conservacion_tramite SMALLINT NOT NULL,
+    periodos_conservacion_concentracion SMALLINT NOT NULL,
+    tecnica_seleccion SMALLINT NOT NULL,
+    observaciones VARCHAR NOT NULL,
+    CONSTRAINT PK_SERIES_DOCUMENTALES
+    PRIMARY KEY (identificador),
+    CONSTRAINT FK_SECCIONES
+    FOREIGN KEY (seccion) REFERENCES secciones(clave),
+    CONSTRAINT FK_TECNICAS_SELECCION
+    FOREIGN KEY (tecnica_seleccion) REFERENCES tecnicas_seleccion(identificador),
+    CONSTRAINT FK_SUBSERIE
+    FOREIGN KEY (serie_documental_padre) REFERENCES series_documentales(identificador)
+);
 
 CREATE TABLE IF NOT EXISTS unidades_administrativas(
-    id DECIMAL(2) NOT NULL,
-    clave VARCHAR(10) NOT NULL,
+    clave VARCHAR(5) NOT NULL,
     nombre VARCHAR NOT NULL,
-    CONSTRAINT PK_UNIDAD_ADMINISTRATIVA
-    PRIMARY KEY(id)
-    );
+    unidad_principal VARCHAR(5) NULL DEFAULT 0,
+    piso VARCHAR(2) NOT NULL,
+    extension_telefonica VARCHAR(5) NOT NULL,
+    CONSTRAINT PK_UNIDADES_ADMINISTRATIVAS
+    PRIMARY KEY (clave),
+    CONSTRAINT FK_UNIDAD_PRINCIPAL
+    FOREIGN KEY (unidad_principal) REFERENCES unidades_administrativas(clave)
+);
+
+CREATE TABLE IF NOT EXISTS formatos_expediente(
+    identificador SMALLINT NOT NULL,
+    tipo_formato_expediente VARCHAR NOT NULL,
+    descripcion VARCHAR NULL DEFAULT NULL,
+    CONSTRAINT PK_FORMATOS_EXPEDIENTE
+    PRIMARY KEY (identificador)
+);
+
+CREATE TABLE IF NOT EXISTS condiciones_acceso_expediente(
+    identificador SMALLINT NOT NULL,
+    condicion_acceso_expediente VARCHAR NOT NULL,
+    descripcion VARCHAR NULL DEFAULT NULL,
+    CONSTRAINT PK_CONDICIONES_ACCESO_EXPEDIENTE
+    PRIMARY KEY (identificador)
+);
+
+CREATE TABLE IF NOT EXISTS tradiciones_documentales_expediente(
+    identificador SMALLINT NOT NULL,
+    tradicion_documental_expediente VARCHAR NOT NULL,
+    descripcion VARCHAR NULL DEFAULT NULL,
+    CONSTRAINT PK_TRADICION_DOCUMENTAL_EXPEDIENTE
+    PRIMARY KEY (identificador)
+);
+
+CREATE TABLE IF NOT EXISTS tipos_informacion_expediente(
+    identificador SMALLINT NOT NULL,
+    tipo_informacion_expediente VARCHAR NOT NULL,
+    descripcion VARCHAR NULL DEFAULT NULL,
+    CONSTRAINT PK_TIPOS_INFORMACION_EXPEDIENTE
+    PRIMARY KEY (identificador)
+);
 
 CREATE TABLE IF NOT EXISTS expedientes(
-                                          identificador_numerico SMALLINT NOT NULL,
-                                          periodo_apertura NUMERIC(4,0) NOT NULL,
-    unidad_administrativa NUMERIC(3,0) NOT NULL,
-    serie_documental NUMERIC(3,0) NOT NULL,
-    periodo_cierre NUMERIC(4,0) NULL DEFAULT NULL,
+    serie_documental SMALLINT NOT NULL,
+    unidad_administrativa_generadora VARCHAR(5) NOT NULL,
+    numero_expediente SMALLINT NOT NULL,
+    fecha_apertura DATE NOT NULL DEFAULT CURRENT_DATE,
+    periodo_cierre SMALLINT NULL DEFAULT NULL,
+    asunto VARCHAR NOT NULL,
+    tipo_expediente SMALLINT NULL,
+    numero_proyecto VARCHAR NOT NULL,
+    nombre_proyecto VARCHAR NOT NULL,
+    acronimo_institucion VARCHAR NOT NULL,
+    nombre_institucion VARCHAR NOT NULL,
+    numero_contrato VARCHAR NOT NULL,
+    cantidad_hojas SMALLINT NOT NULL,
+    tipo_formato SMALLINT NOT NULL,
+    condicion_acceso SMALLINT NOT NULL,
+    tradicion_documental SMALLINT NOT NULL,
+    tipo_informacion SMALLINT NOT NULL,
     CONSTRAINT PK_EXPEDIENTES
-    PRIMARY KEY(identificador_numerico, periodo_apertura, unidad_administrativa, serie_documental),
-    CONSTRAINT FK_UNIDAD_ADMINISTRATIVA
-    FOREIGN KEY(unidad_administrativa) REFERENCES unidades_administrativas(id),
+    PRIMARY KEY (serie_documental, unidad_administrativa_generadora, numero_expediente),
     CONSTRAINT FK_SERIE_DOCUMENTAL
-    FOREIGN KEY(serie_documental) REFERENCES series_documentales(id)
-    );
+    FOREIGN KEY (serie_documental) REFERENCES series_documentales(identificador),
+    CONSTRAINT FK_UNIDADES_ADMINISTRATIVAS
+    FOREIGN KEY (unidad_administrativa_generadora) REFERENCES unidades_administrativas(clave),
+    CONSTRAINT FK_TIPOS_FORMATO
+    FOREIGN KEY (tipo_formato) REFERENCES formatos_expediente(identificador),
+    CONSTRAINT FK_CONDICIONES_ACCESO
+    FOREIGN KEY (condicion_acceso) REFERENCES condiciones_acceso_expediente(identificador),
+    CONSTRAINT FK_TRADICION_DOCUMENTAL
+    FOREIGN KEY (tradicion_documental) REFERENCES tradiciones_documentales_expediente(identificador),
+    CONSTRAINT FK_TIPO_INFORMACION
+    FOREIGN KEY (tipo_informacion) REFERENCES tipos_informacion_expediente(identificador)
+);
 
-CREATE TABLE IF NOT EXISTS documentos(
-                                         id BIGSERIAL NOT NULL,
-                                         nombre VARCHAR NOT NULL,
-                                         hojas DECIMAL(3,0) NOT NULL,
-    CONSTRAINT PK_DOCUMENTOS
-    PRIMARY KEY(id)
-    );
-
-CREATE TABLE IF NOT EXISTS legajos(
-                                      identificador_expediente SMALLINT NOT NULL,
-                                      periodo_apertura NUMERIC(4,0) NOT NULL,
-    unidad_administrativa_expediente NUMERIC(3,0) NOT NULL,
-    serie_documental_expediente NUMERIC(3,0) NOT NULL,
-    identificador_documento INTEGER NOT NULL,
-    legajo NUMERIC(2,0) NOT NULL DEFAULT 1,
-    CONSTRAINT FK_EXPEDIENTES
-    FOREIGN KEY(identificador_expediente, periodo_apertura, unidad_administrativa_expediente, serie_documental_expediente)
-    REFERENCES expedientes(identificador_numerico, periodo_apertura, unidad_administrativa, serie_documental) MATCH FULL,
-    CONSTRAINT FK_DOCUMENTOS
-    FOREIGN KEY(identificador_documento) REFERENCES documentos(id)
-    );
-
+GRANT SELECT, INSERT, UPDATE, DELETE ON secciones TO spring_app_usr;
+GRANT SELECT, INSERT, UPDATE, DELETE ON tecnicas_seleccion TO spring_app_usr;
 GRANT SELECT, INSERT, UPDATE, DELETE ON series_documentales TO spring_app_usr;
 GRANT SELECT, INSERT, UPDATE, DELETE ON unidades_administrativas TO spring_app_usr;
+GRANT SELECT, INSERT, UPDATE, DELETE ON formatos_expediente TO spring_app_usr;
+GRANT SELECT, INSERT, UPDATE, DELETE ON condiciones_acceso_expediente TO spring_app_usr;
+GRANT SELECT, INSERT, UPDATE, DELETE ON tradiciones_documentales_expediente TO spring_app_usr;
+GRANT SELECT, INSERT, UPDATE, DELETE ON tipos_informacion_expediente TO spring_app_usr;
 GRANT SELECT, INSERT, UPDATE, DELETE ON expedientes TO spring_app_usr;
-GRANT SELECT, INSERT, UPDATE, DELETE ON documentos TO spring_app_usr;
-GRANT SELECT, INSERT, UPDATE, DELETE ON legajos TO spring_app_usr;
 
-INSERT INTO unidades_administrativas(id, clave, nombre) VALUES
-                                                            (1, 'DAAP', 'Dirección Adjunta de Administración de Proyectos'),
-                                                            (2, 'SRH', 'Subgerencia de Recursos Humanos'),
-                                                            (3, 'SGD', 'Subgerencia de Docencia');
 
-INSERT INTO series_documentales(id, nombre, serie, serie_padre,
-                                valor_documental_legal, valor_documental_administrativo, valor_documental_contable,
-                                en_tramite, en_concentracion,
-                                procedimiento_final, observaciones) VALUES (1, 'serie', 'S1', NULL,
-                                                                            '1', '1', '1',
-                                                                            2, 5,
-                                                                            1, NULL);
+

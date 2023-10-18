@@ -32,25 +32,11 @@ public class UnidadAdministrativaServicio implements IUnidadAdministrativaReposi
     @Override
     public UnidadAdministrativa create(UnidadAdministrativaRequestDTO request) {
 
-        return repositorio.save(new UnidadAdministrativa(request.getId(), request.getClave(), request.getNombre()));
+        return null;
     }
 
     @Override
     public UnidadAdministrativa put(Byte object_id, UnidadAdministrativaRequestDTO request) {
-        Optional<UnidadAdministrativa> in_db = repositorio.findById(object_id);
-
-        if(in_db.isPresent()){
-            UnidadAdministrativa to_bd = in_db.get();
-            Optional<UnidadAdministrativa> check = repositorio.findById(request.getId());
-            if(check.isEmpty()){
-                to_bd.setId(request.getId());
-                to_bd.setClave(request.getClave());
-                to_bd.setNombre(request.getNombre());
-                return repositorio.save(to_bd);
-            }
-            return null;
-        }
-
         return null;
     }
 }

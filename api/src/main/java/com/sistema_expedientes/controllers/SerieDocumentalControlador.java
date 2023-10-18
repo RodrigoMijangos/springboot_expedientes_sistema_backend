@@ -3,6 +3,8 @@ package com.sistema_expedientes.controllers;
 import com.sistema_expedientes.entities.SerieDocumental;
 import com.sistema_expedientes.entities.dto.request.SerieDocumentalRequestDTO;
 import com.sistema_expedientes.services.SerieDocumentalServicio;
+import com.sistema_expedientes.services.exceptions.SeccionNoEncontradaException;
+import com.sistema_expedientes.services.exceptions.SerieDocumentalNoEncontradaExcepcion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,15 +26,15 @@ public class SerieDocumentalControlador {
     }
 
     @GetMapping("api/v1/series_documentales/get/{id}")
-    public ResponseEntity<SerieDocumental> get(@PathVariable Short id){
+    public ResponseEntity<SerieDocumental> get(@PathVariable Short id) throws SerieDocumentalNoEncontradaExcepcion {
         SerieDocumental response = servicio.get(id);
 
-        return response == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(response);
+        return ResponseEntity.ok(response);
 
     }
 
     @PostMapping("api/v1/series_documentales/create")
-    public ResponseEntity<SerieDocumental> create(@RequestBody SerieDocumentalRequestDTO request){
+    public ResponseEntity<SerieDocumental> create(@RequestBody SerieDocumentalRequestDTO request) throws SeccionNoEncontradaException, SerieDocumentalNoEncontradaExcepcion {
 
         return ResponseEntity.status(201).body(servicio.create(request));
 
@@ -43,16 +45,6 @@ public class SerieDocumentalControlador {
         SerieDocumental response = servicio.put(id, request);
 
         return response == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(response);
-
-    }
-
-    @GetMapping("api/v1/series_documentales/{id}/subseries")
-    public ResponseEntity<List<SerieDocumental>> subseries(@PathVariable Short id){
-
-        List<SerieDocumental> lista = servicio.list_hijos(id);
-
-        return lista == null ? ResponseEntity.notFound().build() :
-                lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
 
     }
 
