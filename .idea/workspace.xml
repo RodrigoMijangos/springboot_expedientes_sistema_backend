@@ -5,37 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="61868bca-f3dc-4cd5-aa51-3012ff448232" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/api/src/main/java/com/sistema_expedientes/Config/RoleLoader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/src/main/java/com/sistema_expedientes/Config/SecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/src/main/java/com/sistema_expedientes/Utils/KeyGeneratorUtility.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/src/main/java/com/sistema_expedientes/Utils/RSAKeyProperties.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/src/main/java/com/sistema_expedientes/controllers/AdminController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/src/main/java/com/sistema_expedientes/controllers/AuthenticationController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/src/main/java/com/sistema_expedientes/controllers/UserController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/Role.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/dto/request/ExpedienteCompositeKeyRequestDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/dto/request/LegajoCompositeKeyRequestDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/dto/request/LoginRequestDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/dto/request/RegistrationRequestDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/dto/response/LoginResponseDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/repositories/RoleRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/repositories/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/AuthenticationService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/Exceptions/UsernameAlreadyTakenException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/Exceptions/UsernameNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/TokenService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/api/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/src/main/java/com/sistema_expedientes/Config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/main/java/com/sistema_expedientes/Config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/src/main/java/com/sistema_expedientes/controllers/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/main/java/com/sistema_expedientes/controllers/AuthenticationController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/negocio/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/Documento.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/Documento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/Legajo.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/Legajo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/SerieDocumental.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/SerieDocumental.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servicios/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/servicios/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/SerieDocumentalServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/SerieDocumentalServicio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/UnidadAdministrativaServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/UnidadAdministrativaServicio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,33 +29,34 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 2
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2WojKDSgGuYiUxa6kkygJbEWQfK" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "Merging main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "MavenSettings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;security-authentication&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="EndpointExpediente" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="api" />
@@ -99,7 +75,10 @@
       <option name="presentableId" value="Default" />
       <updated>1697328589254</updated>
       <workItem from="1697328590343" duration="10431000" />
-      <workItem from="1697405765350" duration="3124000" />
+      <workItem from="1697405765350" duration="3423000" />
+      <workItem from="1697494594617" duration="6293000" />
+      <workItem from="1697552018156" duration="5451000" />
+      <workItem from="1697564717282" duration="1806000" />
     </task>
     <servers />
   </component>

@@ -18,6 +18,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -41,11 +42,9 @@ public class SecurityConfig {
     };
 
     private static final String[] USER_WHITELIST = {
-            "/api/equipos/**",
-            "/api/jugadores/**",
-            "/api/posiciones/**"
+            "/api/v1/expedientes/**",
+            "/api/v1/unidades_administrativas/**"
     };
-
 
     private static final String ADMIN_ROLE = "ADMIN";
     private static final String USER_ROLE = "USER";
@@ -72,8 +71,11 @@ public class SecurityConfig {
         http
                 .csrf(crsf -> crsf.disable())
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/apit/auth/**").permitAll();
+                    auth.requestMatchers(AUTH_WHITELIST).permitAll();
                     auth.requestMatchers("/api/admin/**").hasRole(ADMIN_ROLE);
+                    auth.requestMatchers(HttpMethod.GET, USER_WHITELIST).hasAnyRole(USER_ROLE, ADMIN_ROLE);
+                    auth.requestMatchers(HttpMethod.POST, USER_WHITELIST).hasRole(ADMIN_ROLE);
+                    auth.requestMatchers("/api/user").hasAnyRole(USER_ROLE,ADMIN_ROLE);
                     auth.anyRequest().authenticated();
                 });
 

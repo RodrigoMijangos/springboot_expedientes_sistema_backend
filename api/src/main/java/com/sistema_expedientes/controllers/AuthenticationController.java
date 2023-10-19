@@ -11,13 +11,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
+@CrossOrigin("*")
 public class AuthenticationController {
 
     private final static Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
@@ -41,8 +39,10 @@ public class AuthenticationController {
     public ResponseEntity<LoginResponseDTO> loginUser(@Validated @RequestBody LoginRequestDTO loginRequestDTO){
         try {
             LoginResponseDTO user = authenticationService.loginUser(loginRequestDTO.username(), loginRequestDTO.password());
+            logger.trace("User info: {}", user);
             return ResponseEntity.ok(user);
         }catch (UsernameNotFoundException e){
+            logger.info("exception: {}",e);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
