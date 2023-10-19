@@ -1,13 +1,14 @@
 package com.sistema_expedientes.entities.compositesKeys;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class ExpedienteCompositeKey implements Serializable {
 
     private Short identificadorNumerico;
 
-    private Short periodoApertura;
+    private LocalDate periodoApertura;
 
     private Byte unidadAdministrativa;
 
@@ -16,7 +17,7 @@ public class ExpedienteCompositeKey implements Serializable {
     public ExpedienteCompositeKey() {
     }
 
-    public ExpedienteCompositeKey(Short identificadorNumerico, Short periodoApertura, Byte unidadAdministrativa, Short serieDocumental) {
+    public ExpedienteCompositeKey(Short identificadorNumerico, LocalDate periodoApertura, Byte unidadAdministrativa, Short serieDocumental) {
         this.identificadorNumerico = identificadorNumerico;
         this.periodoApertura = periodoApertura;
         this.unidadAdministrativa = unidadAdministrativa;
@@ -27,7 +28,7 @@ public class ExpedienteCompositeKey implements Serializable {
         return identificadorNumerico;
     }
 
-    public Short getPeriodoApertura() {
+    public LocalDate getPeriodoApertura() {
         return periodoApertura;
     }
 
