@@ -45,9 +45,6 @@ public class SerieDocumental{
     @OneToMany(mappedBy = "seriePadre")
     @JsonManagedReference
     private Set<SerieDocumental> subseries;
-    @OneToMany(mappedBy = "serieDocumental")
-    @JsonIgnore
-    private Set<Expediente> expedientes;
 
     public SerieDocumental() {
     }

@@ -24,9 +24,6 @@ public class UnidadAdministrativa {
     private String piso;
     @Column(name = "extension_telefonica")
     private String extensionTelefonica;
-    @OneToMany(mappedBy = "unidadAdministrativa", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JsonIgnore
-    private Set<Expediente> expedientes;
     @OneToMany(mappedBy = "unidadPrincipal")
     @JsonManagedReference
     private Set<UnidadAdministrativa> unidadesGeneradoras;

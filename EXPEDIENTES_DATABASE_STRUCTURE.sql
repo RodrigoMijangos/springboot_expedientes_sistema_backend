@@ -51,38 +51,6 @@ CREATE TABLE IF NOT EXISTS unidades_administrativas(
     FOREIGN KEY (unidad_principal) REFERENCES unidades_administrativas(clave)
     );
 
-CREATE TABLE IF NOT EXISTS formatos_expediente(
-                                                  identificador SMALLINT NOT NULL,
-                                                  tipo_formato_expediente VARCHAR NOT NULL,
-                                                  descripcion VARCHAR NULL DEFAULT NULL,
-                                                  CONSTRAINT PK_FORMATOS_EXPEDIENTE
-                                                  PRIMARY KEY (identificador)
-    );
-
-CREATE TABLE IF NOT EXISTS condiciones_acceso_expediente(
-                                                            identificador SMALLINT NOT NULL,
-                                                            condicion_acceso_expediente VARCHAR NOT NULL,
-                                                            descripcion VARCHAR NULL DEFAULT NULL,
-                                                            CONSTRAINT PK_CONDICIONES_ACCESO_EXPEDIENTE
-                                                            PRIMARY KEY (identificador)
-    );
-
-CREATE TABLE IF NOT EXISTS tradiciones_documentales_expediente(
-                                                                  identificador SMALLINT NOT NULL,
-                                                                  tradicion_documental_expediente VARCHAR NOT NULL,
-                                                                  descripcion VARCHAR NULL DEFAULT NULL,
-                                                                  CONSTRAINT PK_TRADICION_DOCUMENTAL_EXPEDIENTE
-                                                                  PRIMARY KEY (identificador)
-    );
-
-CREATE TABLE IF NOT EXISTS tipos_informacion_expediente(
-                                                           identificador SMALLINT NOT NULL,
-                                                           tipo_informacion_expediente VARCHAR NOT NULL,
-                                                           descripcion VARCHAR NULL DEFAULT NULL,
-                                                           CONSTRAINT PK_TIPOS_INFORMACION_EXPEDIENTE
-                                                           PRIMARY KEY (identificador)
-    );
-
 CREATE TABLE IF NOT EXISTS expedientes(
                                           serie_documental SMALLINT NOT NULL,
                                           unidad_administrativa_generadora VARCHAR(5) NOT NULL,

@@ -10,14 +10,14 @@ public class ExpedienteCompositeKey implements Serializable {
 
     private LocalDate fechaApertura;
 
-    private Byte unidadAdministrativaGeneradora;
+    private String unidadAdministrativaGeneradora;
 
     private Short identificadorSerieDocumental;
 
     public ExpedienteCompositeKey() {
     }
 
-    public ExpedienteCompositeKey(Short numeroExpediente, LocalDate fechaApertura, Byte unidadAdministrativaGeneradora, Short identificadorSerieDocumental) {
+    public ExpedienteCompositeKey(Short numeroExpediente, LocalDate fechaApertura, String unidadAdministrativaGeneradora, Short identificadorSerieDocumental) {
         this.numeroExpediente = numeroExpediente;
         this.fechaApertura = fechaApertura;
         this.unidadAdministrativaGeneradora = unidadAdministrativaGeneradora;
@@ -32,7 +32,7 @@ public class ExpedienteCompositeKey implements Serializable {
         return fechaApertura;
     }
 
-    public Byte getUnidadAdministrativaGeneradora() {
+    public String getUnidadAdministrativaGeneradora() {
         return unidadAdministrativaGeneradora;
     }
 

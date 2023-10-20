@@ -1,6 +1,5 @@
 package com.sistema_expedientes.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sistema_expedientes.entities.compositesKeys.ExpedienteCompositeKey;
 import com.sistema_expedientes.entities.converters.CondicionAccesoExpedienteConverter;
 import com.sistema_expedientes.entities.converters.FormatoExpedienteConverter;
@@ -30,19 +29,11 @@ public class Expediente {
     @Id
     @Column(name = "fecha_apertura")
     private LocalDate fechaApertura;
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinColumn(name = "serie_documental")
-    @JsonIgnore
-    private SerieDocumental serieDocumental;
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
-    @JoinColumn(name = "unidad_administrativa_generadora")
-    @JsonIgnore
-    private UnidadAdministrativa unidadAdministrativa;
     @Column(name = "periodo_cierre")
     private Short periodoCierre;
     private String asunto;
     @Column(name = "tipo_expediente")
-    private String tipoExpediente;
+    private Short tipoExpediente;
     @Column(name = "numero_proyecto")
     private String numeroProyecto;
     @Column(name = "nombre_proyecto")
@@ -72,13 +63,11 @@ public class Expediente {
     public Expediente() {
     }
 
-    public Expediente(Short identificadorSerieDocumental, String unidadAdministrativaGeneradora, Short numeroExpediente, LocalDate fechaApertura, SerieDocumental serieDocumental, UnidadAdministrativa unidadAdministrativa, Short periodoCierre, String asunto, String tipoExpediente, String numeroProyecto, String nombreProyecto, String acronimoInstitucion, String nombreInstitucion, String numeroContacto, Short cantidadHojas, FormatoExpediente formatoExpediente, CondicionAccesoExpediente condicionAcceso, TradicionDocumentalExpediente tradicionDocumental, TipoInformacionExpediente tipoInformacion) {
+    public Expediente(Short identificadorSerieDocumental, String unidadAdministrativaGeneradora, Short numeroExpediente, LocalDate fechaApertura, Short periodoCierre, String asunto, Short tipoExpediente, String numeroProyecto, String nombreProyecto, String acronimoInstitucion, String nombreInstitucion, String numeroContacto, Short cantidadHojas, FormatoExpediente formatoExpediente, CondicionAccesoExpediente condicionAcceso, TradicionDocumentalExpediente tradicionDocumental, TipoInformacionExpediente tipoInformacion) {
         this.identificadorSerieDocumental = identificadorSerieDocumental;
         this.unidadAdministrativaGeneradora = unidadAdministrativaGeneradora;
         this.numeroExpediente = numeroExpediente;
         this.fechaApertura = fechaApertura;
-        this.serieDocumental = serieDocumental;
-        this.unidadAdministrativa = unidadAdministrativa;
         this.periodoCierre = periodoCierre;
         this.asunto = asunto;
         this.tipoExpediente = tipoExpediente;
@@ -126,22 +115,6 @@ public class Expediente {
         this.fechaApertura = fechaApertura;
     }
 
-    public SerieDocumental getSerieDocumental() {
-        return serieDocumental;
-    }
-
-    public void setSerieDocumental(SerieDocumental serieDocumental) {
-        this.serieDocumental = serieDocumental;
-    }
-
-    public UnidadAdministrativa getUnidadAdministrativa() {
-        return unidadAdministrativa;
-    }
-
-    public void setUnidadAdministrativa(UnidadAdministrativa unidadAdministrativa) {
-        this.unidadAdministrativa = unidadAdministrativa;
-    }
-
     public Short getPeriodoCierre() {
         return periodoCierre;
     }
@@ -158,11 +131,11 @@ public class Expediente {
         this.asunto = asunto;
     }
 
-    public String getTipoExpediente() {
+    public Short getTipoExpediente() {
         return tipoExpediente;
     }
 
-    public void setTipoExpediente(String tipoExpediente) {
+    public void setTipoExpediente(Short tipoExpediente) {
         this.tipoExpediente = tipoExpediente;
     }
 
