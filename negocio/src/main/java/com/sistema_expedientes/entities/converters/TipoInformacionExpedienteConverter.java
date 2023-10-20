@@ -2,7 +2,9 @@ package com.sistema_expedientes.entities.converters;
 
 import com.sistema_expedientes.entities.enumerates.TipoInformacionExpediente;
 import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
 
+@Converter
 public class TipoInformacionExpedienteConverter implements AttributeConverter<TipoInformacionExpediente, Byte> {
 
 

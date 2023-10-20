@@ -35,32 +35,11 @@ public class ExpedienteServicio implements IExpedienteServicio {
 
     @Override
     public Expediente create(@NotNull ExpedienteRequestDTO request) {
-
-        Short new_identificador_numerico;
-
-        Optional<Expediente> to_check =
-                repositorio.findFirstByUnidadAdministrativaAndPeriodoAperturaOrderByIdentificadorNumericoDesc
-                        (request.getUnidad_administrativa(), request.getPeriodo_apertura());
-
-        new_identificador_numerico = to_check.map(expediente -> (short) (expediente.getIdentificadorNumerico() + 1)).orElse((short) 1);
-
-        Expediente to_bd = new Expediente(new_identificador_numerico, request.getPeriodo_apertura(), request.getUnidad_administrativa(), request.getSerie_documental(), request.getPeriodo_cierre());
-
-        return repositorio.save(to_bd);
-
+        return null;
     }
 
     @Override
     public Expediente put(ExpedienteCompositeKey search, ExpedienteRequestDTO request) {
-        Optional<Expediente> in_bd = repositorio.findById(search);
-
-        if (in_bd.isPresent()){
-            Expediente to_bd = in_bd.get();
-            to_bd.setPeriodoCierre(request.getPeriodo_cierre());
-            return repositorio.save(to_bd);
-        }
-
         return null;
-
     }
 }

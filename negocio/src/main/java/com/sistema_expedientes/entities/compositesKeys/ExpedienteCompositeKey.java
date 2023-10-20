@@ -6,49 +6,49 @@ import java.util.Objects;
 
 public class ExpedienteCompositeKey implements Serializable {
 
-    private Short identificadorNumerico;
+    private Short numeroExpediente;
 
-    private LocalDate periodoApertura;
+    private LocalDate fechaApertura;
 
-    private Byte unidadAdministrativa;
+    private Byte unidadAdministrativaGeneradora;
 
-    private Short serieDocumental;
+    private Short identificadorSerieDocumental;
 
     public ExpedienteCompositeKey() {
     }
 
-    public ExpedienteCompositeKey(Short identificadorNumerico, LocalDate periodoApertura, Byte unidadAdministrativa, Short serieDocumental) {
-        this.identificadorNumerico = identificadorNumerico;
-        this.periodoApertura = periodoApertura;
-        this.unidadAdministrativa = unidadAdministrativa;
-        this.serieDocumental = serieDocumental;
+    public ExpedienteCompositeKey(Short numeroExpediente, LocalDate fechaApertura, Byte unidadAdministrativaGeneradora, Short identificadorSerieDocumental) {
+        this.numeroExpediente = numeroExpediente;
+        this.fechaApertura = fechaApertura;
+        this.unidadAdministrativaGeneradora = unidadAdministrativaGeneradora;
+        this.identificadorSerieDocumental = identificadorSerieDocumental;
     }
 
-    public Short getIdentificadorNumerico() {
-        return identificadorNumerico;
+    public Short getNumeroExpediente() {
+        return numeroExpediente;
     }
 
-    public LocalDate getPeriodoApertura() {
-        return periodoApertura;
+    public LocalDate getFechaApertura() {
+        return fechaApertura;
     }
 
-    public Byte getUnidadAdministrativa() {
-        return unidadAdministrativa;
+    public Byte getUnidadAdministrativaGeneradora() {
+        return unidadAdministrativaGeneradora;
     }
 
-    public Short getSerieDocumental() {
-        return serieDocumental;
+    public Short getIdentificadorSerieDocumental() {
+        return identificadorSerieDocumental;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ExpedienteCompositeKey that)) return false;
-        return Objects.equals(getIdentificadorNumerico(), that.getIdentificadorNumerico()) && Objects.equals(getPeriodoApertura(), that.getPeriodoApertura()) && Objects.equals(getUnidadAdministrativa(), that.getUnidadAdministrativa()) && Objects.equals(getSerieDocumental(), that.getSerieDocumental());
+        return Objects.equals(getNumeroExpediente(), that.getNumeroExpediente()) && Objects.equals(getFechaApertura(), that.getFechaApertura()) && Objects.equals(getUnidadAdministrativaGeneradora(), that.getUnidadAdministrativaGeneradora()) && Objects.equals(getIdentificadorSerieDocumental(), that.getIdentificadorSerieDocumental());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(identificadorNumerico, periodoApertura, unidadAdministrativa, serieDocumental);
+        return Objects.hash(numeroExpediente, fechaApertura, unidadAdministrativaGeneradora, identificadorSerieDocumental);
     }
 }

@@ -1,6 +1,7 @@
 package com.sistema_expedientes.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
@@ -23,7 +24,9 @@ public class UnidadAdministrativa {
     private String piso;
     @Column(name = "extension_telefonica")
     private String extensionTelefonica;
-
+    @OneToMany(mappedBy = "unidadAdministrativa", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JsonIgnore
+    private Set<Expediente> expedientes;
     @OneToMany(mappedBy = "unidadPrincipal")
     @JsonManagedReference
     private Set<UnidadAdministrativa> unidadesGeneradoras;
