@@ -64,6 +64,39 @@ CREATE TABLE IF NOT EXISTS legajos(
     FOREIGN KEY(identificador_documento) REFERENCES documentos(id)
     );
 
+CREATE TABLE IF NOT EXISTS public.roles
+(
+    role_id bigint NOT NULL DEFAULT nextval('roles_role_id_seq'::regclass),
+    authority character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT roles_pkey PRIMARY KEY (role_id)
+)
+
+CREATE TABLE IF NOT EXISTS public.user_role_function
+(
+    role_id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    CONSTRAINT user_role_function_pkey PRIMARY KEY (role_id, user_id),
+    CONSTRAINT fkd6necos8jqgyy8c0askwojih4 FOREIGN KEY (role_id)
+        REFERENCES public.roles (role_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fkopi52oq3ywmk6mnx2y84jaauj FOREIGN KEY (user_id)
+        REFERENCES public.users (user_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+CREATE TABLE IF NOT EXISTS public.users
+(
+    user_id bigint NOT NULL DEFAULT nextval('users_user_id_seq'::regclass),
+    email character varying(255) COLLATE pg_catalog."default",
+    password character varying(255) COLLATE pg_catalog."default",
+    username character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT users_pkey PRIMARY KEY (user_id),
+    CONSTRAINT users_email_key UNIQUE (email),
+    CONSTRAINT users_username_key UNIQUE (username)
+)
+
 GRANT SELECT, INSERT, UPDATE, DELETE ON series_documentales TO spring_app_usr;
 GRANT SELECT, INSERT, UPDATE, DELETE ON unidades_administrativas TO spring_app_usr;
 GRANT SELECT, INSERT, UPDATE, DELETE ON expedientes TO spring_app_usr;
@@ -82,3 +115,16 @@ INSERT INTO series_documentales(id, nombre, serie, serie_padre,
                                                                             '1', '1', '1',
                                                                             2, 5,
                                                                             1, NULL);
+
+
+INSERT INTO public.roles(
+	role_id, authority)
+	VALUES (?, ?);
+
+INSERT INTO public.user_role_function(
+	role_id, user_id)
+	VALUES (?, ?);
+
+INSERT INTO public.users(
+	user_id, email, password, username)
+	VALUES (?, ?, ?, ?);
