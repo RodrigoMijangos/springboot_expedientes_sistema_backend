@@ -4,129 +4,51 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-<<<<<<< HEAD
-    <list default="true" id="1ce0eb79-1545-49c5-9b67-ac25bf7b7a2a" name="Changes" comment="" />
-=======
-    <list default="true" id="1ce0eb79-1545-49c5-9b67-ac25bf7b7a2a" name="Changes" comment="">
+    <list default="true" id="61a60c48-0382-41f5-8b3b-bdbe0cb9d45c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EXPEDIENTES_DATABASE_STRUCTURE.sql" beforeDir="false" afterPath="$PROJECT_DIR$/EXPEDIENTES_DATABASE_STRUCTURE.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/Expediente.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/Expediente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/SerieDocumental.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/SerieDocumental.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/UnidadAdministrativa.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/UnidadAdministrativa.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/compositesKeys/ExpedienteCompositeKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/compositesKeys/ExpedienteCompositeKey.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/repositories/ExpedienteRepositorio.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/repositories/ExpedienteRepositorio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/ExpedienteServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/ExpedienteServicio.java" afterDir="false" />
     </list>
->>>>>>> 1681505c0fe3195bdda8a0c53e02b3334602e241
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="module-info" />
-        <option value="Interface" />
-        <option value="Enum" />
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 0
-}</component>
-  <component name="ProjectId" id="2VkMqrBIX4lOoXeGbiuFzA2OzRK" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
-    <configuration name="EndpointExpediente" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <configuration name="EndpointExpediente" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="api" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.sistema_expedientes.EndpointExpediente" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.sistema_expedientes.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.EndpointExpediente" />
+      </list>
+    </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="1ce0eb79-1545-49c5-9b67-ac25bf7b7a2a" name="Changes" comment="" />
-      <created>1695375824572</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1695375824572</updated>
-      <workItem from="1695375825729" duration="651000" />
-      <workItem from="1695409138669" duration="6476000" />
-      <workItem from="1695429596445" duration="6962000" />
-      <workItem from="1695585849180" duration="11475000" />
-      <workItem from="1695709558670" duration="5630000" />
-      <workItem from="1695762393201" duration="20637000" />
-      <workItem from="1695914616843" duration="3218000" />
-      <workItem from="1696005259802" duration="950000" />
-      <workItem from="1696295517466" duration="3387000" />
-      <workItem from="1696351638851" duration="2220000" />
-      <workItem from="1696372778410" duration="5834000" />
-      <workItem from="1696790143960" duration="2506000" />
-      <workItem from="1696821538817" duration="574000" />
-      <workItem from="1696865209933" duration="1218000" />
-      <workItem from="1696916804455" duration="1035000" />
-      <workItem from="1696952373348" duration="1915000" />
-      <workItem from="1696956991081" duration="3434000" />
-      <workItem from="1696965272163" duration="2646000" />
-      <workItem from="1696977026892" duration="2375000" />
-      <workItem from="1696994060697" duration="1188000" />
-      <workItem from="1697091810550" duration="231000" />
-      <workItem from="1697152611692" duration="4347000" />
-      <workItem from="1697433165258" duration="1480000" />
-      <workItem from="1697467059693" duration="23429000" />
-      <workItem from="1697524961064" duration="17454000" />
-      <workItem from="1697675084716" duration="3139000" />
-      <workItem from="1697700259302" duration="21877000" />
-      <workItem from="1697812369683" duration="10461000" />
-    </task>
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/ExpedienteServicio.java</url>
-          <line>69</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
