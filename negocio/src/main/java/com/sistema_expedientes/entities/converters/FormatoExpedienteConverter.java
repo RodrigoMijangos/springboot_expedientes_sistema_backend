@@ -2,7 +2,9 @@ package com.sistema_expedientes.entities.converters;
 
 import com.sistema_expedientes.entities.enumerates.FormatoExpediente;
 import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
 
+@Converter
 public class FormatoExpedienteConverter implements AttributeConverter<FormatoExpediente, Byte> {
     @Override
     public Byte convertToDatabaseColumn(FormatoExpediente attribute) {

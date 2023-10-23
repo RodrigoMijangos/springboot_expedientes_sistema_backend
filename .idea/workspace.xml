@@ -4,7 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="1ce0eb79-1545-49c5-9b67-ac25bf7b7a2a" name="Changes" comment="" />
+=======
+    <list default="true" id="1ce0eb79-1545-49c5-9b67-ac25bf7b7a2a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EXPEDIENTES_DATABASE_STRUCTURE.sql" beforeDir="false" afterPath="$PROJECT_DIR$/EXPEDIENTES_DATABASE_STRUCTURE.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/Expediente.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/Expediente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/SerieDocumental.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/SerieDocumental.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/UnidadAdministrativa.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/UnidadAdministrativa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/compositesKeys/ExpedienteCompositeKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/compositesKeys/ExpedienteCompositeKey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/repositories/ExpedienteRepositorio.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/repositories/ExpedienteRepositorio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/ExpedienteServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/ExpedienteServicio.java" afterDir="false" />
+    </list>
+>>>>>>> 1681505c0fe3195bdda8a0c53e02b3334602e241
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -97,11 +110,23 @@
       <workItem from="1697467059693" duration="23429000" />
       <workItem from="1697524961064" duration="17454000" />
       <workItem from="1697675084716" duration="3139000" />
-      <workItem from="1697700259302" duration="10111000" />
+      <workItem from="1697700259302" duration="21877000" />
+      <workItem from="1697812369683" duration="10461000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/ExpedienteServicio.java</url>
+          <line>69</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
