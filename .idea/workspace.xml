@@ -6,10 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="1ce0eb79-1545-49c5-9b67-ac25bf7b7a2a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/com/sistema_expedientes/controllers/ExpedienteControlador.java" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/main/java/com/sistema_expedientes/controllers/ExpedienteControlador.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/dto/request/ExpedienteRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/dto/request/CreateExpedienteRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/converters/FormatoExpedienteConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/converters/FormatoExpedienteConverter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/ExpedienteServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/ExpedienteServicio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/interfaces/IExpedienteServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/interfaces/IExpedienteServicio.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,22 +104,11 @@
       <workItem from="1697700259302" duration="21877000" />
       <workItem from="1697812369683" duration="10461000" />
       <workItem from="1698079042203" duration="11027000" />
-      <workItem from="1698161626383" duration="3114000" />
+      <workItem from="1698161626383" duration="4933000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/ExpedienteServicio.java</url>
-          <line>72</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

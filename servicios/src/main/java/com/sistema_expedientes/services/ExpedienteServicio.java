@@ -97,7 +97,7 @@ public class ExpedienteServicio implements IExpedienteServicio {
             typeMap.addMappings(mapping -> {
                 mapping.map(requestDTO -> requestDTO.getId().getUnidadAdministrativaGeneradora(), Expediente::setUnidadAdministrativaGeneradora);
                 mapping.map(requestDTO -> requestDTO.getId().getIdentificadorSerieDocumental(), Expediente::setIdentificadorSerieDocumental);
-                mapping.map(requestDTO -> requestDTO.getId().getNumeroExpediente(), (destino, valor) -> destino.setNumeroExpediente((Short)valor));
+                mapping.map(requestDTO -> requestDTO.getId().getNumeroExpediente(), Expediente::setNumeroExpediente);
                 mapping.map(requestDTO -> requestDTO.getId().getFechaApertura(), Expediente::setFechaApertura);
                 mapping.map(PUTExpedienteRequestDTO::getNumeroProyecto, Expediente::setNumeroProyecto);
                 mapping.map(PUTExpedienteRequestDTO::getNumeroContacto, Expediente::setNumeroContacto);

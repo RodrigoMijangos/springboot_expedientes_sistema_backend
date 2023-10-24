@@ -8,7 +8,7 @@ import jakarta.persistence.Converter;
 public class FormatoExpedienteConverter implements AttributeConverter<FormatoExpediente, Byte> {
     @Override
     public Byte convertToDatabaseColumn(FormatoExpediente attribute) {
-        return attribute == null? null : attribute.getCodigo();
+        return attribute == null ? null : attribute.getCodigo();
     }
 
     @Override
