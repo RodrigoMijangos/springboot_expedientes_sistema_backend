@@ -1,12 +1,13 @@
 package com.sistema_expedientes.entities.dto.request;
 
-public class ExpedienteRequestDTO extends _DTO {
+import com.sistema_expedientes.entities.compositesKeys.ExpedienteCompositeKey;
 
-    private Short identificadorSerieDocumental;
-    private String unidadAdministrativaGeneradora;
+public class PUTExpedienteRequestDTO extends _DTO {
+
+    private ExpedienteCompositeKey id;
     private Short periodoCierre;
     private String asunto;
-    private String tipoExpediente;
+    private Short tipoExpediente;
     private String numeroProyecto;
     private String nombreProyecto;
     private String acronimoInstitucion;
@@ -18,12 +19,11 @@ public class ExpedienteRequestDTO extends _DTO {
     private Byte tradicionDocumental;
     private Byte tipoInformacion;
 
-    public ExpedienteRequestDTO() {
+    public PUTExpedienteRequestDTO() {
     }
 
-    public ExpedienteRequestDTO(Short identificadorSerieDocumental, String unidadAdministrativaGeneradora, Short periodoCierre, String asunto, String tipoExpediente, String numeroProyecto, String nombreProyecto, String acronimoInstitucion, String nombreInstitucion, String numeroContacto, Short cantidadHojas, Byte formatoExpediente, Byte condicionAcceso, Byte tradicionDocumental, Byte tipoInformacion) {
-        this.identificadorSerieDocumental = identificadorSerieDocumental;
-        this.unidadAdministrativaGeneradora = unidadAdministrativaGeneradora;
+    public PUTExpedienteRequestDTO(ExpedienteCompositeKey id, Short periodoCierre, String asunto, Short tipoExpediente, String numeroProyecto, String nombreProyecto, String acronimoInstitucion, String nombreInstitucion, String numeroContacto, Short cantidadHojas, Byte formatoExpediente, Byte condicionAcceso, Byte tradicionDocumental, Byte tipoInformacion) {
+        this.id = id;
         this.periodoCierre = periodoCierre;
         this.asunto = asunto;
         this.tipoExpediente = tipoExpediente;
@@ -39,20 +39,12 @@ public class ExpedienteRequestDTO extends _DTO {
         this.tipoInformacion = tipoInformacion;
     }
 
-    public Short getIdentificadorSerieDocumental() {
-        return identificadorSerieDocumental;
+    public ExpedienteCompositeKey getId() {
+        return id;
     }
 
-    public void setIdentificadorSerieDocumental(Short identificadorSerieDocumental) {
-        this.identificadorSerieDocumental = identificadorSerieDocumental;
-    }
-
-    public String getUnidadAdministrativaGeneradora() {
-        return unidadAdministrativaGeneradora;
-    }
-
-    public void setUnidadAdministrativaGeneradora(String unidadAdministrativaGeneradora) {
-        this.unidadAdministrativaGeneradora = unidadAdministrativaGeneradora;
+    public void setId(ExpedienteCompositeKey id) {
+        this.id = id;
     }
 
     public Short getPeriodoCierre() {
@@ -71,11 +63,11 @@ public class ExpedienteRequestDTO extends _DTO {
         this.asunto = asunto;
     }
 
-    public String getTipoExpediente() {
+    public Short getTipoExpediente() {
         return tipoExpediente;
     }
 
-    public void setTipoExpediente(String tipoExpediente) {
+    public void setTipoExpediente(Short tipoExpediente) {
         this.tipoExpediente = tipoExpediente;
     }
 

@@ -2,9 +2,10 @@ package com.sistema_expedientes.services;
 
 import com.sistema_expedientes.entities.Expediente;
 import com.sistema_expedientes.entities.compositesKeys.ExpedienteCompositeKey;
-import com.sistema_expedientes.entities.converters.FormatoExpedienteConverter;
-import com.sistema_expedientes.entities.converters.TipoInformacionExpedienteConverter;
-import com.sistema_expedientes.entities.dto.request.ExpedienteRequestDTO;
+import com.sistema_expedientes.entities.dto.request.CreateExpedienteRequestDTO;
+import com.sistema_expedientes.entities.dto.request.ExpedienteCompositeKeyRequestDTO;
+import com.sistema_expedientes.entities.dto.request.PUTExpedienteRequestDTO;
+import com.sistema_expedientes.entities.dto.request._DTO;
 import com.sistema_expedientes.entities.enumerates.CondicionAccesoExpediente;
 import com.sistema_expedientes.entities.enumerates.FormatoExpediente;
 import com.sistema_expedientes.entities.enumerates.TipoInformacionExpediente;
@@ -14,12 +15,9 @@ import com.sistema_expedientes.services.interfaces.IExpedienteServicio;
 import org.jetbrains.annotations.NotNull;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.PropertyMap;
 import org.modelmapper.TypeMap;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
-import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -46,12 +44,12 @@ public class ExpedienteServicio implements IExpedienteServicio {
     }
 
     @Override
-    public List<Expediente> search(ExpedienteRequestDTO request) {
+    public List<Expediente> search(CreateExpedienteRequestDTO request) {
         return null;
     }
 
     @Override
-    public Expediente create(@NotNull ExpedienteRequestDTO request) {
+    public Expediente create(@NotNull CreateExpedienteRequestDTO request) {
         LocalDate today = LocalDate.now();
         LocalDate dateFilter1 = LocalDate.of(today.getYear(), 1, 1);
         LocalDate dateFilter2 = LocalDate.of(today.getYear(), 12, 31);
@@ -71,14 +69,49 @@ public class ExpedienteServicio implements IExpedienteServicio {
     }
 
     @Override
-    public Expediente put(ExpedienteCompositeKey search, ExpedienteRequestDTO request) {
-        return null;
+    public Expediente put(PUTExpedienteRequestDTO request) {
+
+        Optional<Expediente> to_check = this.get(request.getId());
+
+        if(to_check.isPresent()){
+            return repositorio.save(dtoToEntity(request));
+        }
+        else return null;
     }
 
-    private Expediente dtoToEntity(ExpedienteRequestDTO dto){
+    private Expediente dtoToEntity(_DTO dto){
 
-        mapper.getConfiguration().setAmbiguityIgnored(true);
-        return this.mapper.map(dto, Expediente.class);
+        Converter<Byte, FormatoExpediente> toFormatoExpediente = ctx -> ctx.getSource() == null ? null : FormatoExpediente.valueOf(ctx.getSource());
+        Converter<Byte, CondicionAccesoExpediente> toCondicionAcceso = ctx -> ctx.getSource() == null ? null : CondicionAccesoExpediente.valueOf(ctx.getSource());
+        Converter<Byte, TradicionDocumentalExpediente> toTradicionDocumental = ctx -> ctx.getSource() == null ? null : TradicionDocumentalExpediente.valueOf(ctx.getSource());
+        Converter<Byte, TipoInformacionExpediente> toTipoInformacion = ctx -> ctx.getSource() == null ? null : TipoInformacionExpediente.valueOf(ctx.getSource());
+
+        if(dto instanceof CreateExpedienteRequestDTO){
+            mapper.getConfiguration().setAmbiguityIgnored(true);
+            return this.mapper.map(dto, Expediente.class);
+        }
+        if(dto instanceof PUTExpedienteRequestDTO){
+            this.mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+
+            TypeMap<PUTExpedienteRequestDTO, Expediente> typeMap = mapper.createTypeMap(PUTExpedienteRequestDTO.class, Expediente.class);
+            typeMap.addMappings(mapping -> {
+                mapping.map(requestDTO -> requestDTO.getId().getUnidadAdministrativaGeneradora(), Expediente::setUnidadAdministrativaGeneradora);
+                mapping.map(requestDTO -> requestDTO.getId().getIdentificadorSerieDocumental(), Expediente::setIdentificadorSerieDocumental);
+                mapping.map(requestDTO -> requestDTO.getId().getNumeroExpediente(), (destino, valor) -> destino.setNumeroExpediente((Short)valor));
+                mapping.map(requestDTO -> requestDTO.getId().getFechaApertura(), Expediente::setFechaApertura);
+                mapping.map(PUTExpedienteRequestDTO::getNumeroProyecto, Expediente::setNumeroProyecto);
+                mapping.map(PUTExpedienteRequestDTO::getNumeroContacto, Expediente::setNumeroContacto);
+                mapping.using(toFormatoExpediente).map(PUTExpedienteRequestDTO::getFormatoExpediente, Expediente::setFormatoExpediente);
+                mapping.using(toCondicionAcceso).map(PUTExpedienteRequestDTO::getCondicionAcceso, Expediente::setCondicionAcceso);
+                mapping.using(toTradicionDocumental).map(PUTExpedienteRequestDTO::getTradicionDocumental, Expediente::setTradicionDocumental);
+                mapping.using(toTipoInformacion).map(PUTExpedienteRequestDTO::getTipoInformacion, Expediente::setTipoInformacion);
+            });
+
+
+            return this.mapper.map(dto, Expediente.class);
+        }
+
+        return null;
 
     }
 
