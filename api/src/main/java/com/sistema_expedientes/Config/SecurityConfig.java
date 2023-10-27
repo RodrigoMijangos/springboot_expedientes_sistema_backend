@@ -29,6 +29,7 @@ import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Configuration
 @EnableWebSecurity
@@ -44,6 +45,10 @@ public class SecurityConfig {
     private static final String[] USER_WHITELIST = {
             "/api/v1/expedientes/**",
             "/api/v1/unidades_administrativas/**"
+    };
+
+    private static final String[] USER_ACCESS = {
+            "/api/v1/expedientes/get"
     };
 
     private static final String ADMIN_ROLE = "ADMIN";
@@ -74,7 +79,10 @@ public class SecurityConfig {
                     auth.requestMatchers(AUTH_WHITELIST).permitAll();
                     auth.requestMatchers("/api/admin/**").hasRole(ADMIN_ROLE);
                     auth.requestMatchers(HttpMethod.GET, USER_WHITELIST).hasAnyRole(USER_ROLE, ADMIN_ROLE);
+                    auth.requestMatchers(HttpMethod.POST, USER_ACCESS).hasAnyRole(USER_ROLE, ADMIN_ROLE);
                     auth.requestMatchers(HttpMethod.POST, USER_WHITELIST).hasRole(ADMIN_ROLE);
+                    auth.requestMatchers(HttpMethod.PUT).hasRole(ADMIN_ROLE);
+                    auth.requestMatchers(HttpMethod.DELETE).hasRole(ADMIN_ROLE);
                     auth.requestMatchers("/api/user").hasAnyRole(USER_ROLE,ADMIN_ROLE);
                     auth.anyRequest().authenticated();
                 });

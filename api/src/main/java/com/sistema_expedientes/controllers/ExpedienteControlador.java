@@ -2,14 +2,12 @@ package com.sistema_expedientes.controllers;
 
 import com.sistema_expedientes.entities.Expediente;
 import com.sistema_expedientes.entities.compositesKeys.ExpedienteCompositeKey;
-import com.sistema_expedientes.entities.dto.request.ExpedienteRequestDTO;
+import com.sistema_expedientes.entities.dto.request.CreateExpedienteRequestDTO;
+import com.sistema_expedientes.entities.dto.request.PUTExpedienteRequestDTO;
 import com.sistema_expedientes.services.ExpedienteServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,11 +36,19 @@ public class ExpedienteControlador {
     }
 
     @PostMapping("api/v1/expedientes/create")
-    public ResponseEntity<Expediente> create(@RequestBody ExpedienteRequestDTO request){
+    public ResponseEntity<Expediente> create(@RequestBody CreateExpedienteRequestDTO request){
 
         Expediente to_bd = servicio.create(request);
 
         return to_bd == null ? ResponseEntity.badRequest().build() : ResponseEntity.status(201).body(to_bd);
+
+    }
+
+    @PutMapping("api/v1/expedientes/edit")
+    public ResponseEntity<Expediente> put(@RequestBody PUTExpedienteRequestDTO request){
+        Expediente to_bd = servicio.put(request);
+
+        return to_bd == null ? ResponseEntity.badRequest().build() : ResponseEntity.ok(to_bd);
 
     }
 
