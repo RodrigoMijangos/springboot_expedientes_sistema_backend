@@ -6,11 +6,10 @@ import com.sistema_expedientes.entities.dto.request.CreateExpedienteRequestDTO;
 import com.sistema_expedientes.entities.dto.request.PUTExpedienteRequestDTO;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface IExpedienteServicio {
 
-    public Optional<Expediente> get(ExpedienteCompositeKey key);
+    public Expediente get(ExpedienteCompositeKey key) throws Exception;
 
     public List<Expediente> list();
 
@@ -18,6 +17,6 @@ public interface IExpedienteServicio {
 
     public Expediente create(CreateExpedienteRequestDTO request);
 
-    public Expediente put(PUTExpedienteRequestDTO request);
+    public Expediente put(PUTExpedienteRequestDTO request) throws Exception;
 
 }

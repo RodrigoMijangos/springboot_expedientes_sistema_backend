@@ -1,5 +1,7 @@
 package com.sistema_expedientes.entities.enumerates;
 
+import jakarta.persistence.Converter;
+
 import java.util.stream.Stream;
 
 public enum FormatoExpediente {
@@ -17,5 +19,4 @@ public enum FormatoExpediente {
         return Stream.of(values()).filter(formatoExpediente -> formatoExpediente.getCodigo().equals(id))
                 .findFirst().orElseThrow(IllegalArgumentException::new);
     }
-
 }
