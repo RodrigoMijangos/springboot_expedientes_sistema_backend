@@ -81,8 +81,8 @@ public class SecurityConfig {
                     auth.requestMatchers(HttpMethod.GET, USER_WHITELIST).hasAnyRole(USER_ROLE, ADMIN_ROLE);
                     auth.requestMatchers(HttpMethod.POST, USER_ACCESS).hasAnyRole(USER_ROLE, ADMIN_ROLE);
                     auth.requestMatchers(HttpMethod.POST, USER_WHITELIST).hasRole(ADMIN_ROLE);
-                    auth.requestMatchers(HttpMethod.PUT).hasRole(ADMIN_ROLE);
-                    auth.requestMatchers(HttpMethod.DELETE).hasRole(ADMIN_ROLE);
+                    auth.requestMatchers(HttpMethod.PUT, USER_WHITELIST).hasRole(ADMIN_ROLE);
+                    auth.requestMatchers(HttpMethod.DELETE, USER_WHITELIST).hasRole(ADMIN_ROLE);
                     auth.requestMatchers("/api/user").hasAnyRole(USER_ROLE,ADMIN_ROLE);
                     auth.anyRequest().authenticated();
                 });

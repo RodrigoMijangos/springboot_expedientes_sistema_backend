@@ -27,11 +27,9 @@ public class ExpedienteControlador {
     }
 
     @PostMapping("api/v1/expedientes/get")
-    public ResponseEntity<Expediente> get(@RequestBody ExpedienteCompositeKey id){
+    public ResponseEntity<Expediente> get(@RequestBody ExpedienteCompositeKey id) throws Exception {
 
-        Optional<Expediente> in_bd = servicio.get(id);
-
-        return in_bd.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        return ResponseEntity.ok(servicio.get(id));
 
     }
 
@@ -45,11 +43,17 @@ public class ExpedienteControlador {
     }
 
     @PutMapping("api/v1/expedientes/edit")
-    public ResponseEntity<Expediente> put(@RequestBody PUTExpedienteRequestDTO request){
+    public ResponseEntity<Expediente> put(@RequestBody PUTExpedienteRequestDTO request) throws Exception {
         Expediente to_bd = servicio.put(request);
 
         return to_bd == null ? ResponseEntity.badRequest().build() : ResponseEntity.ok(to_bd);
 
+    }
+
+    @DeleteMapping("api/v1/expedientes/delete")
+    public ResponseEntity<String> delete(@RequestBody ExpedienteCompositeKey id) throws Exception {
+        this.servicio.delete(id);
+        return ResponseEntity.ok("Ha sido eliminado");
     }
 
 }
