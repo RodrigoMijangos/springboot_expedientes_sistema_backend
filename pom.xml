@@ -13,6 +13,7 @@
         <module>servicios</module>
         <module>api</module>
         <module>configuracion</module>
+        <module>GoogleDriveImplementation</module>
     </modules>
 
     <properties>

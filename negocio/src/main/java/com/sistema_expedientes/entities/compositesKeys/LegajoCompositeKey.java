@@ -8,22 +8,22 @@ import java.io.Serializable;
 public class LegajoCompositeKey implements Serializable {
 
     @AttributeOverrides({
-            @AttributeOverride(name = "identificadorNumerico", column = @Column(name = "identificador_expediente")),
-            @AttributeOverride(name = "periodoApertura", column = @Column(name = "periodo_apertura")),
-            @AttributeOverride(name = "unidadAdministrativa", column = @Column(name = "unidad_administrativa_expediente")),
+            @AttributeOverride(name = "identificadorNumerico", column = @Column(name = "numero_expediente")),
+            @AttributeOverride(name = "periodoApertura", column = @Column(name = "periodo_apertura_expediente")),
+            @AttributeOverride(name = "unidadAdministrativa", column = @Column(name = "unidad_administrativa_generadora_expediente")),
             @AttributeOverride(name = "serieDocumental", column = @Column(name = "serie_documental_expediente"))
     })
     private ExpedienteCompositeKey expedienteId;
 
-    @Column(name = "identificador_documento")
-    private Long documentoId;
+    @Column(name = "numero_legajo")
+    private Short numeroLegajo;
 
     public LegajoCompositeKey() {
     }
 
-    public LegajoCompositeKey(ExpedienteCompositeKey expedienteId, Long documentoId) {
+    public LegajoCompositeKey(ExpedienteCompositeKey expedienteId, Short numeroLegajo) {
         this.expedienteId = expedienteId;
-        this.documentoId = documentoId;
+        this.numeroLegajo = numeroLegajo;
     }
 
     public ExpedienteCompositeKey getExpedienteId() {
@@ -34,11 +34,11 @@ public class LegajoCompositeKey implements Serializable {
         this.expedienteId = expedienteId;
     }
 
-    public Long getDocumentoId() {
-        return documentoId;
+    public Short getNumeroLegajo() {
+        return numeroLegajo;
     }
 
-    public void setDocumentoId(Long documentoId) {
-        this.documentoId = documentoId;
+    public void setNumeroLegajo(Short numeroLegajo) {
+        this.numeroLegajo = numeroLegajo;
     }
 }

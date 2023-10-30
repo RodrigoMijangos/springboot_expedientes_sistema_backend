@@ -12,6 +12,7 @@ import com.sistema_expedientes.entities.enumerates.TradicionDocumentalExpediente
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name = "expedientes")
@@ -58,7 +59,10 @@ public class Expediente {
     @Convert(converter = TipoInformacionExpedienteConverter.class)
     @Column(name = "tipo_informacion")
     private TipoInformacionExpediente tipoInformacion;
-
+    @OneToMany(cascade = {
+            CascadeType.PERSIST, CascadeType.REMOVE
+    }, fetch = FetchType.LAZY, mappedBy = "expediente", orphanRemoval = true)
+    private Set<Legajo> legajos;
 
     public Expediente() {
     }
