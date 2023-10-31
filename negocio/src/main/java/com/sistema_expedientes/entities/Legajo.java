@@ -13,15 +13,6 @@ public class Legajo {
 
     @EmbeddedId
     private LegajoCompositeKey id;
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinColumns({
-            @JoinColumn(name = "serie_documental_expediente", referencedColumnName = "serie_documental"),
-            @JoinColumn(name = "unidad_administrativa_generadora_expediente", referencedColumnName = "unidad_administrativa_generadora"),
-            @JoinColumn(name = "numero_expediente", referencedColumnName = "numero_expediente"),
-            @JoinColumn(name = "fecha_apertura_expediente", referencedColumnName = "fecha_apertura")
-    })
-    @JsonBackReference
-    private Expediente expediente;
     @Column(name = "numero_mueble")
     private String numeroMueble;
     @Column(name = "letraEstante")
@@ -30,31 +21,26 @@ public class Legajo {
     private String numeroPasillo;
     @Column(name = "letraBateria")
     private String letraBateria;
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "contenido_legajo",
-            joinColumns = {
-                    @JoinColumn(name = "serie_documental_expediente", referencedColumnName = "serie_documental"),
-                    @JoinColumn(name = "unidad_administrativa_generadora_expediente", referencedColumnName = "unidad_administrativa_generadora"),
-                    @JoinColumn(name = "numero_expediente", referencedColumnName = "numero_expediente"),
-                    @JoinColumn(name = "fecha_apertura_expediente", referencedColumnName = "fecha_apertura")
-            },
-            inverseJoinColumns = @JoinColumn(name = "identificador_documento", referencedColumnName = "identificador")
-    )
-    @JsonManagedReference
-    private Set<Documento> documentos;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+    @JoinColumns({
+            @JoinColumn(name = "serie_documental_expediente", referencedColumnName = "serie_documental", updatable = false, insertable = false),
+            @JoinColumn(name = "unidad_administrativa_generadora_expediente", referencedColumnName = "unidad_administrativa_generadora", insertable = false, updatable = false),
+            @JoinColumn(name = "numero_expediente", referencedColumnName = "numero_expediente", updatable = false, insertable = false),
+            @JoinColumn(name = "fecha_apertura_expediente", referencedColumnName = "fecha_apertura", insertable = false, updatable = false)
+    })
+    @JsonBackReference
+    private Expediente expediente;
 
     public Legajo() {
     }
 
-    public Legajo(LegajoCompositeKey id, Expediente expediente, String numeroMueble, String letraEstante, String numeroPasillo, String letraBateria, Set<Documento> documentos) {
+    public Legajo(LegajoCompositeKey id, String numeroMueble, String letraEstante, String numeroPasillo, String letraBateria, Expediente expediente) {
         this.id = id;
-        this.expediente = expediente;
         this.numeroMueble = numeroMueble;
         this.letraEstante = letraEstante;
         this.numeroPasillo = numeroPasillo;
         this.letraBateria = letraBateria;
-        this.documentos = documentos;
+        this.expediente = expediente;
     }
 
     public LegajoCompositeKey getId() {
@@ -103,13 +89,5 @@ public class Legajo {
 
     public void setExpediente(Expediente expediente) {
         this.expediente = expediente;
-    }
-
-    public Set<Documento> getDocumentos() {
-        return documentos;
-    }
-
-    public void setDocumentos(Set<Documento> documentos) {
-        this.documentos = documentos;
     }
 }

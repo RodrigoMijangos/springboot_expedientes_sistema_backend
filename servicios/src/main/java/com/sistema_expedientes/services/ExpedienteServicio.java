@@ -57,7 +57,7 @@ public class ExpedienteServicio implements IExpedienteServicio {
 
         Expediente to_bd = dtoToEntityExpediente(request);
 
-        to_bd.setNumeroExpediente(to_check.orElse((short)1));
+        to_bd.setNumeroExpediente((short) (to_check.orElse((short)0) + 1));
         to_bd.setFechaApertura(today);
 
         return repositorio.save(to_bd);

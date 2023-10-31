@@ -28,16 +28,32 @@ public class ExpedienteCompositeKey implements Serializable {
         return numeroExpediente;
     }
 
+    public void setNumeroExpediente(Short numeroExpediente) {
+        this.numeroExpediente = numeroExpediente;
+    }
+
     public LocalDate getFechaApertura() {
         return fechaApertura;
+    }
+
+    public void setFechaApertura(LocalDate fechaApertura) {
+        this.fechaApertura = fechaApertura;
     }
 
     public String getUnidadAdministrativaGeneradora() {
         return unidadAdministrativaGeneradora;
     }
 
+    public void setUnidadAdministrativaGeneradora(String unidadAdministrativaGeneradora) {
+        this.unidadAdministrativaGeneradora = unidadAdministrativaGeneradora;
+    }
+
     public Short getIdentificadorSerieDocumental() {
         return identificadorSerieDocumental;
+    }
+
+    public void setIdentificadorSerieDocumental(Short identificadorSerieDocumental) {
+        this.identificadorSerieDocumental = identificadorSerieDocumental;
     }
 
     @Override

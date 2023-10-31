@@ -23,20 +23,16 @@ public class Documento {
     @Column(name = "fecha_edicion")
     @UpdateTimestamp(source = SourceType.DB)
     private LocalDateTime fechaEdicion;
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy = "documentos")
-    @JsonBackReference
-    private Set<Legajo> legajos;
 
     public Documento() {
     }
 
-    public Documento(Long identificador, String nombre, String url, LocalDateTime fechaCreacion, LocalDateTime fechaEdicion, Set<Legajo> legajos) {
+    public Documento(Long identificador, String nombre, String url, LocalDateTime fechaCreacion, LocalDateTime fechaEdicion) {
         this.identificador = identificador;
         this.nombre = nombre;
         this.url = url;
         this.fechaCreacion = fechaCreacion;
         this.fechaEdicion = fechaEdicion;
-        this.legajos = legajos;
     }
 
     public Long getIdentificador() {
@@ -77,13 +73,5 @@ public class Documento {
 
     public void setFechaEdicion(LocalDateTime fechaEdicion) {
         this.fechaEdicion = fechaEdicion;
-    }
-
-    public Set<Legajo> getLegajos() {
-        return legajos;
-    }
-
-    public void setLegajos(Set<Legajo> legajos) {
-        this.legajos = legajos;
     }
 }
