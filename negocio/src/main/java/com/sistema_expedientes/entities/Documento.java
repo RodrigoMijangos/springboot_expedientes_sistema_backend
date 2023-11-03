@@ -23,6 +23,22 @@ public class Documento {
     @Column(name = "fecha_edicion")
     @UpdateTimestamp(source = SourceType.DB)
     private LocalDateTime fechaEdicion;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "contenido_legajo",
+            joinColumns = {
+                    @JoinColumn(name = "identificador_documento", referencedColumnName = "identificador")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "serie_documental_expediente", referencedColumnName = "serie_documental_expediente"),
+                    @JoinColumn(name = "unidad_administrativa_generadora_expediente", referencedColumnName = "unidad_administrativa_generadora_expediente"),
+                    @JoinColumn(name = "numero_expediente", referencedColumnName = "numero_expediente"),
+                    @JoinColumn(name = "fecha_apertura_expediente", referencedColumnName = "fecha_apertura_expediente"),
+                    @JoinColumn(name = "numero_legajo", referencedColumnName = "numero_legajo")
+            }
+    )
+    @JsonBackReference
+    private Legajo legajo;
 
     public Documento() {
     }

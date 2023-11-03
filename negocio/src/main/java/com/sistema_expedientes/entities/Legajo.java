@@ -31,16 +31,24 @@ public class Legajo {
     @JsonBackReference
     private Expediente expediente;
 
+    @OneToMany(fetch = FetchType.EAGER,
+            cascade = {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH},
+            mappedBy = "legajo"
+    )
+    @JsonManagedReference
+    private Set<Documento> documentos;
+
     public Legajo() {
     }
 
-    public Legajo(LegajoCompositeKey id, String numeroMueble, String letraEstante, String numeroPasillo, String letraBateria, Expediente expediente) {
+    public Legajo(LegajoCompositeKey id, String numeroMueble, String letraEstante, String numeroPasillo, String letraBateria, Expediente expediente, Set<Documento> documentos) {
         this.id = id;
         this.numeroMueble = numeroMueble;
         this.letraEstante = letraEstante;
         this.numeroPasillo = numeroPasillo;
         this.letraBateria = letraBateria;
         this.expediente = expediente;
+        this.documentos = documentos;
     }
 
     public LegajoCompositeKey getId() {
@@ -89,5 +97,13 @@ public class Legajo {
 
     public void setExpediente(Expediente expediente) {
         this.expediente = expediente;
+    }
+
+    public Set<Documento> getDocumentos() {
+        return documentos;
+    }
+
+    public void setDocumentos(Set<Documento> documentos) {
+        this.documentos = documentos;
     }
 }

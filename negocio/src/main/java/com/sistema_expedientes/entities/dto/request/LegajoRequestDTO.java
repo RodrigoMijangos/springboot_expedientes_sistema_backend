@@ -6,7 +6,6 @@ import java.time.LocalDate;
 
 public class LegajoRequestDTO extends _DTO{
 
-    private ExpedienteCompositeKey expediente;
     private String numeroMueble;
     private String letraEstante;
     private String numeroPasillo;
@@ -15,20 +14,11 @@ public class LegajoRequestDTO extends _DTO{
     public LegajoRequestDTO() {
     }
 
-    public LegajoRequestDTO(ExpedienteCompositeKey expediente, String numeroMueble, String letraEstante, String numeroPasillo, String letraBateria) {
-        this.expediente = expediente;
+    public LegajoRequestDTO(String numeroMueble, String letraEstante, String numeroPasillo, String letraBateria) {
         this.numeroMueble = numeroMueble;
         this.letraEstante = letraEstante;
         this.numeroPasillo = numeroPasillo;
         this.letraBateria = letraBateria;
-    }
-
-    public ExpedienteCompositeKey getExpediente() {
-        return expediente;
-    }
-
-    public void setExpediente(ExpedienteCompositeKey expediente) {
-        this.expediente = expediente;
     }
 
     public String getNumeroMueble() {
