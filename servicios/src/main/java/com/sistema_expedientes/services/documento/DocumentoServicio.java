@@ -1,23 +1,19 @@
-package com.sistema_expedientes.services;
+package com.sistema_expedientes.services.documento;
 
 import com.sistema_expedientes.entities.Documento;
 import com.sistema_expedientes.entities.dto.request.DocumentoRequest;
 import com.sistema_expedientes.repositories.DocumentoRepositorio;
-import com.sistema_expedientes.services.interfaces.DocumentoServicioMetodos;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class DocumentoServicio implements DocumentoServicioMetodos {
 
     @Autowired
     private DocumentoRepositorio repositorio;
-
-    @Autowired
-    private ModelMapper mapper;
 
     @Override
     public List<Documento> getAll() {
@@ -48,6 +44,10 @@ public class DocumentoServicio implements DocumentoServicioMetodos {
         if(registroEstaPresente(id))
             this.repositorio.deleteById(id);
         else throw new Exception();
+    }
+
+    public List<Documento> createList(List<Documento> request){
+        return this.repositorio.saveAll(request);
     }
 
     private boolean registroEstaPresente(Long id){

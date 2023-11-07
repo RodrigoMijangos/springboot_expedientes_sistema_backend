@@ -4,8 +4,9 @@ import com.sistema_expedientes.entities.Documento;
 import com.sistema_expedientes.entities.Legajo;
 import com.sistema_expedientes.entities.compositesKeys.LegajoCompositeKey;
 import com.sistema_expedientes.entities.dto.request.CreateLegajoRequestDTO;
+import com.sistema_expedientes.entities.dto.request.ListaDocumentosLegajoRequestDTO;
 import com.sistema_expedientes.entities.dto.request.PUTLegajoRequestDTO;
-import com.sistema_expedientes.services.LegajoServicio;
+import com.sistema_expedientes.services.legajo.LegajoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,8 +35,10 @@ public class LegajoControlador {
     }
 
     @PostMapping("api/v1/legajos/guardar_lista_documentos")
-    public ResponseEntity<List<Documento>> crearEInsertarListaDocumentos(){
-        return null;
+    public ResponseEntity<Legajo> crearEInsertarListaDocumentos(@RequestBody ListaDocumentosLegajoRequestDTO request) throws Exception {
+
+        return ResponseEntity.ok(this.servicio.guardarListaDocumentos(request));
+
     }
 
     @DeleteMapping("api/v1/legajos/borrar")

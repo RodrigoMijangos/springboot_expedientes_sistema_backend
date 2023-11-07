@@ -6,11 +6,20 @@
   <component name="ChangeListManager">
     <list default="true" id="1ce0eb79-1545-49c5-9b67-ac25bf7b7a2a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/src/main/java/com/sistema_expedientes/controllers/DocumentoControlador.java" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/main/java/com/sistema_expedientes/controllers/DocumentoControlador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/src/main/java/com/sistema_expedientes/controllers/ExpedienteControlador.java" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/main/java/com/sistema_expedientes/controllers/ExpedienteControlador.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/src/main/java/com/sistema_expedientes/controllers/LegajoControlador.java" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/main/java/com/sistema_expedientes/controllers/LegajoControlador.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/Documento.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/Documento.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/Legajo.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/Legajo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/dto/request/LegajoRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/dto/request/LegajoRequestDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/interfaces/LegajoServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/LegajoServicio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/repositories/LegajoRepositorio.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/repositories/LegajoRepositorio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/DocumentoServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/documento/DocumentoServicio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/ExpedienteServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/expediente/ExpedienteServicio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/LegajoServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/legajo/LegajoServicio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/interfaces/DocumentoServicioMetodos.java" beforeDir="false" afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/documento/DocumentoServicioMetodos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/interfaces/IDocumentoServicio.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/interfaces/IExpedienteServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/expediente/ExpedienteServicioMetodos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/interfaces/ILegajoServicio.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/interfaces/LegajoServicioMetodos.java" beforeDir="false" afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/legajo/LegajoServicioMetodos.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,11 +129,33 @@
       <workItem from="1698679721127" duration="20031000" />
       <workItem from="1698766310342" duration="3686000" />
       <workItem from="1698852754901" duration="16224000" />
-      <workItem from="1699024187857" duration="614000" />
+      <workItem from="1699024187857" duration="12462000" />
+      <workItem from="1699284330915" duration="11385000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/legajo/LegajoServicio.java</url>
+          <line>93</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/legajo/mapeo/MapeoLegajoServicio.java</url>
+          <line>22</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/expediente/ExpedienteServicio.java</url>
+          <line>52</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

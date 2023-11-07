@@ -7,6 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.SourceType;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -23,7 +24,7 @@ public class Documento {
     @Column(name = "fecha_edicion")
     @UpdateTimestamp(source = SourceType.DB)
     private LocalDateTime fechaEdicion;
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinTable(
             name = "contenido_legajo",
             joinColumns = {
@@ -38,17 +39,18 @@ public class Documento {
             }
     )
     @JsonBackReference
-    private Legajo legajo;
+    private List<Legajo> legajo;
 
     public Documento() {
     }
 
-    public Documento(Long identificador, String nombre, String url, LocalDateTime fechaCreacion, LocalDateTime fechaEdicion) {
+    public Documento(Long identificador, String nombre, String url, LocalDateTime fechaCreacion, LocalDateTime fechaEdicion, List<Legajo> legajo) {
         this.identificador = identificador;
         this.nombre = nombre;
         this.url = url;
         this.fechaCreacion = fechaCreacion;
         this.fechaEdicion = fechaEdicion;
+        this.legajo = legajo;
     }
 
     public Long getIdentificador() {
@@ -89,5 +91,13 @@ public class Documento {
 
     public void setFechaEdicion(LocalDateTime fechaEdicion) {
         this.fechaEdicion = fechaEdicion;
+    }
+
+    public List<Legajo> getLegajo() {
+        return legajo;
+    }
+
+    public void setLegajo(List<Legajo> legajo) {
+        this.legajo = legajo;
     }
 }

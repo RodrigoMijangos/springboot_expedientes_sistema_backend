@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sistema_expedientes.entities.compositesKeys.LegajoCompositeKey;
 import jakarta.persistence.*;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "legajos")
@@ -31,17 +31,29 @@ public class Legajo {
     @JsonBackReference
     private Expediente expediente;
 
-    @OneToMany(fetch = FetchType.EAGER,
-            cascade = {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH},
-            mappedBy = "legajo"
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH}
+    )
+    @JoinTable(
+            name = "contenido_legajo",
+            joinColumns = {
+                    @JoinColumn(name = "serie_documental_expediente", referencedColumnName = "serie_documental_expediente"),
+                    @JoinColumn(name = "unidad_administrativa_generadora_expediente", referencedColumnName = "unidad_administrativa_generadora_expediente"),
+                    @JoinColumn(name = "numero_expediente", referencedColumnName = "numero_expediente"),
+                    @JoinColumn(name = "fecha_apertura_expediente", referencedColumnName = "fecha_apertura_expediente"),
+                    @JoinColumn(name = "numero_legajo", referencedColumnName = "numero_legajo")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "identificador_documento", referencedColumnName = "identificador")
+            }
     )
     @JsonManagedReference
-    private Set<Documento> documentos;
+    private List<Documento> documentos;
 
     public Legajo() {
     }
 
-    public Legajo(LegajoCompositeKey id, String numeroMueble, String letraEstante, String numeroPasillo, String letraBateria, Expediente expediente, Set<Documento> documentos) {
+    public Legajo(LegajoCompositeKey id, String numeroMueble, String letraEstante, String numeroPasillo, String letraBateria, Expediente expediente, List<Documento> documentos) {
         this.id = id;
         this.numeroMueble = numeroMueble;
         this.letraEstante = letraEstante;
@@ -99,11 +111,11 @@ public class Legajo {
         this.expediente = expediente;
     }
 
-    public Set<Documento> getDocumentos() {
+    public List<Documento> getDocumentos() {
         return documentos;
     }
 
-    public void setDocumentos(Set<Documento> documentos) {
+    public void setDocumentos(List<Documento> documentos) {
         this.documentos = documentos;
     }
 }

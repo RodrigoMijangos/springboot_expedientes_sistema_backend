@@ -1,4 +1,4 @@
-package com.sistema_expedientes.services.interfaces;
+package com.sistema_expedientes.services.expediente;
 
 import com.sistema_expedientes.entities.Expediente;
 import com.sistema_expedientes.entities.compositesKeys.ExpedienteCompositeKey;
@@ -7,7 +7,7 @@ import com.sistema_expedientes.entities.dto.request.PUTExpedienteRequestDTO;
 
 import java.util.List;
 
-public interface IExpedienteServicio {
+public interface ExpedienteServicioMetodos {
 
     public Expediente get(ExpedienteCompositeKey key) throws Exception;
 

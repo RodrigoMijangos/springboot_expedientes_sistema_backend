@@ -74,40 +74,44 @@ CREATE TABLE IF NOT EXISTS expedientes(
     CONSTRAINT FK_SERIE_DOCUMENTAL
     FOREIGN KEY (serie_documental) REFERENCES series_documentales(identificador),
     CONSTRAINT FK_UNIDADES_ADMINISTRATIVAS
-    FOREIGN KEY (unidad_administrativa_generadora) REFERENCES unidades_administrativas(clave),
-    CONSTRAINT FK_TIPOS_FORMATO
-    FOREIGN KEY (tipo_formato) REFERENCES formatos_expediente(identificador),
-    CONSTRAINT FK_CONDICIONES_ACCESO
-    FOREIGN KEY (condicion_acceso) REFERENCES condiciones_acceso_expediente(identificador),
-    CONSTRAINT FK_TRADICION_DOCUMENTAL
-    FOREIGN KEY (tradicion_documental) REFERENCES tradiciones_documentales_expediente(identificador),
-    CONSTRAINT FK_TIPO_INFORMACION
-    FOREIGN KEY (tipo_informacion) REFERENCES tipos_informacion_expediente(identificador)
+    FOREIGN KEY (unidad_administrativa_generadora) REFERENCES unidades_administrativas(clave)
     );
 
-GRANT SELECT, INSERT, UPDATE, DELETE ON secciones TO spring_app_usr;
-GRANT SELECT, INSERT, UPDATE, DELETE ON tecnicas_seleccion TO spring_app_usr;
-GRANT SELECT, INSERT, UPDATE, DELETE ON series_documentales TO spring_app_usr;
-GRANT USAGE ON series_documentales_identificador_seq to spring_app_usr;
-GRANT SELECT, INSERT, UPDATE, DELETE ON unidades_administrativas TO spring_app_usr;
-GRANT SELECT, INSERT, UPDATE, DELETE ON formatos_expediente TO spring_app_usr;
-GRANT SELECT, INSERT, UPDATE, DELETE ON condiciones_acceso_expediente TO spring_app_usr;
-GRANT SELECT, INSERT, UPDATE, DELETE ON tradiciones_documentales_expediente TO spring_app_usr;
-GRANT SELECT, INSERT, UPDATE, DELETE ON tipos_informacion_expediente TO spring_app_usr;
-GRANT SELECT, INSERT, UPDATE, DELETE ON expedientes TO spring_app_usr;
+CREATE TABLE IF NOT EXISTS documentos(
+                                         identificador BIGSERIAL NOT NULL,
+                                         nombre VARCHAR NOT NULL,
+                                         url VARCHAR NULL,
+                                         fecha_creacion timestamptz NOT NULL DEFAULT now(),
+    fecha_edicion timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT PK_DOCUMENTOS PRIMARY KEY (identificador)
+    );
 
-INSERT INTO secciones(clave, nombre, descripcion) VALUES
-                                                      ('1C', 'LEGISLACIÓN', ''), ('2C', 'ASUNTOS JURIDICOS', ''), ('1S', 'GOBIERNO', '');
-INSERT INTO tecnicas_seleccion(identificador, tecnica_seleccion) VALUES
-                                                                     (1, 'CONSERVACION'), (2, 'ELIMINACION'), (3, 'MUESTREO');
-INSERT INTO series_documentales(
-    serie_documental_padre, clave, seccion, nombre, valor_documental_administrativo,
-    valor_documental_legal, valor_documental_contable, periodos_conservacion_tramite,
-    periodos_conservacion_concentracion, tecnica_seleccion, observaciones) VALUES
-                                                                               (null, '10', '1C', 'INSTRUMENTOS JURIDICOS', '1', '1', '0', 2, 5, 1, ''),
-                                                                               (NULL ,'3', '2C', 'REGISTRO Y CERTIFICACION DE FIRMAS', '1', '1', '0', 2, 5, 2, ''),
-                                                                               (NULL, '4', '2C', 'Registro y certificación de firmas acreditadas ante la dependencia ', '1', '1', '0', 2, 5, 1, ''),
-                                                                               (NULL, '1', '1S', 'Órganos colegiados', '1', '0', '0', 2, 5, 3, '');
+CREATE TABLE IF NOT EXISTS legajos(
+                                      serie_documental_expediente SMALLINT NOT NULL,
+                                      unidad_administrativa_generadora_expediente VARCHAR NOT NULL,
+                                      numero_expediente SMALLINT NOT NULL,
+                                      fecha_apertura_expediente DATE NOT NULL,
+                                      numero_legajo SMALLINT NOT NULL,
+                                      numero_mueble VARCHAR NOT NULL,
+                                      letra_estante VARCHAR NOT NULL,
+                                      numero_pasillo VARCHAR NOT NULL,
+                                      letra_bateria VARCHAR NOT NULL,
+                                      CONSTRAINT PK_LEGAJOS
+                                      PRIMARY KEY (serie_documental_expediente, unidad_administrativa_generadora_expediente, numero_expediente, fecha_apertura_expediente, numero_legajo),
+    CONSTRAINT FK_EXPEPEDIENTES
+    FOREIGN KEY (serie_documental_expediente, unidad_administrativa_generadora_expediente, numero_expediente, fecha_apertura_expediente)
+    REFERENCES expedientes(serie_documental, unidad_administrativa_generadora, numero_expediente, fecha_apertura)
+    );
 
-INSERT INTO series_documentales (serie_documental_padre, clave, seccion, nombre, valor_documental_administrativo, valor_documental_legal, valor_documental_contable, periodos_conservacion_tramite, periodos_conservacion_concentracion, tecnica_seleccion, observaciones) VALUES
-    (4, '1', NULL, 'Comité Técnico', '1', '0', '0', 2, 5, 2, '');
+CREATE TABLE IF NOT EXISTS contenido_legajo(
+                                               serie_documental_expediente SMALLINT NOT NULL,
+                                               unidad_administrativa_generadora_expediente VARCHAR NOT NULL,
+                                               numero_expediente SMALLINT NOT NULL,
+                                               fecha_apertura_expediente DATE NOT NULL,
+                                               numero_legajo SMALLINT NOT NULL,
+                                               identificador_documento BIGINT NOT NULL,
+                                               CONSTRAINT FK_LEGAJOS
+                                               FOREIGN KEY (serie_documental_expediente, unidad_administrativa_generadora_expediente, numero_expediente, fecha_apertura_expediente, numero_legajo)
+    REFERENCES legajos(serie_documental_expediente, unidad_administrativa_generadora_expediente, numero_expediente, fecha_apertura_expediente, numero_legajo),
+    CONSTRAINT FK_DOCUMENTOS FOREIGN KEY (identificador_documento) REFERENCES documentos(identificador)
+    );

@@ -2,7 +2,7 @@ package com.sistema_expedientes.controllers;
 
 import com.sistema_expedientes.entities.Documento;
 import com.sistema_expedientes.entities.dto.request.DocumentoRequest;
-import com.sistema_expedientes.services.DocumentoServicio;
+import com.sistema_expedientes.services.documento.DocumentoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
