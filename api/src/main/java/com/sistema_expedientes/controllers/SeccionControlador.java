@@ -2,7 +2,7 @@ package com.sistema_expedientes.controllers;
 
 import com.sistema_expedientes.entities.Seccion;
 import com.sistema_expedientes.entities.dto.request.SeccionRequestDTO;
-import com.sistema_expedientes.services.SeccionServicio;
+import com.sistema_expedientes.services.serie_documental.SeccionServicio;
 import com.sistema_expedientes.services.exceptions.SeccionNoEncontradaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
