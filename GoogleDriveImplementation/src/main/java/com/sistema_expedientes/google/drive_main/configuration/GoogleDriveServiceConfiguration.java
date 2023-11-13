@@ -7,10 +7,12 @@ import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.GoogleCredentials;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.io.FileUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.GeneralSecurityException;
@@ -18,21 +20,27 @@ import java.util.Collections;
 import java.util.List;
 
 @Configuration
-public class DriveServiceConfiguration {
+public class GoogleDriveServiceConfiguration {
+
+    private final GooglePropertiesConfiguration propertiesConfiguration;
+
+    public GoogleDriveServiceConfiguration(GooglePropertiesConfiguration propertiesConfiguration){
+        this.propertiesConfiguration = propertiesConfiguration;
+    }
 
     @Bean
     public HttpRequestInitializer httpRequestInitializer() throws IOException{
-        final String TOKEN_AUTH_TOKEN = "/expedientesdocumentosproyecto-e1bdd723c4bc.json";
         final List<String> SCOPES =
                 Collections.singletonList(DriveScopes.DRIVE_METADATA_READONLY);
 
-        final InputStream in = DriveServiceConfiguration.class.getResourceAsStream(TOKEN_AUTH_TOKEN);
+        final String t = FileUtils.readFileToString(new ClassPathResource(this.propertiesConfiguration.serviceAccountAuthenticationKey()).getFile());
 
-        if(in == null)
-            throw new IOException("RESOURCE NOT FOUND: " + TOKEN_AUTH_TOKEN);
-        else
-            return new HttpCredentialsAdapter(GoogleCredentials.fromStream(in)
-                    .createScoped(SCOPES));
+        System.out.println(t);
+
+        final InputStream in = new ByteArrayInputStream(t.getBytes());
+
+        return new HttpCredentialsAdapter(GoogleCredentials.fromStream(in)
+                .createScoped(SCOPES));
     }
 
     @Bean

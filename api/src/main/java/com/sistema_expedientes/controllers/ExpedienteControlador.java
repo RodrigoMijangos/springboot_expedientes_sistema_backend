@@ -26,7 +26,7 @@ public class ExpedienteControlador {
 
     }
 
-    @GetMapping("api/v1/expedientes/get")
+    @PostMapping("api/v1/expedientes/get")
     public ResponseEntity<Expediente> get(@RequestBody ExpedienteCompositeKey id) throws Exception {
         return ResponseEntity.ok(servicio.get(id));
     }
