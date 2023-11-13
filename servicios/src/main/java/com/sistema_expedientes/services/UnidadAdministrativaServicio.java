@@ -4,8 +4,10 @@ import com.sistema_expedientes.entities.UnidadAdministrativa;
 import com.sistema_expedientes.entities.dto.request.UnidadAdministrativaRequestDTO;
 import com.sistema_expedientes.repositories.UnidadAdministrativaRepositorio;
 import com.sistema_expedientes.services.interfaces.IUnidadAdministrativaRepositorio;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +17,9 @@ public class UnidadAdministrativaServicio implements IUnidadAdministrativaReposi
 
     @Autowired
     private UnidadAdministrativaRepositorio repositorio;
+
+    @Autowired
+    private ModelMapper mapper;
 
     @Override
     public UnidadAdministrativa get(Byte id) {
@@ -32,7 +37,9 @@ public class UnidadAdministrativaServicio implements IUnidadAdministrativaReposi
     @Override
     public UnidadAdministrativa create(UnidadAdministrativaRequestDTO request) {
 
-        return null;
+        UnidadAdministrativa to_bd = this.mapper.map(request, UnidadAdministrativa.class);
+
+        return this.repositorio.save(to_bd);
     }
 
     @Override

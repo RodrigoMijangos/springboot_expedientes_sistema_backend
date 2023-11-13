@@ -1,5 +1,6 @@
 package com.sistema_expedientes.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sistema_expedientes.entities.compositesKeys.ExpedienteCompositeKey;
 import com.sistema_expedientes.entities.converters.CondicionAccesoExpedienteConverter;
 import com.sistema_expedientes.entities.converters.FormatoExpedienteConverter;
@@ -12,6 +13,7 @@ import com.sistema_expedientes.entities.enumerates.TradicionDocumentalExpediente
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name = "expedientes")
@@ -58,12 +60,14 @@ public class Expediente {
     @Convert(converter = TipoInformacionExpedienteConverter.class)
     @Column(name = "tipo_informacion")
     private TipoInformacionExpediente tipoInformacion;
-
+    @OneToMany(mappedBy = "expediente")
+    @JsonManagedReference
+    private Set<Legajo> legajos;
 
     public Expediente() {
     }
 
-    public Expediente(Short identificadorSerieDocumental, String unidadAdministrativaGeneradora, Short numeroExpediente, LocalDate fechaApertura, Short periodoCierre, String asunto, Short tipoExpediente, String numeroProyecto, String nombreProyecto, String acronimoInstitucion, String nombreInstitucion, String numeroContacto, Short cantidadHojas, FormatoExpediente formatoExpediente, CondicionAccesoExpediente condicionAcceso, TradicionDocumentalExpediente tradicionDocumental, TipoInformacionExpediente tipoInformacion) {
+    public Expediente(Short identificadorSerieDocumental, String unidadAdministrativaGeneradora, Short numeroExpediente, LocalDate fechaApertura, Short periodoCierre, String asunto, Short tipoExpediente, String numeroProyecto, String nombreProyecto, String acronimoInstitucion, String nombreInstitucion, String numeroContacto, Short cantidadHojas, FormatoExpediente formatoExpediente, CondicionAccesoExpediente condicionAcceso, TradicionDocumentalExpediente tradicionDocumental, TipoInformacionExpediente tipoInformacion, Set<Legajo> legajos) {
         this.identificadorSerieDocumental = identificadorSerieDocumental;
         this.unidadAdministrativaGeneradora = unidadAdministrativaGeneradora;
         this.numeroExpediente = numeroExpediente;
@@ -81,6 +85,7 @@ public class Expediente {
         this.condicionAcceso = condicionAcceso;
         this.tradicionDocumental = tradicionDocumental;
         this.tipoInformacion = tipoInformacion;
+        this.legajos = legajos;
     }
 
     public Short getIdentificadorSerieDocumental() {
@@ -217,5 +222,13 @@ public class Expediente {
 
     public void setTipoInformacion(TipoInformacionExpediente tipoInformacion) {
         this.tipoInformacion = tipoInformacion;
+    }
+
+    public Set<Legajo> getLegajos() {
+        return legajos;
+    }
+
+    public void setLegajos(Set<Legajo> legajos) {
+        this.legajos = legajos;
     }
 }

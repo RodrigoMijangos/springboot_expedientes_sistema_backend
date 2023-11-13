@@ -1,11 +1,10 @@
-package com.sistema_expedientes.services;
+package com.sistema_expedientes.services.serie_documental;
 
 import com.sistema_expedientes.entities.SerieDocumental;
 import com.sistema_expedientes.entities.dto.request.SerieDocumentalRequestDTO;
 import com.sistema_expedientes.repositories.SerieDocumentalRepositorio;
 import com.sistema_expedientes.services.exceptions.SeccionNoEncontradaException;
 import com.sistema_expedientes.services.exceptions.SerieDocumentalNoEncontradaExcepcion;
-import com.sistema_expedientes.services.interfaces.ISerieDocumentalRepositorioDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

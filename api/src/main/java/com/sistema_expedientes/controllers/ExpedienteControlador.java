@@ -3,14 +3,14 @@ package com.sistema_expedientes.controllers;
 import com.sistema_expedientes.entities.Expediente;
 import com.sistema_expedientes.entities.compositesKeys.ExpedienteCompositeKey;
 import com.sistema_expedientes.entities.dto.request.CreateExpedienteRequestDTO;
+import com.sistema_expedientes.entities.dto.request.ListaLegajosExpedienteRequestDTO;
 import com.sistema_expedientes.entities.dto.request.PUTExpedienteRequestDTO;
-import com.sistema_expedientes.services.ExpedienteServicio;
+import com.sistema_expedientes.services.expediente.ExpedienteServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class ExpedienteControlador {
@@ -28,9 +28,7 @@ public class ExpedienteControlador {
 
     @PostMapping("api/v1/expedientes/get")
     public ResponseEntity<Expediente> get(@RequestBody ExpedienteCompositeKey id) throws Exception {
-
         return ResponseEntity.ok(servicio.get(id));
-
     }
 
     @PostMapping("api/v1/expedientes/create")
@@ -40,6 +38,11 @@ public class ExpedienteControlador {
 
         return to_bd == null ? ResponseEntity.badRequest().build() : ResponseEntity.status(201).body(to_bd);
 
+    }
+
+    @PostMapping("api/v1/expedientes/crear_lista_legajos")
+    public ResponseEntity<Expediente> createList(@RequestBody ListaLegajosExpedienteRequestDTO request) throws Exception {
+        return ResponseEntity.ok(this.servicio.guardarListaLegajos(request));
     }
 
     @PutMapping("api/v1/expedientes/edit")

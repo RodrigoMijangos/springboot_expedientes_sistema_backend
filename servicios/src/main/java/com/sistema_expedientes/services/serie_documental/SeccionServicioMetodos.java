@@ -1,4 +1,4 @@
-package com.sistema_expedientes.services.interfaces;
+package com.sistema_expedientes.services.serie_documental;
 
 import com.sistema_expedientes.entities.Seccion;
 import com.sistema_expedientes.entities.dto.request.SeccionRequestDTO;
