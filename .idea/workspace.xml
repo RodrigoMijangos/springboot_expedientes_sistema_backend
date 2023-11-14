@@ -5,61 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ef7c8712-6fe9-4f8d-bc49-cb1112968903" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/GoogleDriveImplementation/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GoogleDriveImplementation/src/main/java/com/sistema_expedientes/google_service/GoogleDriveServiceStarter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GoogleDriveImplementation/src/main/java/com/sistema_expedientes/google_service/TestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GoogleDriveImplementation/src/main/java/com/sistema_expedientes/google_service/authentication/GoogleAuthenticationService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GoogleDriveImplementation/src/main/java/com/sistema_expedientes/google_service/configuration/DriveServiceConfiguration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GoogleDriveImplementation/src/main/java/com/sistema_expedientes/google_service/service/GoogleDriveService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/src/main/java/com/sistema_expedientes/controllers/DocumentoControlador.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/src/main/java/com/sistema_expedientes/controllers/LegajoControlador.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/dto/request/CreateLegajoRequestDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/dto/request/DocumentoRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/dto/request/LegajoRequestDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/dto/request/ListaDocumentosLegajoRequestDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/dto/request/ListaLegajosExpedienteRequestDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/dto/request/PUTLegajoRequestDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/documento/DocumentoServicio.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/documento/DocumentoServicioMetodos.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/documento/mapeo/MapeoDocumentoServicio.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/expediente/ExpedienteServicio.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/legajo/LegajoServicio.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/legajo/LegajoServicioMetodos.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/legajo/mapeo/MapeoLegajoServicio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EXPEDIENTES_DATABASE_STRUCTURE.sql" beforeDir="false" afterPath="$PROJECT_DIR$/EXPEDIENTES_DATABASE_STRUCTURE.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/api/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/com/sistema_expedientes/Config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/main/java/com/sistema_expedientes/Config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/com/sistema_expedientes/controllers/ExpedienteControlador.java" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/main/java/com/sistema_expedientes/controllers/ExpedienteControlador.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/com/sistema_expedientes/controllers/SeccionControlador.java" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/main/java/com/sistema_expedientes/controllers/SeccionControlador.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/com/sistema_expedientes/controllers/SerieDocumentalControlador.java" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/main/java/com/sistema_expedientes/controllers/SerieDocumentalControlador.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/negocio/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/Documento.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/Documento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/Expediente.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/Expediente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/Legajo.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/Legajo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/compositesKeys/ExpedienteCompositeKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/compositesKeys/ExpedienteCompositeKey.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/compositesKeys/LegajoCompositeKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/compositesKeys/LegajoCompositeKey.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/dto/request/UnidadAdministrativaRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/entities/dto/request/UnidadAdministrativaRequestDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/repositories/DocumentoRepositorio.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/repositories/DocumentoRepositorio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/repositories/LegajoRepositorio.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/com/sistema_expedientes/repositories/LegajoRepositorio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servicios/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/servicios/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/ExpedienteServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/expediente/mapeo/MapeoExpedienteServicio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/SeccionServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/serie_documental/SeccionServicio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/SerieDocumentalServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/serie_documental/SerieDocumentalServicio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/UnidadAdministrativaServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/UnidadAdministrativaServicio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/interfaces/IDocumentoServicio.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/interfaces/IExpedienteServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/expediente/ExpedienteServicioMetodos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/interfaces/ILegajoServicio.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/interfaces/ISerieDocumentalRepositorioDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/serie_documental/ISerieDocumentalRepositorioDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/interfaces/SeccionServicioMetodos.java" beforeDir="false" afterPath="$PROJECT_DIR$/servicios/src/main/java/com/sistema_expedientes/services/serie_documental/SeccionServicioMetodos.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 8
+}]]></component>
+  <component name="ProjectId" id="2Y8iNuZ8ZwITnSHfz7lZGnVHuCo" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
@@ -67,8 +29,14 @@
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
-    "git-widget-placeholder": "Merging develop",
-    "node.js.selected.package.tslint": "(autodetect)"
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "develop",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RunManager" selected="Spring Boot.EndpointExpediente">
@@ -87,7 +55,19 @@
       </method>
     </configuration>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ef7c8712-6fe9-4f8d-bc49-cb1112968903" name="Changes" comment="" />
+      <created>1699913572866</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1699913572866</updated>
+      <workItem from="1699913575190" duration="7713000" />
+    </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>
