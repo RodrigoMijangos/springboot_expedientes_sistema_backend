@@ -1,7 +1,7 @@
-package com.sistema_expedientes.google_service;
+package com.sistema_expedientes.google.drive_main;
 
-import com.sistema_expedientes.google_service.configuration.GoogleDrivePropertiesConfiguration;
-import com.sistema_expedientes.google_service.configuration.GooglePropertiesConfiguration;
+import com.sistema_expedientes.google.drive_main.configuration.properties.GoogleDrivePropertiesConfiguration;
+import com.sistema_expedientes.google.drive_main.configuration.properties.GooglePropertiesConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

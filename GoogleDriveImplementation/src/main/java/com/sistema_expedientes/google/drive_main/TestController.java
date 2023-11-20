@@ -1,6 +1,6 @@
-package com.sistema_expedientes.google_service;
+package com.sistema_expedientes.google.drive_main;
 
-import com.sistema_expedientes.google_service.service.GoogleDriveService;
+import com.sistema_expedientes.google.drive_main.service.GoogleDriveService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +18,11 @@ public class TestController {
     @GetMapping("test")
     public void test() throws IOException {
         service.getResults();
+    }
+
+    @GetMapping("test2")
+    public void test2()throws Exception{
+        service.delete();
     }
 
 }

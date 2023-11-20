@@ -1,4 +1,4 @@
-package com.sistema_expedientes.google_service.configuration;
+package com.sistema_expedientes.google.drive_main.configuration;
 
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.HttpRequestInitializer;
@@ -7,12 +7,15 @@ import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.GoogleCredentials;
+import com.sistema_expedientes.google.drive_main.configuration.properties.GoogleDrivePropertiesConfiguration;
+import com.sistema_expedientes.google.drive_main.configuration.properties.GooglePropertiesConfiguration;
 import org.apache.commons.io.FileUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.GeneralSecurityException;
@@ -22,22 +25,24 @@ import java.util.List;
 @Configuration
 public class GoogleDriveServiceConfiguration {
 
-    private final GooglePropertiesConfiguration propertiesConfiguration;
+    private final GooglePropertiesConfiguration googlePropertiesConfiguration;
+    private final GoogleDrivePropertiesConfiguration googleDrivePropertiesConfiguration;
 
-    public GoogleDriveServiceConfiguration(GooglePropertiesConfiguration propertiesConfiguration){
-        this.propertiesConfiguration = propertiesConfiguration;
+    public GoogleDriveServiceConfiguration(GooglePropertiesConfiguration googlePropertiesConfiguration, GoogleDrivePropertiesConfiguration googleDrivePropertiesConfiguration){
+        this.googlePropertiesConfiguration = googlePropertiesConfiguration;
+        this.googleDrivePropertiesConfiguration = googleDrivePropertiesConfiguration;
     }
 
     @Bean
     public HttpRequestInitializer httpRequestInitializer() throws IOException{
         final List<String> SCOPES =
-                Collections.singletonList(DriveScopes.DRIVE_METADATA_READONLY);
+                Collections.singletonList(DriveScopes.DRIVE);
 
-        final String t = FileUtils.readFileToString(new ClassPathResource(this.propertiesConfiguration.serviceAccountAuthenticationKey()).getFile());
-
-        System.out.println(t);
-
-        final InputStream in = new ByteArrayInputStream(t.getBytes());
+        final InputStream in = new FileInputStream(
+                new ClassPathResource(
+                        this.googlePropertiesConfiguration.serviceAccountAuthenticationKey())
+                        .getFile()
+        );
 
         return new HttpCredentialsAdapter(GoogleCredentials.fromStream(in)
                 .createScoped(SCOPES));
@@ -49,7 +54,7 @@ public class GoogleDriveServiceConfiguration {
                 GoogleNetHttpTransport.newTrustedTransport(),
                 GsonFactory.getDefaultInstance(),
                 httpRequestInitializer)
-                .setApplicationName("Test Drive Application")
+                .setApplicationName(googleDrivePropertiesConfiguration.ApplicationName())
                 .build();
     }
 
