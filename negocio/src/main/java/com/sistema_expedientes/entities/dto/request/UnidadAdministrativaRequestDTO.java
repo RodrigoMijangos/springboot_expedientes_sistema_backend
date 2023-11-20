@@ -2,7 +2,6 @@ package com.sistema_expedientes.entities.dto.request;
 
 public class UnidadAdministrativaRequestDTO extends _DTO{
 
-    private Byte id;
     private String clave;
     private String nombre;
     private String unidadPrincipal;
