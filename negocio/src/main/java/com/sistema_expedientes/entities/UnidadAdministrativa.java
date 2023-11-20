@@ -16,7 +16,7 @@ public class UnidadAdministrativa {
     @Id
     private String clave;
     private String nombre;
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "unidad_principal")
     @Nullable
     @JsonBackReference

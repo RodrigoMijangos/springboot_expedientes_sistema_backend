@@ -7,7 +7,6 @@ import com.sistema_expedientes.services.interfaces.IUnidadAdministrativaReposito
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.ModelMap;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,10 +21,10 @@ public class UnidadAdministrativaServicio implements IUnidadAdministrativaReposi
     private ModelMapper mapper;
 
     @Override
-    public UnidadAdministrativa get(Byte id) {
+    public UnidadAdministrativa get(String id) throws Exception {
         Optional<UnidadAdministrativa> in_db = repositorio.findById(id);
 
-        return in_db.orElse(null);
+        return in_db.orElseThrow(Exception::new);
 
     }
 
@@ -43,7 +42,23 @@ public class UnidadAdministrativaServicio implements IUnidadAdministrativaReposi
     }
 
     @Override
-    public UnidadAdministrativa put(Byte object_id, UnidadAdministrativaRequestDTO request) {
-        return null;
+    public UnidadAdministrativa put(String clave, UnidadAdministrativaRequestDTO request) throws Exception {
+        UnidadAdministrativa in_bd = this.get(clave);
+
+        in_bd.setNombre(request.getNombre());
+        in_bd.setPiso(request.getPiso());
+        in_bd.setExtensionTelefonica(request.getExtensionTelefonica());
+
+        if(request.getUnidadPrincipal() != null){
+            try{
+                UnidadAdministrativa unidadPrincipal = this.get(request.getUnidadPrincipal());
+                in_bd.setUnidadPrincipal(unidadPrincipal);
+            }catch (Exception e){
+                throw new Exception();
+            }
+        }
+
+        return this.repositorio.save(in_bd);
+
     }
 }

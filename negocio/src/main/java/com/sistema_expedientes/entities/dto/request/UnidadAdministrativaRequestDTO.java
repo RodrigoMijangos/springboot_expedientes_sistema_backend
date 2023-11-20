@@ -11,21 +11,12 @@ public class UnidadAdministrativaRequestDTO extends _DTO{
     public UnidadAdministrativaRequestDTO() {
     }
 
-    public UnidadAdministrativaRequestDTO(Byte id, String clave, String nombre, String unidadPrincipal, String piso, String extensionTelefonica) {
-        this.id = id;
+    public UnidadAdministrativaRequestDTO(String clave, String nombre, String unidadPrincipal, String piso, String extensionTelefonica) {
         this.clave = clave;
         this.nombre = nombre;
         this.unidadPrincipal = unidadPrincipal;
         this.piso = piso;
         this.extensionTelefonica = extensionTelefonica;
-    }
-
-    public Byte getId() {
-        return id;
-    }
-
-    public void setId(Byte id) {
-        this.id = id;
     }
 
     public String getClave() {

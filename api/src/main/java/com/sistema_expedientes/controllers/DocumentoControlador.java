@@ -4,9 +4,12 @@ import com.sistema_expedientes.entities.Documento;
 import com.sistema_expedientes.entities.dto.request.DocumentoRequest;
 import com.sistema_expedientes.services.documento.DocumentoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -23,8 +26,8 @@ public class DocumentoControlador {
         return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
     }
 
-    @PostMapping("api/v1/documentos/crear")
-    public ResponseEntity<Documento> create(@RequestBody DocumentoRequest request){
+    @RequestMapping(path = "api/v1/documentos/crear", method = RequestMethod.POST, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<Documento> create(@ModelAttribute DocumentoRequest request) throws IOException {
         return ResponseEntity.status(201).body(this.servicio.create(request));
     }
 

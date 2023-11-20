@@ -7,12 +7,11 @@ import java.util.List;
 
 public interface IUnidadAdministrativaRepositorio {
 
-    public UnidadAdministrativa get(Byte id);
+    UnidadAdministrativa get(String id) throws Exception;
 
-    public List<UnidadAdministrativa> list();
+    List<UnidadAdministrativa> list();
 
-    public UnidadAdministrativa create(UnidadAdministrativaRequestDTO request);
+    UnidadAdministrativa create(UnidadAdministrativaRequestDTO request);
 
-    public UnidadAdministrativa put(Byte object_id, UnidadAdministrativaRequestDTO request);
-
+    UnidadAdministrativa put(String clave, UnidadAdministrativaRequestDTO request) throws Exception;
 }
