@@ -1,9 +1,13 @@
 package com.sistema_expedientes.services.legajo.mapeo;
 
-import com.sistema_expedientes.entities.Legajo;
-import com.sistema_expedientes.entities.dto.request.CreateLegajoRequestDTO;
-import com.sistema_expedientes.entities.dto.request.LegajoRequestDTO;
-import com.sistema_expedientes.entities.dto.request.PUTLegajoRequestDTO;
+import com.sistema_expedientes.expediente.Expediente;
+import com.sistema_expedientes.expediente.composite_key.ExpedienteCompositeKey;
+import com.sistema_expedientes.legajo.Legajo;
+import com.sistema_expedientes.legajo.dto.request.specific.CreateLegajoRequestDTO;
+import com.sistema_expedientes.legajo.dto.request.base.LegajoRequestDTO;
+import com.sistema_expedientes.legajo.dto.request.specific.PUTLegajoRequestDTO;
+import com.sistema_expedientes.services.expediente.ExpedienteServicio;
+import org.apache.catalina.mapper.Mapper;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
 import org.modelmapper.convention.MatchingStrategies;
@@ -11,25 +15,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Service
 public class MapeoLegajoServicio {
-    
-    @Autowired
-    private ModelMapper mapper;
 
-    public Legajo legajoRequestToEntity(LegajoRequestDTO dto) throws Exception {
+    private final ModelMapper mapper;
+
+    public MapeoLegajoServicio(ModelMapper mapper){
+        this.mapper = mapper;
+    }
+
+    public Legajo legajoRequestToEntity(LegajoRequestDTO dto){
         this.mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
         TypeMap<LegajoRequestDTO, Legajo> legajoRequestDTOLegajoTypeMap = obtenerOCrearMapeoLegajoRequest();
 
-        if(dto instanceof CreateLegajoRequestDTO)
-            return obtenerOCrearMapeoCreateLegajoRequest(legajoRequestDTOLegajoTypeMap, (CreateLegajoRequestDTO) dto);
-        else if(dto instanceof PUTLegajoRequestDTO)
+        if(dto instanceof PUTLegajoRequestDTO)
             return obtenerOCrearMapeoPUTLegajoRequest(legajoRequestDTOLegajoTypeMap, (PUTLegajoRequestDTO) dto);
-
-        throw new Exception("Algo salió mal");
+        else
+            return legajoRequestDTOLegajoTypeMap.map(dto);
     }
 
     public TypeMap<LegajoRequestDTO, Legajo> obtenerOCrearMapeoLegajoRequest(){
@@ -47,7 +51,7 @@ public class MapeoLegajoServicio {
         return typeMap;
     }
 
-    public Legajo obtenerOCrearMapeoCreateLegajoRequest(
+    /*public Legajo obtenerOCrearMapeoCreateLegajoRequest(
             TypeMap<LegajoRequestDTO, Legajo> baseTypeMap,
             CreateLegajoRequestDTO dto
     ){
@@ -73,7 +77,7 @@ public class MapeoLegajoServicio {
         }
 
         return typeMap.map(dto);
-    }
+    }*/
 
     public Legajo obtenerOCrearMapeoPUTLegajoRequest(
             TypeMap<LegajoRequestDTO, Legajo> baseTypeMap,

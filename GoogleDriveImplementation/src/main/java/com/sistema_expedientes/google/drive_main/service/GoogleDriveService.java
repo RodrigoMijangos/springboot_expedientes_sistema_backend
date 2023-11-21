@@ -4,7 +4,8 @@ import com.google.api.client.http.InputStreamContent;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.DriveList;
 import com.google.api.services.drive.model.File;
-import com.sistema_expedientes.google.drive_main.configuration.properties.GoogleDrivePropertiesConfiguration;
+import com.google.api.services.drive.model.Permission;
+import com.sistema_expedientes.google.drive_main.configuration.properties.GoogleDriveServicePropertiesConfiguration;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,13 +18,13 @@ import java.util.List;
 public class GoogleDriveService {
 
     private final Drive googleDriveService;
-    private final GoogleDrivePropertiesConfiguration propertiesConfiguration;
+    private final GoogleDriveServicePropertiesConfiguration googleDriveApplicationProperties;
+    private final String folderMimeType;
 
-    private final String folderMimeType = "application/vnd.google-apps.folder";
-
-    public GoogleDriveService(Drive googleDriveService, GoogleDrivePropertiesConfiguration propertiesConfiguration) {
+    public GoogleDriveService(Drive googleDriveService, GoogleDriveServicePropertiesConfiguration googleDriveApplicationProperties) {
         this.googleDriveService = googleDriveService;
-        this.propertiesConfiguration = propertiesConfiguration;
+        this.googleDriveApplicationProperties = googleDriveApplicationProperties;
+        this.folderMimeType = "application/vnd.google-apps.folder";
     }
 
     public void getResults() throws IOException {
@@ -32,62 +33,84 @@ public class GoogleDriveService {
                 .execute();
 
         List<com.google.api.services.drive.model.Drive> files = results.getDrives();
-        if(files == null || files.isEmpty())
+        if (files == null || files.isEmpty())
             System.out.println("No archivos jaja");
-        else{
+        else {
             System.out.println("Files: ");
-            for(com.google.api.services.drive.model.Drive file : files)
+            for (com.google.api.services.drive.model.Drive file : files)
                 System.out.printf("%s (%s), .%s, %s\n", file.getName(), file.getId(), file.getKind(), file.getCreatedTime());
         }
     }
 
-    public Map<String , String> saveFile(MultipartFile sourceFile) throws IOException {
+    public Map<String, String> saveFile(MultipartFile sourceFile) throws IOException {
 
-        File uploadedFile = executeGoogleDriveRequest(sourceFile);
+        File uploadedFile = executeGoogleDriveSaveFileRequest(sourceFile);
 
         HashMap<String, String> retorno = new HashMap<>();
 
         retorno.put("id", uploadedFile.getId());
         retorno.put("shareViewLink", uploadedFile.getWebViewLink());
 
-        System.out.println(retorno.values());
-
         return retorno;
     }
 
-    public void delete(){
-        List<String> files = List.of(new String[]{
-                "1AZYTnEBbr2QvdqcShdDN03jgDL6oroin",
-                "14XTpkSgZuhP-4_Tg69tbSbFflf9sbAHj"
-        });
-
-        files.forEach(id -> {
-            try {
-                System.err.println(googleDriveService.files().delete(id).execute());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+    public String createFolder(String folderName, String folderParentId) throws Exception {
+        File uploadedFile = executeGoogleDriveSaveFolderRequest(folderName, folderParentId);
+        setAnyoneReaderPermission(uploadedFile);
+        return uploadedFile.getId();
     }
 
-    private File setMetadata(MultipartFile sourceFile){
+    public String getRootFolderId(){
+        return this.googleDriveApplicationProperties.rootFolderId();
+    }
+
+    public boolean deleteFileFromId(String id) throws IOException {
+        this.googleDriveService.files().delete(id).execute();
+        return true;
+    }
+
+    private File setFolderMetadata(String folderName, String folderParentId){
+        return new File().setName(folderName)
+                .setMimeType(this.folderMimeType)
+                .setParents(Collections.singletonList(folderParentId));
+    }
+
+    private File executeGoogleDriveSaveFolderRequest(String folderName, String folderParentId) throws IOException {
+        return googleDriveService.files().create(setFolderMetadata(folderName, folderParentId))
+                .setFields("id")
+                .execute();
+    }
+
+    private File setFileMetadata(MultipartFile sourceFile){
         return new File()
                 .setName(sourceFile.getOriginalFilename())
                 .setMimeType(sourceFile.getContentType())
                 .setParents(
-                        Collections.singletonList(this.propertiesConfiguration.parentFolderId())
+                        Collections.singletonList(this.googleDriveApplicationProperties.rootFolderId())
                 );
     }
 
-    private File executeGoogleDriveRequest(MultipartFile sourceFile) throws IOException {
+    private File executeGoogleDriveSaveFileRequest(MultipartFile sourceFile) throws IOException {
         return googleDriveService.files()
-                .create(setMetadata(sourceFile),
+                .create(setFileMetadata(sourceFile),
                         new InputStreamContent(
                                 sourceFile.getContentType(),
                                 new ByteArrayInputStream(sourceFile.getBytes())
                         ))
                 .setUploadType("multipart")
                 .setFields("id, webViewLink, permissions")
+                .execute();
+    }
+
+    private void setAnyoneReaderPermission(File uploadedFile) throws Exception{
+
+        this.googleDriveService.permissions()
+                .create(
+                        uploadedFile.getId(),
+                        new Permission()
+                                .setRole("reader")
+                                .setType("anyone")
+                )
                 .execute();
     }
 

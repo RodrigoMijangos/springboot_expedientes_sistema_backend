@@ -7,14 +7,12 @@ import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.GoogleCredentials;
-import com.sistema_expedientes.google.drive_main.configuration.properties.GoogleDrivePropertiesConfiguration;
+import com.sistema_expedientes.google.drive_main.configuration.properties.GoogleDriveApplicationProperties;
 import com.sistema_expedientes.google.drive_main.configuration.properties.GooglePropertiesConfiguration;
-import org.apache.commons.io.FileUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
-import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,11 +24,11 @@ import java.util.List;
 public class GoogleDriveServiceConfiguration {
 
     private final GooglePropertiesConfiguration googlePropertiesConfiguration;
-    private final GoogleDrivePropertiesConfiguration googleDrivePropertiesConfiguration;
+    private final GoogleDriveApplicationProperties googleDrivePropertiesConfiguration;
 
-    public GoogleDriveServiceConfiguration(GooglePropertiesConfiguration googlePropertiesConfiguration, GoogleDrivePropertiesConfiguration googleDrivePropertiesConfiguration){
+    public GoogleDriveServiceConfiguration(GooglePropertiesConfiguration googlePropertiesConfiguration, GoogleDriveApplicationProperties googleDriveApplicationProperties){
         this.googlePropertiesConfiguration = googlePropertiesConfiguration;
-        this.googleDrivePropertiesConfiguration = googleDrivePropertiesConfiguration;
+        this.googleDrivePropertiesConfiguration = googleDriveApplicationProperties;
     }
 
     @Bean

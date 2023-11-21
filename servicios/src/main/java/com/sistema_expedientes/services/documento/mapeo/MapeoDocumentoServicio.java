@@ -1,7 +1,7 @@
 package com.sistema_expedientes.services.documento.mapeo;
 
-import com.sistema_expedientes.entities.Documento;
-import com.sistema_expedientes.entities.dto.request.DocumentoRequest;
+import com.sistema_expedientes.documento.Documento;
+import com.sistema_expedientes.documento.dto.request.base.DocumentoRequest;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;

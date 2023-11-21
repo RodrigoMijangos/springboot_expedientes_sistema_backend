@@ -15,14 +15,4 @@ public class TestController {
         this.service = service;
     }
 
-    @GetMapping("test")
-    public void test() throws IOException {
-        service.getResults();
-    }
-
-    @GetMapping("test2")
-    public void test2()throws Exception{
-        service.delete();
-    }
-
 }

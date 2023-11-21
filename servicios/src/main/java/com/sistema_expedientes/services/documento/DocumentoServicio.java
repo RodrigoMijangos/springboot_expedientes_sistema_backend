@@ -1,15 +1,14 @@
 package com.sistema_expedientes.services.documento;
 
-import com.sistema_expedientes.entities.Documento;
-import com.sistema_expedientes.entities.dto.request.DocumentoRequest;
+import com.sistema_expedientes.documento.Documento;
+import com.sistema_expedientes.documento.dto.request.base.DocumentoRequest;
 import com.sistema_expedientes.google.drive_main.service.GoogleDriveService;
-import com.sistema_expedientes.repositories.DocumentoRepositorio;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.sistema_expedientes.documento.repository.DocumentoRepositorio;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 @Service
 public class DocumentoServicio implements DocumentoServicioMetodos {
@@ -34,11 +33,13 @@ public class DocumentoServicio implements DocumentoServicioMetodos {
 
     @Override
     public Documento create(DocumentoRequest request) throws IOException {
+
+        Map<String, String> responseMapping = this.googleDriveService.saveFile(request.getFile());
+
         Documento to_bd = new Documento();
         to_bd.setNombre(request.getNombre());
-        to_bd.setUrl(
-                this.googleDriveService.saveFile(request.getFile()).get("shareViewLink")
-        );
+        to_bd.setGoogle_drive_id_file(responseMapping.get("id"));
+        to_bd.setUrlWebView(responseMapping.get("shareViewLink"));
 
         return this.repositorio.save(to_bd);
     }

@@ -1,46 +1,44 @@
 package com.sistema_expedientes.services.legajo;
 
-import com.sistema_expedientes.entities.Documento;
-import com.sistema_expedientes.entities.Expediente;
-import com.sistema_expedientes.entities.Legajo;
-import com.sistema_expedientes.entities.compositesKeys.ExpedienteCompositeKey;
-import com.sistema_expedientes.entities.compositesKeys.LegajoCompositeKey;
-import com.sistema_expedientes.entities.dto.request.*;
-import com.sistema_expedientes.repositories.LegajoRepositorio;
+import com.sistema_expedientes.expediente.Expediente;
+import com.sistema_expedientes.google.drive_main.service.GoogleDriveService;
+import com.sistema_expedientes.legajo.dto.request.base.LegajoRequestDTO;
+import com.sistema_expedientes.legajo.dto.request.specific.ListaDocumentosLegajoRequestDTO;
+import com.sistema_expedientes.legajo.Legajo;
+import com.sistema_expedientes.expediente.composite_key.ExpedienteCompositeKey;
+import com.sistema_expedientes.legajo.composite_key.LegajoCompositeKey;
+import com.sistema_expedientes.legajo.dto.request.specific.CreateLegajoRequestDTO;
+import com.sistema_expedientes.legajo.dto.request.specific.PUTLegajoRequestDTO;
+import com.sistema_expedientes.legajo.repository.LegajoRepositorio;
 import com.sistema_expedientes.services.documento.DocumentoServicio;
-import com.sistema_expedientes.services.documento.mapeo.MapeoDocumentoServicio;
+import com.sistema_expedientes.services.formatter.FolderInstanceNameFormatter;
 import com.sistema_expedientes.services.legajo.mapeo.MapeoLegajoServicio;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.Provider;
-import org.modelmapper.TypeMap;
-import org.modelmapper.convention.MatchingStrategies;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Type;
-import java.time.LocalDate;
-import java.util.HashSet;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class LegajoServicio implements LegajoServicioMetodos{
+public class LegajoServicio implements LegajoServicioMetodos {
 
-    @Autowired
-    private LegajoRepositorio repositorio;
+    private final LegajoRepositorio repositorio;
+    private final DocumentoServicio documentoServicio;
+    private final GoogleDriveService googleDriveService;
+    private final FolderInstanceNameFormatter folderInstanceNameFormatter;
+    private final MapeoLegajoServicio mapeoServicio;
 
-    @Autowired
-    private DocumentoServicio documentoServicio;
-
-    @Autowired
-    private MapeoLegajoServicio mapeoServicio;
-
-    @Autowired
-    private MapeoDocumentoServicio mapeoDocumentoServicio;
+    public LegajoServicio(LegajoRepositorio repositorio, DocumentoServicio documentoServicio, GoogleDriveService googleDriveService, FolderInstanceNameFormatter folderInstanceNameFormatter, MapeoLegajoServicio mapeoServicio) {
+        this.repositorio = repositorio;
+        this.documentoServicio = documentoServicio;
+        this.googleDriveService = googleDriveService;
+        this.folderInstanceNameFormatter = folderInstanceNameFormatter;
+        this.mapeoServicio = mapeoServicio;
+    }
 
     @Override
-    public Legajo get(LegajoCompositeKey id) throws Exception{
+    public Legajo get(LegajoCompositeKey id) throws Exception {
         Optional<Legajo> in_bd = this.repositorio.findById(id);
 
         return in_bd.orElseThrow(Exception::new);
@@ -53,9 +51,20 @@ public class LegajoServicio implements LegajoServicioMetodos{
 
     @Override
     public Legajo create(CreateLegajoRequestDTO request) throws Exception {
-        Legajo to_save = this.mapeoServicio.legajoRequestToEntity(request);
-        to_save.getId().setNumeroLegajo(this.iniciarOAgregarNumeroLegajo(request.getExpediente()));
+        return null;
+    }
 
+    public Legajo create(LegajoRequestDTO request, Expediente expediente) throws Exception {
+
+        Legajo to_save = this.mapeoServicio.legajoRequestToEntity(request);
+
+        to_save.setId(this.iniciarOAgregarNumeroLegajo(expediente));
+        to_save.setGoogleDriveFolderId(
+                this.googleDriveService.createFolder(
+                        this.folderInstanceNameFormatter.setGoogleDriveFolderName(to_save, expediente),
+                        expediente.getGoogleDriveFolderId()
+                )
+        );
         return this.repositorio.save(to_save);
     }
 
@@ -72,21 +81,9 @@ public class LegajoServicio implements LegajoServicioMetodos{
     @Override
     public void delete(LegajoCompositeKey request) throws Exception{
         if(registroEstaPresente(request)){
+            this.googleDriveService.deleteFileFromId(this.get(request).getGoogleDriveFolderId());
             repositorio.deleteById(request);
         }else throw new Exception();
-    }
-
-    public List<Legajo> createList(List<CreateLegajoRequestDTO> request){
-        return this.repositorio.saveAll(
-                request.stream()
-                        .map(legajo -> {
-                            try {
-                                return this.mapeoServicio.legajoRequestToEntity(legajo);
-                            } catch (Exception e) {
-                                throw new RuntimeException(e);
-                            }
-                        }).toList()
-        );
     }
 
     @Override
@@ -94,26 +91,43 @@ public class LegajoServicio implements LegajoServicioMetodos{
         Legajo in_bd = this.get(request.getLegajo());
         in_bd.setDocumentos(
                this.documentoServicio.createList(
-                    request.getDocumentos().stream()
-                        .map(documentoRequest -> this.mapeoDocumentoServicio.dtoToEntity(documentoRequest))
-                        .collect(Collectors.toList())
+                    request.getDocumentos()
+                            .stream()
+                            .map(documentoRequest -> {
+                                try {
+                                    return this.documentoServicio.create(documentoRequest);
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            })
+                            .collect(Collectors.toList())
                 )
         );
 
         return this.repositorio.save(in_bd);
     }
 
-    private Short iniciarOAgregarNumeroLegajo(ExpedienteCompositeKey expediente){
-        return (short) (repositorio.getNumeroLegajo(
+    private LegajoCompositeKey iniciarOAgregarNumeroLegajo(Expediente expediente){
+        Short numeroLegajo = (short) (repositorio.getNumeroLegajo(
+                        expediente.getIdentificadorSerieDocumental(),
+                        expediente.getUnidadAdministrativaGeneradora(),
+                        expediente.getNumeroExpediente(),
+                        expediente.getFechaApertura()
+                ).orElse((short) 0) + 1);
+
+        return new LegajoCompositeKey(
                 expediente.getIdentificadorSerieDocumental(),
                 expediente.getUnidadAdministrativaGeneradora(),
                 expediente.getNumeroExpediente(),
-                expediente.getFechaApertura()
-        ).orElse((short) 0) + 1);
+                expediente.getFechaApertura(),
+                numeroLegajo
+                );
     }
 
     private boolean registroEstaPresente(LegajoCompositeKey id){
         return repositorio.existsById(id);
     }
+
+
 
 }

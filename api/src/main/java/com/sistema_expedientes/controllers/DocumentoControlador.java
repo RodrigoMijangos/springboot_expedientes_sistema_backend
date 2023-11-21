@@ -1,13 +1,11 @@
 package com.sistema_expedientes.controllers;
 
-import com.sistema_expedientes.entities.Documento;
-import com.sistema_expedientes.entities.dto.request.DocumentoRequest;
+import com.sistema_expedientes.documento.Documento;
+import com.sistema_expedientes.documento.dto.request.base.DocumentoRequest;
 import com.sistema_expedientes.services.documento.DocumentoServicio;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,8 +13,11 @@ import java.util.List;
 @RestController
 public class DocumentoControlador {
 
-    @Autowired
-    private DocumentoServicio servicio;
+    private final DocumentoServicio servicio;
+
+    public DocumentoControlador(DocumentoServicio servicio){
+        this.servicio = servicio;
+    }
 
     @GetMapping("api/v1/documentos/list")
     public ResponseEntity<List<Documento>> getAll(){

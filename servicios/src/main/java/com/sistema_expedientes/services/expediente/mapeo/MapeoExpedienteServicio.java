@@ -1,16 +1,18 @@
 package com.sistema_expedientes.services.expediente.mapeo;
 
-import com.sistema_expedientes.entities.Expediente;
-import com.sistema_expedientes.entities.dto.request.CreateExpedienteRequestDTO;
-import com.sistema_expedientes.entities.dto.request.ExpedienteRequest;
-import com.sistema_expedientes.entities.dto.request.PUTExpedienteRequestDTO;
+import com.sistema_expedientes.expediente.Expediente;
+import com.sistema_expedientes.expediente.dto.request.specific.CreateExpedienteRequestDTO;
+import com.sistema_expedientes.expediente.dto.request.base.ExpedienteRequest;
+import com.sistema_expedientes.expediente.dto.request.specific.PUTExpedienteRequestDTO;
 import com.sistema_expedientes.entities.dto.request._DTO;
 import com.sistema_expedientes.entities.enumerates.CondicionAccesoExpediente;
 import com.sistema_expedientes.entities.enumerates.FormatoExpediente;
 import com.sistema_expedientes.entities.enumerates.TipoInformacionExpediente;
 import com.sistema_expedientes.entities.enumerates.TradicionDocumentalExpediente;
+import com.sistema_expedientes.google.drive_main.service.GoogleDriveService;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.Provider;
 import org.modelmapper.TypeMap;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +21,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class MapeoExpedienteServicio {
 
-    @Autowired
-    private ModelMapper mapper;
+    private final ModelMapper mapper;
+    private final GoogleDriveService googleDriveService;
+
+    public MapeoExpedienteServicio(ModelMapper mapper, GoogleDriveService googleDriveService) {
+        this.mapper = mapper;
+        this.googleDriveService = googleDriveService;
+    }
 
     public Expediente dtoToEntityExpediente(_DTO dto) {
         this.mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
@@ -45,7 +52,7 @@ public class MapeoExpedienteServicio {
 
     }
 
-    public void crearSiNoExisteMapeoExpedienteRequest(){
+    private void crearSiNoExisteMapeoExpedienteRequest(){
         if (this.mapper.getTypeMap(ExpedienteRequest.class, Expediente.class) == null) {
             TypeMap<ExpedienteRequest, Expediente> expedienteTypeMap = this.mapper.createTypeMap(ExpedienteRequest.class, Expediente.class);
 
@@ -55,6 +62,7 @@ public class MapeoExpedienteServicio {
             Converter<Byte, TipoInformacionExpediente> toTipoInformacion = ctx -> ctx.getSource() == null ? null : TipoInformacionExpediente.valueOf(ctx.getSource());
 
             expedienteTypeMap.addMappings(mapping -> {
+                mapping.skip(Expediente::setGoogleDriveFolderId);
                 mapping.map(ExpedienteRequest::getNumeroProyecto, Expediente::setNumeroProyecto);
                 mapping.map(ExpedienteRequest::getNumeroContacto, Expediente::setNumeroContacto);
                 mapping.using(toFormatoExpediente).map(ExpedienteRequest::getFormatoExpediente, Expediente::setFormatoExpediente);
@@ -66,7 +74,7 @@ public class MapeoExpedienteServicio {
         }
     }
 
-    public void crearSiNoExisteMapeoCreateExpedienteRequest(){
+    private void crearSiNoExisteMapeoCreateExpedienteRequest(){
         if(this.mapper.getTypeMap(CreateExpedienteRequestDTO.class, Expediente.class) == null){
             TypeMap<CreateExpedienteRequestDTO, Expediente> createTypeMap = this.mapper.createTypeMap(CreateExpedienteRequestDTO.class, Expediente.class);
             createTypeMap.addMappings(mapping -> {
@@ -76,7 +84,7 @@ public class MapeoExpedienteServicio {
         }
     }
 
-    public void crearSiNoExisteMapeoPUTExpedienteRequest(){
+    private void crearSiNoExisteMapeoPUTExpedienteRequest(){
         if (this.mapper.getTypeMap(PUTExpedienteRequestDTO.class, Expediente.class) == null) {
             TypeMap<PUTExpedienteRequestDTO, Expediente> typeMap = mapper.createTypeMap(PUTExpedienteRequestDTO.class, Expediente.class);
             typeMap.addMappings(mapping -> {
