@@ -60,9 +60,7 @@ public class ExpedienteControlador {
     @PutMapping("api/v1/expedientes/edit")
     public ResponseEntity<Expediente> put(@RequestBody PUTExpedienteRequestDTO request) throws Exception {
         Expediente to_bd = servicio.put(request);
-
         return to_bd == null ? ResponseEntity.badRequest().build() : ResponseEntity.ok(to_bd);
-
     }
 
     @DeleteMapping("api/v1/expedientes/delete")

@@ -1,6 +1,7 @@
 package com.sistema_expedientes.legajo;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sistema_expedientes.documento.Documento;
 import com.sistema_expedientes.expediente.Expediente;
@@ -24,6 +25,7 @@ public class Legajo {
     @Column(name = "letraBateria")
     private String letraBateria;
     @Column(name = "google_drive_folder_id")
+    @JsonIgnore
     private String googleDriveFolderId;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     @JoinColumns({

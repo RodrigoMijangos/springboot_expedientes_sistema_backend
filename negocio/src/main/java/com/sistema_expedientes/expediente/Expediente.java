@@ -1,5 +1,6 @@
 package com.sistema_expedientes.expediente;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sistema_expedientes.expediente.composite_key.ExpedienteCompositeKey;
 import com.sistema_expedientes.entities.enumerates.converters.CondicionAccesoExpedienteConverter;
@@ -62,6 +63,7 @@ public class Expediente {
     @Column(name = "tipo_informacion")
     private TipoInformacionExpediente tipoInformacion;
     @Column(name = "google_drive_folder_id")
+    @JsonIgnore
     private String googleDriveFolderId;
     @OneToMany(mappedBy = "expediente")
     @JsonManagedReference

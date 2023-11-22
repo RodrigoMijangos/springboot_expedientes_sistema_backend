@@ -1,8 +1,10 @@
 package com.sistema_expedientes.services.legajo;
 
+import com.sistema_expedientes.documento.Documento;
 import com.sistema_expedientes.expediente.Expediente;
 import com.sistema_expedientes.google.drive_main.service.GoogleDriveService;
 import com.sistema_expedientes.legajo.dto.request.base.LegajoRequestDTO;
+import com.sistema_expedientes.legajo.dto.request.specific.CreateDocumentInsideLegajoRequestDTO;
 import com.sistema_expedientes.legajo.dto.request.specific.ListaDocumentosLegajoRequestDTO;
 import com.sistema_expedientes.legajo.Legajo;
 import com.sistema_expedientes.expediente.composite_key.ExpedienteCompositeKey;
@@ -55,9 +57,7 @@ public class LegajoServicio implements LegajoServicioMetodos {
     }
 
     public Legajo create(LegajoRequestDTO request, Expediente expediente) throws Exception {
-
         Legajo to_save = this.mapeoServicio.legajoRequestToEntity(request);
-
         to_save.setId(this.iniciarOAgregarNumeroLegajo(expediente));
         to_save.setGoogleDriveFolderId(
                 this.googleDriveService.createFolder(
@@ -105,6 +105,14 @@ public class LegajoServicio implements LegajoServicioMetodos {
         );
 
         return this.repositorio.save(in_bd);
+    }
+
+    public Legajo guardarDocumento(CreateDocumentInsideLegajoRequestDTO request) throws Exception {
+        Legajo in_bd = this.get(request.getLegajo());
+        Documento to_save = this.documentoServicio.create(request.getDocumento());
+        in_bd.getDocumentos().add(to_save);
+        return this.repositorio.save(in_bd);
+
     }
 
     private LegajoCompositeKey iniciarOAgregarNumeroLegajo(Expediente expediente){

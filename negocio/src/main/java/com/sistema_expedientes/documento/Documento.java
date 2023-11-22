@@ -1,6 +1,7 @@
 package com.sistema_expedientes.documento;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sistema_expedientes.legajo.Legajo;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -18,7 +19,8 @@ public class Documento {
     private Long identificador;
     private String nombre;
     @Column(name = "google_drive_file_id")
-    private String google_drive_id_file;
+    @JsonIgnore
+    private String googleDriveFileId;
     @Column(name = "url_web_view")
     private String urlWebView;
     @Column(name = "fecha_creacion")
@@ -47,10 +49,10 @@ public class Documento {
     public Documento() {
     }
 
-    public Documento(Long identificador, String nombre, String google_drive_id_file, String urlWebView, LocalDateTime fechaCreacion, LocalDateTime fechaEdicion, List<Legajo> legajo) {
+    public Documento(Long identificador, String nombre, String googleDriveFileId, String urlWebView, LocalDateTime fechaCreacion, LocalDateTime fechaEdicion, List<Legajo> legajo) {
         this.identificador = identificador;
         this.nombre = nombre;
-        this.google_drive_id_file = google_drive_id_file;
+        this.googleDriveFileId = googleDriveFileId;
         this.urlWebView = urlWebView;
         this.fechaCreacion = fechaCreacion;
         this.fechaEdicion = fechaEdicion;
@@ -73,12 +75,12 @@ public class Documento {
         this.nombre = nombre;
     }
 
-    public String getGoogle_drive_id_file() {
-        return google_drive_id_file;
+    public String getGoogleDriveFileId() {
+        return googleDriveFileId;
     }
 
-    public void setGoogle_drive_id_file(String google_drive_id_file) {
-        this.google_drive_id_file = google_drive_id_file;
+    public void setGoogleDriveFileId(String googleDriveFileId) {
+        this.googleDriveFileId = googleDriveFileId;
     }
 
     public String getUrlWebView() {

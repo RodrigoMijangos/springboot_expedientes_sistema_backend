@@ -38,7 +38,7 @@ public class DocumentoServicio implements DocumentoServicioMetodos {
 
         Documento to_bd = new Documento();
         to_bd.setNombre(request.getNombre());
-        to_bd.setGoogle_drive_id_file(responseMapping.get("id"));
+        to_bd.setGoogleDriveFileId(responseMapping.get("id"));
         to_bd.setUrlWebView(responseMapping.get("shareViewLink"));
 
         return this.repositorio.save(to_bd);
@@ -53,7 +53,8 @@ public class DocumentoServicio implements DocumentoServicioMetodos {
 
     @Override
     public void delete(Long id) throws Exception {
-        if(registroEstaPresente(id))
+        Documento in_bd = this.get(id);
+        if(this.googleDriveService.deleteFileFromId(in_bd.getGoogleDriveFileId()))
             this.repositorio.deleteById(id);
         else throw new Exception();
     }
