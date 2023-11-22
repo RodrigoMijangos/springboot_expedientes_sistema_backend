@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS expedientes(
 CREATE TABLE IF NOT EXISTS documentos(
                                          identificador BIGSERIAL NOT NULL,
                                          nombre VARCHAR NOT NULL,
-                                         urlWebView VARCHAR NULL,
+                                         url_web_view VARCHAR NULL,
                                          google_drive_file_id VARCHAR NOT NULL,
                                          fecha_creacion timestamptz NOT NULL DEFAULT now(),
     fecha_edicion timestamptz NOT NULL DEFAULT now(),

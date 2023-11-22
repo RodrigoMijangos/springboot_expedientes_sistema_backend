@@ -41,7 +41,7 @@ public class LegajoControlador {
 
         this.servicio.delete(id);
 
-        return ResponseEntity.ok("El registro fue eliminado");
+        return ResponseEntity.ok("El registro fzue eliminado");
     }
 
 }
