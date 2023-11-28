@@ -6,6 +6,7 @@ import com.sistema_expedientes.legajo.composite_key.LegajoCompositeKey;
 import com.sistema_expedientes.legajo.dto.request.specific.CreateLegajoRequestDTO;
 import com.sistema_expedientes.legajo.dto.request.specific.ListaDocumentosLegajoRequestDTO;
 import com.sistema_expedientes.legajo.dto.request.specific.PUTLegajoRequestDTO;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -16,6 +17,6 @@ public interface LegajoServicioMetodos {
     public Legajo create(CreateLegajoRequestDTO request) throws Exception;
     public Legajo put(PUTLegajoRequestDTO request) throws Exception;
     public void delete(LegajoCompositeKey id) throws Exception;
-    public Legajo guardarListaDocumentos(ListaDocumentosLegajoRequestDTO request) throws Exception;
 
+    Legajo guardarListaDocumentos(ListaDocumentosLegajoRequestDTO request, MultipartFile[] files) throws Exception;
 }

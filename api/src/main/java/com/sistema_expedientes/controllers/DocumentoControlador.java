@@ -27,10 +27,10 @@ public class DocumentoControlador {
         return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
     }
 
-    @RequestMapping(path = "api/v1/documentos/crear", method = RequestMethod.POST, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    /*@RequestMapping(path = "api/v1/documentos/crear", method = RequestMethod.POST, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<Documento> create(@ModelAttribute DocumentoRequest request) throws IOException {
         return ResponseEntity.status(201).body(this.servicio.create(request));
-    }
+    }*/
 
     @PutMapping("api/v1/documentos/{id}/edit")
     public ResponseEntity<Documento> put(@RequestBody DocumentoRequest request, @PathVariable Long id) throws Exception {

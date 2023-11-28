@@ -16,10 +16,10 @@ import com.sistema_expedientes.services.documento.DocumentoServicio;
 import com.sistema_expedientes.services.formatter.FolderInstanceNameFormatter;
 import com.sistema_expedientes.services.legajo.mapeo.MapeoLegajoServicio;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -87,15 +87,18 @@ public class LegajoServicio implements LegajoServicioMetodos {
     }
 
     @Override
-    public Legajo guardarListaDocumentos(ListaDocumentosLegajoRequestDTO request) throws Exception {
+    public Legajo guardarListaDocumentos(ListaDocumentosLegajoRequestDTO request, MultipartFile[] files) throws Exception {
         Legajo in_bd = this.get(request.getLegajo());
+        Queue<MultipartFile> toSave = new LinkedList<>(List.of(files));
+
         in_bd.setDocumentos(
                this.documentoServicio.createList(
                     request.getDocumentos()
                             .stream()
                             .map(documentoRequest -> {
                                 try {
-                                    return this.documentoServicio.create(documentoRequest);
+                                    return this.documentoServicio.create(documentoRequest, toSave.remove(), in_bd.getGoogleDriveFolderId());
+
                                 } catch (IOException e) {
                                     throw new RuntimeException(e);
                                 }
@@ -107,9 +110,29 @@ public class LegajoServicio implements LegajoServicioMetodos {
         return this.repositorio.save(in_bd);
     }
 
-    public Legajo guardarDocumento(CreateDocumentInsideLegajoRequestDTO request) throws Exception {
+    /*public static void main(String[] args) {
+
+        List<String> numbers = Arrays.asList("UNO", "DOS", "TRES", "CUATRO");
+
+        Queue<String> queue =  new LinkedList<>(numbers);
+        Stack<String> stack = new Stack<>();
+        stack.addAll(numbers);
+
+        System.out.println("Cola comportamiento desde lista\n");
+
+        while (!queue.isEmpty())
+            System.out.println(queue.remove() + "\n");
+
+        System.out.println("Pila comportamiento desde lista\n");
+
+        while (!stack.empty())
+            System.out.println(stack.pop() + "\n");
+
+    }*/
+
+    public Legajo guardarDocumento(CreateDocumentInsideLegajoRequestDTO request, MultipartFile file) throws Exception {
         Legajo in_bd = this.get(request.getLegajo());
-        Documento to_save = this.documentoServicio.create(request.getDocumento());
+        Documento to_save = this.documentoServicio.create(request.getDocumento(), file, in_bd.getGoogleDriveFolderId());
         in_bd.getDocumentos().add(to_save);
         return this.repositorio.save(in_bd);
 

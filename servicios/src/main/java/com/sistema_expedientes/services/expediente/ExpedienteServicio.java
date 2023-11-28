@@ -13,6 +13,8 @@ import com.sistema_expedientes.services.expediente.mapeo.MapeoExpedienteServicio
 import com.sistema_expedientes.services.formatter.FolderInstanceNameFormatter;
 import com.sistema_expedientes.services.legajo.LegajoServicio;
 import com.sistema_expedientes.services.serie_documental.SerieDocumentalServicio;
+import com.sistema_expedientes.services.unidad_administrativa.UnidadAdministrativaServicio;
+import com.sistema_expedientes.unidad_administrativa.UnidadAdministrativa;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -27,6 +29,7 @@ public class ExpedienteServicio implements ExpedienteServicioMetodos {
     private final ExpedienteRepositorio repositorio;
     private final MapeoExpedienteServicio mapeoServicio;
     private final LegajoServicio legajoServicio;
+    private final UnidadAdministrativaServicio unidadAdministrativaServicio;
     private final FolderInstanceNameFormatter folderInstanceNameFormatter;
     private final GoogleDriveService googleDriveService;
 
@@ -34,12 +37,14 @@ public class ExpedienteServicio implements ExpedienteServicioMetodos {
             ExpedienteRepositorio repositorio,
             MapeoExpedienteServicio mapeoServicio,
             LegajoServicio legajoServicio,
+            UnidadAdministrativaServicio unidadAdministrativaServicio,
             FolderInstanceNameFormatter folderInstanceNameFormatter,
             GoogleDriveService googleDriveService
     ) {
         this.repositorio = repositorio;
         this.mapeoServicio = mapeoServicio;
         this.legajoServicio = legajoServicio;
+        this.unidadAdministrativaServicio = unidadAdministrativaServicio;
         this.folderInstanceNameFormatter = folderInstanceNameFormatter;
         this.googleDriveService = googleDriveService;
     }
@@ -94,8 +99,12 @@ public class ExpedienteServicio implements ExpedienteServicioMetodos {
 
         to_bd.setNumeroExpediente((short) (to_check.orElse((short)0) + 1));
         to_bd.setFechaApertura(today);
+
+        UnidadAdministrativa unidadAdministrativa = this.unidadAdministrativaServicio.get(request.getUnidadAdministrativaGeneradora());
+
         to_bd.setGoogleDriveFolderId(this.googleDriveService.createFolder(
-                this.folderInstanceNameFormatter.setGoogleDriveFolderName(to_bd),googleDriveService.getRootFolderId()
+                this.folderInstanceNameFormatter.setGoogleDriveFolderName(to_bd),
+                unidadAdministrativa.getGoogleDriveFolderId()
         ));
 
         return repositorio.save(to_bd);
@@ -103,9 +112,10 @@ public class ExpedienteServicio implements ExpedienteServicioMetodos {
 
     @Override
     public Expediente put(PUTExpedienteRequestDTO request) throws Exception {
-        if (this.registroEstaPresente(request.getId()))
-            return repositorio.save(mapeoServicio.dtoToEntityExpediente(request));
-        else throw new Exception();
+        Expediente in_bd = this.get(request.getId());
+        Expediente mapped = mapeoServicio.dtoToEntityExpediente(request);
+        mapped.setGoogleDriveFolderId(in_bd.getGoogleDriveFolderId());
+        return repositorio.save(mapped);
     }
 
     public void delete(ExpedienteCompositeKey id) throws Exception {

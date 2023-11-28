@@ -5,6 +5,7 @@ import com.sistema_expedientes.documento.dto.request.base.DocumentoRequest;
 import com.sistema_expedientes.google.drive_main.service.GoogleDriveService;
 import com.sistema_expedientes.documento.repository.DocumentoRepositorio;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -32,9 +33,9 @@ public class DocumentoServicio implements DocumentoServicioMetodos {
     }
 
     @Override
-    public Documento create(DocumentoRequest request) throws IOException {
+    public Documento create(DocumentoRequest request, MultipartFile file, String folderId) throws IOException {
 
-        Map<String, String> responseMapping = this.googleDriveService.saveFile(request.getFile());
+        Map<String, String> responseMapping = this.googleDriveService.saveFile(file, folderId);
 
         Documento to_bd = new Documento();
         to_bd.setNombre(request.getNombre());

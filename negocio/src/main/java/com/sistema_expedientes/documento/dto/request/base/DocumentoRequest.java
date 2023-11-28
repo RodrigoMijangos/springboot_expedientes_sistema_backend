@@ -5,7 +5,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class DocumentoRequest extends _DTO {
     private String nombre;
-    private MultipartFile file;
 
     public DocumentoRequest() {
     }
@@ -20,13 +19,5 @@ public class DocumentoRequest extends _DTO {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public MultipartFile getFile() {
-        return file;
-    }
-
-    public void setFile(MultipartFile file) {
-        this.file = file;
     }
 }
