@@ -42,9 +42,9 @@ public class GoogleDriveService {
         }
     }
 
-    public Map<String, String> saveFile(MultipartFile sourceFile) throws IOException {
+    public Map<String, String> saveFile(MultipartFile sourceFile, String folderId) throws IOException {
 
-        File uploadedFile = executeGoogleDriveSaveFileRequest(sourceFile);
+        File uploadedFile = executeGoogleDriveSaveFileRequest(sourceFile, folderId);
 
         HashMap<String, String> retorno = new HashMap<>();
 
@@ -81,18 +81,18 @@ public class GoogleDriveService {
                 .execute();
     }
 
-    private File setFileMetadata(MultipartFile sourceFile){
+    private File setFileMetadata(MultipartFile sourceFile, String folderId){
         return new File()
                 .setName(sourceFile.getOriginalFilename())
                 .setMimeType(sourceFile.getContentType())
                 .setParents(
-                        Collections.singletonList(this.googleDriveApplicationProperties.rootFolderId())
+                        Collections.singletonList(folderId)
                 );
     }
 
-    private File executeGoogleDriveSaveFileRequest(MultipartFile sourceFile) throws IOException {
+    private File executeGoogleDriveSaveFileRequest(MultipartFile sourceFile, String folderId) throws IOException {
         return googleDriveService.files()
-                .create(setFileMetadata(sourceFile),
+                .create(setFileMetadata(sourceFile, folderId),
                         new InputStreamContent(
                                 sourceFile.getContentType(),
                                 new ByteArrayInputStream(sourceFile.getBytes())
