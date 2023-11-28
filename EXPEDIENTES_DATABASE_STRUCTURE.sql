@@ -88,6 +88,7 @@ CREATE TABLE IF NOT EXISTS unidades_administrativas(
     unidad_principal VARCHAR(5) NULL DEFAULT 0,
     piso VARCHAR(2) NOT NULL,
     extension_telefonica VARCHAR(5) NOT NULL,
+    google_drive_folder_id VARCHAR NOT NULL,
     CONSTRAINT PK_UNIDADES_ADMINISTRATIVAS
     PRIMARY KEY (clave),
     CONSTRAINT FK_UNIDAD_PRINCIPAL
@@ -200,7 +201,3 @@ INSERT INTO series_documentales(
 
 INSERT INTO series_documentales (serie_documental_padre, clave, seccion, nombre, valor_documental_administrativo, valor_documental_legal, valor_documental_contable, periodos_conservacion_tramite, periodos_conservacion_concentracion, tecnica_seleccion, observaciones) VALUES
     (4, '1', NULL, 'Comité Técnico', '1', '0', '0', 2, 5, 2, '');
-
-INSERT INTO unidades_administrativas(clave, nombre, unidad_principal, piso, extension_telefonica) VALUES ('DAAP', 'NO SE', NULL, '1', '12345');
-
-SELECT * FROM contenido_legajo;

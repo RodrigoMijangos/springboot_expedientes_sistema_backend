@@ -24,6 +24,8 @@ public class UnidadAdministrativa {
     private String piso;
     @Column(name = "extension_telefonica")
     private String extensionTelefonica;
+    @Column(name = "google_drive_folder_id")
+    private String googleDriveFolderId;
     @OneToMany(mappedBy = "unidadPrincipal")
     @JsonManagedReference
     private Set<UnidadAdministrativa> unidadesGeneradoras;
@@ -31,12 +33,13 @@ public class UnidadAdministrativa {
     public UnidadAdministrativa() {
     }
 
-    public UnidadAdministrativa(String clave, String nombre, @Nullable UnidadAdministrativa unidadPrincipal, String piso, String extensionTelefonica, Set<UnidadAdministrativa> unidadesGeneradoras) {
+    public UnidadAdministrativa(String clave, String nombre, @Nullable UnidadAdministrativa unidadPrincipal, String piso, String extensionTelefonica, String googleDriveFolderId, Set<UnidadAdministrativa> unidadesGeneradoras) {
         this.clave = clave;
         this.nombre = nombre;
         this.unidadPrincipal = unidadPrincipal;
         this.piso = piso;
         this.extensionTelefonica = extensionTelefonica;
+        this.googleDriveFolderId = googleDriveFolderId;
         this.unidadesGeneradoras = unidadesGeneradoras;
     }
 
@@ -79,5 +82,21 @@ public class UnidadAdministrativa {
 
     public void setExtensionTelefonica(String extensionTelefonica) {
         this.extensionTelefonica = extensionTelefonica;
+    }
+
+    public String getGoogleDriveFolderId() {
+        return googleDriveFolderId;
+    }
+
+    public void setGoogleDriveFolderId(String googleDriveFolderId) {
+        this.googleDriveFolderId = googleDriveFolderId;
+    }
+
+    public Set<UnidadAdministrativa> getUnidadesGeneradoras() {
+        return unidadesGeneradoras;
+    }
+
+    public void setUnidadesGeneradoras(Set<UnidadAdministrativa> unidadesGeneradoras) {
+        this.unidadesGeneradoras = unidadesGeneradoras;
     }
 }

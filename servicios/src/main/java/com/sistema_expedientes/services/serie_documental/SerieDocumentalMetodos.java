@@ -2,12 +2,11 @@ package com.sistema_expedientes.services.serie_documental;
 
 import com.sistema_expedientes.entities.SerieDocumental;
 import com.sistema_expedientes.entities.dto.request.SerieDocumentalRequestDTO;
-import com.sistema_expedientes.services.exceptions.SeccionNoEncontradaException;
 import com.sistema_expedientes.services.exceptions.SerieDocumentalNoEncontradaExcepcion;
 
 import java.util.List;
 
-public interface ISerieDocumentalRepositorioDTO {
+public interface SerieDocumentalMetodos {
 
     public SerieDocumental get(Short id) throws SerieDocumentalNoEncontradaExcepcion;
 

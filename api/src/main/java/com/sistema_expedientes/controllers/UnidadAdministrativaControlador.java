@@ -2,7 +2,7 @@ package com.sistema_expedientes.controllers;
 
 import com.sistema_expedientes.entities.UnidadAdministrativa;
 import com.sistema_expedientes.entities.dto.request.UnidadAdministrativaRequestDTO;
-import com.sistema_expedientes.services.UnidadAdministrativaServicio;
+import com.sistema_expedientes.services.unidad_administrativa.UnidadAdministrativaServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

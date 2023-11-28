@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class SerieDocumentalServicio implements ISerieDocumentalRepositorioDTO {
+public class SerieDocumentalServicio implements SerieDocumentalMetodos {
 
     @Autowired
     private SerieDocumentalRepositorio repositorio;

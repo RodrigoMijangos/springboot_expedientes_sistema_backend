@@ -1,9 +1,9 @@
-package com.sistema_expedientes.services;
+package com.sistema_expedientes.services.unidad_administrativa;
 
 import com.sistema_expedientes.entities.UnidadAdministrativa;
 import com.sistema_expedientes.entities.dto.request.UnidadAdministrativaRequestDTO;
+import com.sistema_expedientes.google.drive_main.service.GoogleDriveService;
 import com.sistema_expedientes.repositories.UnidadAdministrativaRepositorio;
-import com.sistema_expedientes.services.interfaces.IUnidadAdministrativaRepositorio;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,13 +12,19 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UnidadAdministrativaServicio implements IUnidadAdministrativaRepositorio {
+public class UnidadAdministrativaServicio implements UnidadAdministrativaMetodos {
 
-    @Autowired
-    private UnidadAdministrativaRepositorio repositorio;
+    private final UnidadAdministrativaRepositorio repositorio;
 
-    @Autowired
-    private ModelMapper mapper;
+    private final ModelMapper mapper;
+
+    private final GoogleDriveService googleDriveService;
+
+    public UnidadAdministrativaServicio(UnidadAdministrativaRepositorio repositorio, ModelMapper mapper, GoogleDriveService googleDriveService){
+        this.repositorio = repositorio;
+        this.mapper = mapper;
+        this.googleDriveService = googleDriveService;
+    }
 
     @Override
     public UnidadAdministrativa get(String id) throws Exception {
@@ -34,9 +40,30 @@ public class UnidadAdministrativaServicio implements IUnidadAdministrativaReposi
     }
 
     @Override
-    public UnidadAdministrativa create(UnidadAdministrativaRequestDTO request) {
+    public UnidadAdministrativa create(UnidadAdministrativaRequestDTO request) throws Exception {
 
         UnidadAdministrativa to_bd = this.mapper.map(request, UnidadAdministrativa.class);
+
+        if(request.getUnidadPrincipal() != null){
+            to_bd.setUnidadPrincipal(
+                    this.get(request.getUnidadPrincipal())
+            );
+            if(to_bd.getUnidadPrincipal() != null)
+                to_bd.setGoogleDriveFolderId(
+                        this.googleDriveService.createFolder(
+                                to_bd.getClave(),
+                                to_bd.getUnidadPrincipal().getGoogleDriveFolderId()
+                        )
+                );
+        }else{
+            to_bd.setGoogleDriveFolderId(
+                    this.googleDriveService.createFolder(
+                            to_bd.getClave(),
+                            googleDriveService.getRootFolderId()
+                    )
+            );
+        }
+
 
         return this.repositorio.save(to_bd);
     }

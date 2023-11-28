@@ -27,7 +27,7 @@ public class LegajoControlador {
     }
 
     @PostMapping("api/v1/legajos/insertar_documento")
-    public ResponseEntity<Legajo> crearEInsertarDocumento(@ModelAttribute CreateDocumentInsideLegajoRequestDTO request) throws Exception {
+    public ResponseEntity<Legajo> crearEInsertarDocumento(@RequestBody CreateDocumentInsideLegajoRequestDTO request) throws Exception {
         return ResponseEntity.status(201).body(this.servicio.guardarDocumento(request));
     }
 
