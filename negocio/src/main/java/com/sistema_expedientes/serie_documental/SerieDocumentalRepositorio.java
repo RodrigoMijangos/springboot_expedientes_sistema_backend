@@ -1,8 +1,7 @@
-package com.sistema_expedientes.repositories;
+package com.sistema_expedientes.serie_documental;
 
-import com.sistema_expedientes.entities.SerieDocumental;
+import com.sistema_expedientes.serie_documental.SerieDocumental;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 

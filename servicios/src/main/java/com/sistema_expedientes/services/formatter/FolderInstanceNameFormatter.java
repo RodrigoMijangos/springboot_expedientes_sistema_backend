@@ -1,6 +1,6 @@
 package com.sistema_expedientes.services.formatter;
 
-import com.sistema_expedientes.entities.SerieDocumental;
+import com.sistema_expedientes.serie_documental.SerieDocumental;
 import com.sistema_expedientes.expediente.Expediente;
 import com.sistema_expedientes.legajo.Legajo;
 import com.sistema_expedientes.services.serie_documental.SerieDocumentalServicio;

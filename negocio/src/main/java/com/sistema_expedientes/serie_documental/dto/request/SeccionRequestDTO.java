@@ -1,10 +1,11 @@
-package com.sistema_expedientes.entities.dto.request;
+package com.sistema_expedientes.serie_documental.dto.request;
 
+import com.sistema_expedientes.base.request._DTO;
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.UniqueElements;
 
-public class SeccionRequestDTO extends _DTO{
+public class SeccionRequestDTO extends _DTO {
 
     @NotBlank(message = "La clave es obligatoria")
     @UniqueElements(message = "La clave debe ser única")

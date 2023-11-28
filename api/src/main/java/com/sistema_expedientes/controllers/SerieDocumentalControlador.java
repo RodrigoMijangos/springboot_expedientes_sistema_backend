@@ -1,7 +1,7 @@
 package com.sistema_expedientes.controllers;
 
-import com.sistema_expedientes.entities.SerieDocumental;
-import com.sistema_expedientes.entities.dto.request.SerieDocumentalRequestDTO;
+import com.sistema_expedientes.serie_documental.SerieDocumental;
+import com.sistema_expedientes.serie_documental.dto.request.SerieDocumentalRequestDTO;
 import com.sistema_expedientes.services.serie_documental.SerieDocumentalServicio;
 import com.sistema_expedientes.services.exceptions.SeccionNoEncontradaException;
 import com.sistema_expedientes.services.exceptions.SerieDocumentalNoEncontradaExcepcion;

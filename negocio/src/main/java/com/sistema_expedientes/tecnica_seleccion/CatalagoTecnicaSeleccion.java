@@ -1,4 +1,4 @@
-package com.sistema_expedientes.entities.catalog_entities;
+package com.sistema_expedientes.tecnica_seleccion;
 
 import jakarta.persistence.*;
 

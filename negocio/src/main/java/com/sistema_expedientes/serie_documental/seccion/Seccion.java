@@ -1,6 +1,7 @@
-package com.sistema_expedientes.entities;
+package com.sistema_expedientes.serie_documental.seccion;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.sistema_expedientes.serie_documental.SerieDocumental;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

@@ -4,18 +4,16 @@ import com.sistema_expedientes.expediente.Expediente;
 import com.sistema_expedientes.expediente.dto.request.specific.CreateExpedienteRequestDTO;
 import com.sistema_expedientes.expediente.dto.request.base.ExpedienteRequest;
 import com.sistema_expedientes.expediente.dto.request.specific.PUTExpedienteRequestDTO;
-import com.sistema_expedientes.entities.dto.request._DTO;
-import com.sistema_expedientes.entities.enumerates.CondicionAccesoExpediente;
-import com.sistema_expedientes.entities.enumerates.FormatoExpediente;
-import com.sistema_expedientes.entities.enumerates.TipoInformacionExpediente;
-import com.sistema_expedientes.entities.enumerates.TradicionDocumentalExpediente;
+import com.sistema_expedientes.base.request._DTO;
+import com.sistema_expedientes.expediente.enumerates.CondicionAccesoExpediente;
+import com.sistema_expedientes.expediente.enumerates.FormatoExpediente;
+import com.sistema_expedientes.expediente.enumerates.TipoInformacionExpediente;
+import com.sistema_expedientes.expediente.enumerates.TradicionDocumentalExpediente;
 import com.sistema_expedientes.google.drive_main.service.GoogleDriveService;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.Provider;
 import org.modelmapper.TypeMap;
 import org.modelmapper.convention.MatchingStrategies;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service

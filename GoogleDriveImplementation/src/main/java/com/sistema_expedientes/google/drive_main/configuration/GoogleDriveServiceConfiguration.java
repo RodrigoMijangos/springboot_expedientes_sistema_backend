@@ -12,6 +12,7 @@ import com.sistema_expedientes.google.drive_main.configuration.properties.Google
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -37,7 +38,7 @@ public class GoogleDriveServiceConfiguration {
                 Collections.singletonList(DriveScopes.DRIVE);
 
         final InputStream in = new FileInputStream(
-                new ClassPathResource(
+                new FileSystemResource(
                         this.googlePropertiesConfiguration.serviceAccountAuthenticationKey())
                         .getFile()
         );

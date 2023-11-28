@@ -1,6 +1,5 @@
-package com.sistema_expedientes.entities.catalog_repositories;
+package com.sistema_expedientes.tecnica_seleccion;
 
-import com.sistema_expedientes.entities.catalog_entities.CatalagoTecnicaSeleccion;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

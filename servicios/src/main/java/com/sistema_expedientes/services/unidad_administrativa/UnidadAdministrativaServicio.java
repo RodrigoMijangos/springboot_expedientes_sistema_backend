@@ -1,11 +1,10 @@
 package com.sistema_expedientes.services.unidad_administrativa;
 
-import com.sistema_expedientes.entities.UnidadAdministrativa;
-import com.sistema_expedientes.entities.dto.request.UnidadAdministrativaRequestDTO;
+import com.sistema_expedientes.unidad_administrativa.UnidadAdministrativa;
+import com.sistema_expedientes.unidad_administrativa.dto.request.UnidadAdministrativaRequestDTO;
 import com.sistema_expedientes.google.drive_main.service.GoogleDriveService;
-import com.sistema_expedientes.repositories.UnidadAdministrativaRepositorio;
+import com.sistema_expedientes.unidad_administrativa.UnidadAdministrativaRepositorio;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,8 +1,8 @@
 package com.sistema_expedientes.services.serie_documental;
 
-import com.sistema_expedientes.entities.SerieDocumental;
-import com.sistema_expedientes.entities.dto.request.SerieDocumentalRequestDTO;
-import com.sistema_expedientes.repositories.SerieDocumentalRepositorio;
+import com.sistema_expedientes.serie_documental.SerieDocumental;
+import com.sistema_expedientes.serie_documental.dto.request.SerieDocumentalRequestDTO;
+import com.sistema_expedientes.serie_documental.SerieDocumentalRepositorio;
 import com.sistema_expedientes.services.exceptions.SeccionNoEncontradaException;
 import com.sistema_expedientes.services.exceptions.SerieDocumentalNoEncontradaExcepcion;
 import org.modelmapper.ModelMapper;

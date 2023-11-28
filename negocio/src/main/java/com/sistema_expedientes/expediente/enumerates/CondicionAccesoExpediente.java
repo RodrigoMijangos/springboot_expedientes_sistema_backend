@@ -1,4 +1,4 @@
-package com.sistema_expedientes.entities.enumerates;
+package com.sistema_expedientes.expediente.enumerates;
 
 import java.util.stream.Stream;
 

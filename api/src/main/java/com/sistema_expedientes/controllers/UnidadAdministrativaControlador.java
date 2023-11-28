@@ -1,7 +1,7 @@
 package com.sistema_expedientes.controllers;
 
-import com.sistema_expedientes.entities.UnidadAdministrativa;
-import com.sistema_expedientes.entities.dto.request.UnidadAdministrativaRequestDTO;
+import com.sistema_expedientes.unidad_administrativa.UnidadAdministrativa;
+import com.sistema_expedientes.unidad_administrativa.dto.request.UnidadAdministrativaRequestDTO;
 import com.sistema_expedientes.services.unidad_administrativa.UnidadAdministrativaServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +29,7 @@ public class UnidadAdministrativaControlador {
     }
 
     @PostMapping("api/v1/unidades_administrativas/create")
-    public ResponseEntity<UnidadAdministrativa> create(@RequestBody UnidadAdministrativaRequestDTO request){
+    public ResponseEntity<UnidadAdministrativa> create(@RequestBody UnidadAdministrativaRequestDTO request) throws Exception{
         return ResponseEntity.status(201).body(servicio.create(request));
     }
 

@@ -1,11 +1,10 @@
-package com.sistema_expedientes.entities;
+package com.sistema_expedientes.unidad_administrativa;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 
 import java.util.Set;
 
@@ -25,6 +24,7 @@ public class UnidadAdministrativa {
     @Column(name = "extension_telefonica")
     private String extensionTelefonica;
     @Column(name = "google_drive_folder_id")
+    @JsonIgnore
     private String googleDriveFolderId;
     @OneToMany(mappedBy = "unidadPrincipal")
     @JsonManagedReference

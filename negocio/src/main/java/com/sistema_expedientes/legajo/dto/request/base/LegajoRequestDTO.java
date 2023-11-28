@@ -1,6 +1,6 @@
 package com.sistema_expedientes.legajo.dto.request.base;
 
-import com.sistema_expedientes.entities.dto.request._DTO;
+import com.sistema_expedientes.base.request._DTO;
 
 public class LegajoRequestDTO extends _DTO {
 

@@ -1,6 +1,6 @@
 package com.sistema_expedientes.documento.dto.request.base;
 
-import com.sistema_expedientes.entities.dto.request._DTO;
+import com.sistema_expedientes.base.request._DTO;
 import org.springframework.web.multipart.MultipartFile;
 
 public class DocumentoRequest extends _DTO {

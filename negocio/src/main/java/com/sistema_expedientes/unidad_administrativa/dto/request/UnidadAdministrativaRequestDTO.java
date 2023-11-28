@@ -1,6 +1,8 @@
-package com.sistema_expedientes.entities.dto.request;
+package com.sistema_expedientes.unidad_administrativa.dto.request;
 
-public class UnidadAdministrativaRequestDTO extends _DTO{
+import com.sistema_expedientes.base.request._DTO;
+
+public class UnidadAdministrativaRequestDTO extends _DTO {
 
     private String clave;
     private String nombre;

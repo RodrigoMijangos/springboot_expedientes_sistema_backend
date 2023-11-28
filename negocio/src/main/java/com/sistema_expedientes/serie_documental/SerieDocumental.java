@@ -1,7 +1,8 @@
-package com.sistema_expedientes.entities;
+package com.sistema_expedientes.serie_documental;
 
 import com.fasterxml.jackson.annotation.*;
-import com.sistema_expedientes.entities.catalog_entities.CatalagoTecnicaSeleccion;
+import com.sistema_expedientes.tecnica_seleccion.CatalagoTecnicaSeleccion;
+import com.sistema_expedientes.serie_documental.seccion.Seccion;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 

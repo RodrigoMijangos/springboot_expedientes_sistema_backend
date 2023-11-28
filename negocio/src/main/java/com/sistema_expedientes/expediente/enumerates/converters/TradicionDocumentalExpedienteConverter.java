@@ -1,6 +1,6 @@
-package com.sistema_expedientes.entities.enumerates.converters;
+package com.sistema_expedientes.expediente.enumerates.converters;
 
-import com.sistema_expedientes.entities.enumerates.TradicionDocumentalExpediente;
+import com.sistema_expedientes.expediente.enumerates.TradicionDocumentalExpediente;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 

@@ -1,9 +1,6 @@
-package com.sistema_expedientes.repositories;
+package com.sistema_expedientes.serie_documental.seccion;
 
-import com.sistema_expedientes.entities.Seccion;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 
 public interface SeccionRepositorio extends JpaRepository<Seccion, String> {
 

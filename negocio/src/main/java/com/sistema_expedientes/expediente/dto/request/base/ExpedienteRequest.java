@@ -1,6 +1,6 @@
 package com.sistema_expedientes.expediente.dto.request.base;
 
-import com.sistema_expedientes.entities.dto.request._DTO;
+import com.sistema_expedientes.base.request._DTO;
 
 public class ExpedienteRequest extends _DTO {
     protected Short periodoCierre;

@@ -1,4 +1,4 @@
-package com.sistema_expedientes.entities.dto.request;
+package com.sistema_expedientes.serie_documental.dto.request;
 
 public class SerieDocumentalRequestDTO {
 

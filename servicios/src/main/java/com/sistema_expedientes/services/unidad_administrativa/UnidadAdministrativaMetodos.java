@@ -1,7 +1,7 @@
 package com.sistema_expedientes.services.unidad_administrativa;
 
-import com.sistema_expedientes.entities.UnidadAdministrativa;
-import com.sistema_expedientes.entities.dto.request.UnidadAdministrativaRequestDTO;
+import com.sistema_expedientes.unidad_administrativa.UnidadAdministrativa;
+import com.sistema_expedientes.unidad_administrativa.dto.request.UnidadAdministrativaRequestDTO;
 
 import java.util.List;
 

@@ -1,6 +1,4 @@
-package com.sistema_expedientes.entities.enumerates;
-
-import jakarta.persistence.Converter;
+package com.sistema_expedientes.expediente.enumerates;
 
 import java.util.stream.Stream;
 
