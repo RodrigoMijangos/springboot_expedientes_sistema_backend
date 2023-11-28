@@ -8,10 +8,9 @@ import com.google.api.services.drive.DriveScopes;
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.sistema_expedientes.google.drive_main.configuration.properties.GoogleDriveApplicationProperties;
-import com.sistema_expedientes.google.drive_main.configuration.properties.GooglePropertiesConfiguration;
+import com.sistema_expedientes.google.drive_main.configuration.properties.GoogleDriveConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 
 import java.io.FileInputStream;
@@ -24,11 +23,11 @@ import java.util.List;
 @Configuration
 public class GoogleDriveServiceConfiguration {
 
-    private final GooglePropertiesConfiguration googlePropertiesConfiguration;
+    private final GoogleDriveConfigurationProperties googleDriveConfigurationProperties;
     private final GoogleDriveApplicationProperties googleDrivePropertiesConfiguration;
 
-    public GoogleDriveServiceConfiguration(GooglePropertiesConfiguration googlePropertiesConfiguration, GoogleDriveApplicationProperties googleDriveApplicationProperties){
-        this.googlePropertiesConfiguration = googlePropertiesConfiguration;
+    public GoogleDriveServiceConfiguration(GoogleDriveConfigurationProperties googleDriveConfigurationProperties, GoogleDriveApplicationProperties googleDriveApplicationProperties){
+        this.googleDriveConfigurationProperties = googleDriveConfigurationProperties;
         this.googleDrivePropertiesConfiguration = googleDriveApplicationProperties;
     }
 
@@ -39,7 +38,7 @@ public class GoogleDriveServiceConfiguration {
 
         final InputStream in = new FileInputStream(
                 new FileSystemResource(
-                        this.googlePropertiesConfiguration.serviceAccountAuthenticationKey())
+                        this.googleDriveConfigurationProperties.serviceAccountAuthenticationKey())
                         .getFile()
         );
 

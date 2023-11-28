@@ -1,17 +1,17 @@
 package com.sistema_expedientes;
 
 import com.sistema_expedientes.google.drive_main.configuration.properties.GoogleDriveApplicationProperties;
-import com.sistema_expedientes.google.drive_main.configuration.properties.GoogleDriveServicePropertiesConfiguration;
-import com.sistema_expedientes.google.drive_main.configuration.properties.GooglePropertiesConfiguration;
+import com.sistema_expedientes.google.drive_main.configuration.properties.GoogleDriveConfigurationServiceProperties;
+import com.sistema_expedientes.google.drive_main.configuration.properties.GoogleDriveConfigurationProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
 @EnableConfigurationProperties({
-        GooglePropertiesConfiguration.class,
+        GoogleDriveConfigurationProperties.class,
         GoogleDriveApplicationProperties.class,
-        GoogleDriveServicePropertiesConfiguration.class
+        GoogleDriveConfigurationServiceProperties.class
 })
 public class EndpointExpediente{
 

@@ -5,7 +5,7 @@ import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.DriveList;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.Permission;
-import com.sistema_expedientes.google.drive_main.configuration.properties.GoogleDriveServicePropertiesConfiguration;
+import com.sistema_expedientes.google.drive_main.configuration.properties.GoogleDriveConfigurationServiceProperties;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,10 +18,10 @@ import java.util.List;
 public class GoogleDriveService {
 
     private final Drive googleDriveService;
-    private final GoogleDriveServicePropertiesConfiguration googleDriveApplicationProperties;
+    private final GoogleDriveConfigurationServiceProperties googleDriveApplicationProperties;
     private final String folderMimeType;
 
-    public GoogleDriveService(Drive googleDriveService, GoogleDriveServicePropertiesConfiguration googleDriveApplicationProperties) {
+    public GoogleDriveService(Drive googleDriveService, GoogleDriveConfigurationServiceProperties googleDriveApplicationProperties) {
         this.googleDriveService = googleDriveService;
         this.googleDriveApplicationProperties = googleDriveApplicationProperties;
         this.folderMimeType = "application/vnd.google-apps.folder";
