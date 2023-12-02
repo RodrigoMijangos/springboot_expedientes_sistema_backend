@@ -3,7 +3,6 @@ package com.sistema_expedientes.controllers;
 import com.sistema_expedientes.serie_documental.seccion.Seccion;
 import com.sistema_expedientes.serie_documental.dto.request.SeccionRequestDTO;
 import com.sistema_expedientes.services.serie_documental.SeccionServicio;
-import com.sistema_expedientes.services.exceptions.SeccionNoEncontradaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +17,7 @@ public class SeccionControlador {
 
 
     @GetMapping("api/v1/secciones/detalles/{clave}")
-    public ResponseEntity<Seccion> get(@PathVariable String clave) throws SeccionNoEncontradaException {
+    public ResponseEntity<Seccion> get(@PathVariable String clave) throws Exception {
         return ResponseEntity.ok(servicio.get(clave));
     }
 
@@ -34,7 +33,7 @@ public class SeccionControlador {
     }
 
     @PutMapping("api/v1/secciones/detalles/{clave}/editar")
-    public ResponseEntity<Seccion> put(@PathVariable String clave, @RequestBody SeccionRequestDTO request) throws SeccionNoEncontradaException {
+    public ResponseEntity<Seccion> put(@PathVariable String clave, @RequestBody SeccionRequestDTO request) throws Exception {
         return ResponseEntity.ok(servicio.put(clave, request));
     }
 

@@ -13,6 +13,7 @@ import com.sistema_expedientes.legajo.dto.request.specific.CreateLegajoRequestDT
 import com.sistema_expedientes.legajo.dto.request.specific.PUTLegajoRequestDTO;
 import com.sistema_expedientes.legajo.repository.LegajoRepositorio;
 import com.sistema_expedientes.services.documento.DocumentoServicio;
+import com.sistema_expedientes.services.exceptions.ResourceNotFoundException;
 import com.sistema_expedientes.services.formatter.FolderInstanceNameFormatter;
 import com.sistema_expedientes.services.legajo.mapeo.MapeoLegajoServicio;
 import org.springframework.stereotype.Service;
@@ -40,10 +41,10 @@ public class LegajoServicio implements LegajoServicioMetodos {
     }
 
     @Override
-    public Legajo get(LegajoCompositeKey id) throws Exception {
-        Optional<Legajo> in_bd = this.repositorio.findById(id);
-
-        return in_bd.orElseThrow(Exception::new);
+    public Legajo get(LegajoCompositeKey id) throws ResourceNotFoundException {
+        return this.repositorio.findById(id).orElseThrow(() -> new ResourceNotFoundException(
+                new Throwable("El legajo no está disponible o no existe")
+        ));
     }
 
     @Override
@@ -56,7 +57,7 @@ public class LegajoServicio implements LegajoServicioMetodos {
         return null;
     }
 
-    public Legajo create(LegajoRequestDTO request, Expediente expediente) throws Exception {
+    public Legajo create(LegajoRequestDTO request, Expediente expediente) throws ResourceNotFoundException, IOException {
         Legajo to_save = this.mapeoServicio.legajoRequestToEntity(request);
         to_save.setId(this.iniciarOAgregarNumeroLegajo(expediente));
         to_save.setGoogleDriveFolderId(
@@ -69,13 +70,15 @@ public class LegajoServicio implements LegajoServicioMetodos {
     }
 
     @Override
-    public Legajo put(PUTLegajoRequestDTO request) throws Exception {
-        if(registroEstaPresente(request.getId())){
-            Legajo to_bd = this.mapeoServicio.legajoRequestToEntity(request);
-            return this.repositorio.save(to_bd);
-        }
+    public Legajo put(PUTLegajoRequestDTO request) throws ResourceNotFoundException {
 
-        throw new Exception("No se pudo guardar");
+        Legajo in_bd = this.get(request.getId());
+        Legajo to_bd = this.mapeoServicio.legajoRequestToEntity(request);
+
+        to_bd.setGoogleDriveFolderId(in_bd.getGoogleDriveFolderId());
+        to_bd.setDocumentos(in_bd.getDocumentos());
+
+        return this.repositorio.save(to_bd);
     }
 
     @Override
@@ -87,24 +90,25 @@ public class LegajoServicio implements LegajoServicioMetodos {
     }
 
     @Override
-    public Legajo guardarListaDocumentos(ListaDocumentosLegajoRequestDTO request, MultipartFile[] files) throws Exception {
-        Legajo in_bd = this.get(request.getLegajo());
+    public Legajo guardarListaDocumentos(ListaDocumentosLegajoRequestDTO request, MultipartFile[] files) throws ResourceNotFoundException {
         Queue<MultipartFile> toSave = new LinkedList<>(List.of(files));
+        Legajo in_bd = this.get(request.getLegajo());
 
-        in_bd.setDocumentos(
-               this.documentoServicio.createList(
-                    request.getDocumentos()
-                            .stream()
-                            .map(documentoRequest -> {
-                                try {
-                                    return this.documentoServicio.create(documentoRequest, toSave.remove(), in_bd.getGoogleDriveFolderId());
-
-                                } catch (IOException e) {
-                                    throw new RuntimeException(e);
-                                }
-                            })
-                            .collect(Collectors.toList())
-                )
+        in_bd.getDocumentos().addAll(
+                request.getDocumentos()
+                        .stream()
+                        .map(documentoRequest -> {
+                            try {
+                                return this.documentoServicio.create(
+                                        documentoRequest,
+                                        toSave.remove(),
+                                        in_bd.getGoogleDriveFolderId()
+                                );
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        })
+                        .toList()
         );
 
         return this.repositorio.save(in_bd);
@@ -130,7 +134,7 @@ public class LegajoServicio implements LegajoServicioMetodos {
 
     }*/
 
-    public Legajo guardarDocumento(CreateDocumentInsideLegajoRequestDTO request, MultipartFile file) throws Exception {
+    public Legajo guardarDocumento(CreateDocumentInsideLegajoRequestDTO request, MultipartFile file) throws ResourceNotFoundException, IOException {
         Legajo in_bd = this.get(request.getLegajo());
         Documento to_save = this.documentoServicio.create(request.getDocumento(), file, in_bd.getGoogleDriveFolderId());
         in_bd.getDocumentos().add(to_save);

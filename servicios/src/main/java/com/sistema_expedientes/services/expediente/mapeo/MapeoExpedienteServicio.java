@@ -20,11 +20,9 @@ import org.springframework.stereotype.Service;
 public class MapeoExpedienteServicio {
 
     private final ModelMapper mapper;
-    private final GoogleDriveService googleDriveService;
 
-    public MapeoExpedienteServicio(ModelMapper mapper, GoogleDriveService googleDriveService) {
+    public MapeoExpedienteServicio(ModelMapper mapper) {
         this.mapper = mapper;
-        this.googleDriveService = googleDriveService;
     }
 
     public Expediente dtoToEntityExpediente(_DTO dto) {

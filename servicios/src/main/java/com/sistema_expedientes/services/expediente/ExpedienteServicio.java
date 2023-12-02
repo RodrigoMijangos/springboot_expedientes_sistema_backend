@@ -9,6 +9,7 @@ import com.sistema_expedientes.expediente.repository.ExpedienteRepositorio;
 import com.sistema_expedientes.google.drive_main.service.GoogleDriveService;
 import com.sistema_expedientes.legajo.Legajo;
 import com.sistema_expedientes.legajo.dto.request.specific.CreateLegajoRequestDTO;
+import com.sistema_expedientes.services.exceptions.ResourceNotFoundException;
 import com.sistema_expedientes.services.expediente.mapeo.MapeoExpedienteServicio;
 import com.sistema_expedientes.services.formatter.FolderInstanceNameFormatter;
 import com.sistema_expedientes.services.legajo.LegajoServicio;
@@ -17,6 +18,7 @@ import com.sistema_expedientes.services.unidad_administrativa.UnidadAdministrati
 import com.sistema_expedientes.unidad_administrativa.UnidadAdministrativa;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
@@ -50,10 +52,10 @@ public class ExpedienteServicio implements ExpedienteServicioMetodos {
     }
 
     @Override
-    public Expediente get(ExpedienteCompositeKey key) throws Exception {
-        Optional<Expediente> in_bd = repositorio.findById(key);
-
-        return in_bd.orElseThrow(Exception::new);
+    public Expediente get(ExpedienteCompositeKey key) throws ResourceNotFoundException {
+        return repositorio.findById(key).orElseThrow(() -> new ResourceNotFoundException(
+                new Throwable("El expediente que busca no se encuentra disponible o no existe")
+        ));
 
     }
 
@@ -67,7 +69,7 @@ public class ExpedienteServicio implements ExpedienteServicioMetodos {
         return null;
     }
 
-    public Expediente guardarListaLegajos(ListaLegajosExpedienteRequestDTO request) throws Exception {
+    public Expediente guardarListaLegajos(ListaLegajosExpedienteRequestDTO request) throws ResourceNotFoundException, IOException {
         Expediente in_bd = this.get(request.getExpediente());
 
         Set<Legajo> to_save = new HashSet<>();

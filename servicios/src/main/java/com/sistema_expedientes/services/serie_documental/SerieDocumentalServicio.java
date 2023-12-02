@@ -3,26 +3,24 @@ package com.sistema_expedientes.services.serie_documental;
 import com.sistema_expedientes.serie_documental.SerieDocumental;
 import com.sistema_expedientes.serie_documental.dto.request.SerieDocumentalRequestDTO;
 import com.sistema_expedientes.serie_documental.SerieDocumentalRepositorio;
-import com.sistema_expedientes.services.exceptions.SeccionNoEncontradaException;
-import com.sistema_expedientes.services.exceptions.SerieDocumentalNoEncontradaExcepcion;
+import com.sistema_expedientes.services.exceptions.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class SerieDocumentalServicio implements SerieDocumentalMetodos {
 
-    @Autowired
-    private SerieDocumentalRepositorio repositorio;
+    private final SerieDocumentalRepositorio repositorio;
+    private final SeccionServicio seccionServicio;
+    private final ModelMapper mapper;
 
-    @Autowired
-    private SeccionServicio seccionServicio;
-
-    @Autowired
-    private ModelMapper mapper;
+    public SerieDocumentalServicio(SerieDocumentalRepositorio repositorio, SeccionServicio seccionServicio, ModelMapper mapper) {
+        this.repositorio = repositorio;
+        this.seccionServicio = seccionServicio;
+        this.mapper = mapper;
+    }
 
     @Override
     public List<SerieDocumental> list() {
@@ -30,15 +28,14 @@ public class SerieDocumentalServicio implements SerieDocumentalMetodos {
     }
 
     @Override
-    public SerieDocumental get(Short id) throws SerieDocumentalNoEncontradaExcepcion {
-        Optional<SerieDocumental> in_bd = repositorio.findById(id);
-        if(in_bd.isEmpty())
-            throw new SerieDocumentalNoEncontradaExcepcion(id);
-        return in_bd.get();
+    public SerieDocumental get(Short id) throws ResourceNotFoundException {
+        return repositorio.findById(id).orElseThrow(() -> new ResourceNotFoundException(
+                new Throwable("La serie documental no está disponible o no existe")
+        ));
     }
 
     @Override
-    public SerieDocumental create(SerieDocumentalRequestDTO request) throws SerieDocumentalNoEncontradaExcepcion, SeccionNoEncontradaException {
+    public SerieDocumental create(SerieDocumentalRequestDTO request) throws ResourceNotFoundException {
 
         SerieDocumental to_bd = dtoToEntity(request);
         if (request.getSerie_padre() > 0)

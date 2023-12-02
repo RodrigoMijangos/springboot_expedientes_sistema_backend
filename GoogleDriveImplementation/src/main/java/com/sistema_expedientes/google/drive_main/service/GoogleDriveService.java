@@ -54,7 +54,7 @@ public class GoogleDriveService {
         return retorno;
     }
 
-    public String createFolder(String folderName, String folderParentId) throws Exception {
+    public String createFolder(String folderName, String folderParentId) throws  IOException{
         File uploadedFile = executeGoogleDriveSaveFolderRequest(folderName, folderParentId);
         setAnyoneReaderPermission(uploadedFile);
         return uploadedFile.getId();
@@ -102,7 +102,7 @@ public class GoogleDriveService {
                 .execute();
     }
 
-    private void setAnyoneReaderPermission(File uploadedFile) throws Exception{
+    private void setAnyoneReaderPermission(File uploadedFile) throws IOException {
 
         this.googleDriveService.permissions()
                 .create(

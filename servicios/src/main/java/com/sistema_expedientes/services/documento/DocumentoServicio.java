@@ -4,6 +4,7 @@ import com.sistema_expedientes.documento.Documento;
 import com.sistema_expedientes.documento.dto.request.base.DocumentoRequest;
 import com.sistema_expedientes.google.drive_main.service.GoogleDriveService;
 import com.sistema_expedientes.documento.repository.DocumentoRepositorio;
+import com.sistema_expedientes.services.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,8 +29,12 @@ public class DocumentoServicio implements DocumentoServicioMetodos {
     }
 
     @Override
-    public Documento get(Long id) throws Exception {
-        return this.repositorio.findById(id).orElseThrow(Exception::new);
+    public Documento get(Long id) throws ResourceNotFoundException {
+        return this.repositorio.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException(
+                        new Throwable("Es posible que el recurso no esté disponible o no exista")
+                )
+        );
     }
 
     @Override
@@ -43,29 +48,29 @@ public class DocumentoServicio implements DocumentoServicioMetodos {
         to_bd.setUrlWebView(responseMapping.get("shareViewLink"));
 
         return this.repositorio.save(to_bd);
+
     }
 
     @Override
-    public Documento put(DocumentoRequest request, Long id) throws Exception {
+    public Documento put(DocumentoRequest request, Long id) throws ResourceNotFoundException {
         Documento in_bd = this.get(id);
         in_bd.setNombre(request.getNombre());
         return this.repositorio.save(in_bd);
     }
 
     @Override
-    public void delete(Long id) throws Exception {
+    public void delete(Long id) throws ResourceNotFoundException, IOException {
         Documento in_bd = this.get(id);
         if(this.googleDriveService.deleteFileFromId(in_bd.getGoogleDriveFileId()))
             this.repositorio.deleteById(id);
-        else throw new Exception();
     }
 
-    public List<Documento> createList(List<Documento> request){
+    /*public List<Documento> createList(List<Documento> request){
         return this.repositorio.saveAll(request);
-    }
+    }*/
 
-    private boolean registroEstaPresente(Long id){
+    /*private boolean registroEstaPresente(Long id){
         return this.repositorio.existsById(id);
-    }
+    }*/
 
 }

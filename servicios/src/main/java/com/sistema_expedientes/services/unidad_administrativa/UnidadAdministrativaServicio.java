@@ -1,5 +1,6 @@
 package com.sistema_expedientes.services.unidad_administrativa;
 
+import com.sistema_expedientes.services.exceptions.ResourceNotFoundException;
 import com.sistema_expedientes.unidad_administrativa.UnidadAdministrativa;
 import com.sistema_expedientes.unidad_administrativa.dto.request.UnidadAdministrativaRequestDTO;
 import com.sistema_expedientes.google.drive_main.service.GoogleDriveService;
@@ -7,8 +8,8 @@ import com.sistema_expedientes.unidad_administrativa.UnidadAdministrativaReposit
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UnidadAdministrativaServicio implements UnidadAdministrativaMetodos {
@@ -26,10 +27,10 @@ public class UnidadAdministrativaServicio implements UnidadAdministrativaMetodos
     }
 
     @Override
-    public UnidadAdministrativa get(String id) throws Exception {
-        Optional<UnidadAdministrativa> in_db = repositorio.findById(id);
-
-        return in_db.orElseThrow(Exception::new);
+    public UnidadAdministrativa get(String id) throws ResourceNotFoundException {
+        return repositorio.findById(id).orElseThrow(() -> new ResourceNotFoundException(
+                new Throwable("La unidad administrativa no está disponible o no existe")
+        ));
 
     }
 
@@ -39,7 +40,7 @@ public class UnidadAdministrativaServicio implements UnidadAdministrativaMetodos
     }
 
     @Override
-    public UnidadAdministrativa create(UnidadAdministrativaRequestDTO request) throws Exception {
+    public UnidadAdministrativa create(UnidadAdministrativaRequestDTO request) throws ResourceNotFoundException, IOException {
 
         UnidadAdministrativa to_bd = this.mapper.map(request, UnidadAdministrativa.class);
 
@@ -68,7 +69,7 @@ public class UnidadAdministrativaServicio implements UnidadAdministrativaMetodos
     }
 
     @Override
-    public UnidadAdministrativa put(String clave, UnidadAdministrativaRequestDTO request) throws Exception {
+    public UnidadAdministrativa put(String clave, UnidadAdministrativaRequestDTO request) throws ResourceNotFoundException {
         UnidadAdministrativa in_bd = this.get(clave);
 
         in_bd.setNombre(request.getNombre());
@@ -76,15 +77,10 @@ public class UnidadAdministrativaServicio implements UnidadAdministrativaMetodos
         in_bd.setExtensionTelefonica(request.getExtensionTelefonica());
 
         if(request.getUnidadPrincipal() != null){
-            try{
-                UnidadAdministrativa unidadPrincipal = this.get(request.getUnidadPrincipal());
-                in_bd.setUnidadPrincipal(unidadPrincipal);
-            }catch (Exception e){
-                throw new Exception();
-            }
+            UnidadAdministrativa unidadPrincipal = this.get(request.getUnidadPrincipal());
+            in_bd.setUnidadPrincipal(unidadPrincipal);
         }
 
         return this.repositorio.save(in_bd);
-
     }
 }

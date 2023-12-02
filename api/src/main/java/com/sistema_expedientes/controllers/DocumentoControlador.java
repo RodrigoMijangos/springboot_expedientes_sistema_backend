@@ -3,6 +3,7 @@ package com.sistema_expedientes.controllers;
 import com.sistema_expedientes.documento.Documento;
 import com.sistema_expedientes.documento.dto.request.base.DocumentoRequest;
 import com.sistema_expedientes.services.documento.DocumentoServicio;
+import com.sistema_expedientes.services.exceptions.ResourceNotFoundException;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,11 @@ public class DocumentoControlador {
 
     public DocumentoControlador(DocumentoServicio servicio){
         this.servicio = servicio;
+    }
+
+    @GetMapping("api/v1/documentos/get/{id}")
+    public ResponseEntity<Documento> get(@PathVariable Long id) throws ResourceNotFoundException {
+        return ResponseEntity.ok(this.servicio.get(id));
     }
 
     @GetMapping("api/v1/documentos/list")

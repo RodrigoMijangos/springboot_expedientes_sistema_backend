@@ -3,6 +3,7 @@ package com.sistema_expedientes.services.formatter;
 import com.sistema_expedientes.serie_documental.SerieDocumental;
 import com.sistema_expedientes.expediente.Expediente;
 import com.sistema_expedientes.legajo.Legajo;
+import com.sistema_expedientes.services.exceptions.ResourceNotFoundException;
 import com.sistema_expedientes.services.serie_documental.SerieDocumentalServicio;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ public class FolderInstanceNameFormatter {
         this.serieDocumentalServicio = serieDocumentalServicio;
     }
 
-    public String setGoogleDriveFolderName(Expediente expediente) throws Exception {
+    public String setGoogleDriveFolderName(Expediente expediente) throws ResourceNotFoundException {
         SerieDocumental serieDocumental = this.serieDocumentalServicio.get(expediente.getIdentificadorSerieDocumental());
 
         StringBuilder folderNameBuffer = new StringBuilder();
@@ -46,7 +47,7 @@ public class FolderInstanceNameFormatter {
 
     }
 
-    public String setGoogleDriveFolderName(Legajo legajo, Expediente expediente) throws Exception {
+    public String setGoogleDriveFolderName(Legajo legajo, Expediente expediente) throws ResourceNotFoundException {
 
         return this.setGoogleDriveFolderName(expediente) +
                 "-" + legajo.getId().getNumeroLegajo();

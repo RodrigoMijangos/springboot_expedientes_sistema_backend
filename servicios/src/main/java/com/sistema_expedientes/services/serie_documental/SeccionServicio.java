@@ -3,7 +3,7 @@ package com.sistema_expedientes.services.serie_documental;
 import com.sistema_expedientes.serie_documental.seccion.Seccion;
 import com.sistema_expedientes.serie_documental.dto.request.SeccionRequestDTO;
 import com.sistema_expedientes.serie_documental.seccion.SeccionRepositorio;
-import com.sistema_expedientes.services.exceptions.SeccionNoEncontradaException;
+import com.sistema_expedientes.services.exceptions.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,11 +14,13 @@ import java.util.Optional;
 @Service
 public class SeccionServicio implements SeccionServicioMetodos {
 
-    @Autowired
-    private SeccionRepositorio repositorio;
+    private final SeccionRepositorio repositorio;
+    private final ModelMapper mapper;
 
-    @Autowired
-    private ModelMapper mapper;
+    public SeccionServicio(SeccionRepositorio repositorio, ModelMapper mapper){
+        this.repositorio = repositorio;
+        this.mapper = mapper;
+    }
 
     @Override
     public List<Seccion> getAll() {
@@ -26,13 +28,10 @@ public class SeccionServicio implements SeccionServicioMetodos {
     }
 
     @Override
-    public Seccion get(String clave) throws SeccionNoEncontradaException {
-        Optional<Seccion> in_bd = repositorio.findById(clave);
-
-        if(in_bd.isEmpty())
-            throw new SeccionNoEncontradaException("No se ha encontrado la sección con la clave " + clave);
-
-        return in_bd.get();
+    public Seccion get(String clave) throws ResourceNotFoundException {
+        return repositorio.findById(clave).orElseThrow(() -> new ResourceNotFoundException(
+                new Throwable("La sección no está disponible o no existe")
+        ));
     }
 
     @Override
@@ -42,7 +41,7 @@ public class SeccionServicio implements SeccionServicioMetodos {
     }
 
     @Override
-    public Seccion put(String clave, SeccionRequestDTO request) throws SeccionNoEncontradaException {
+    public Seccion put(String clave, SeccionRequestDTO request) throws ResourceNotFoundException {
 
         Seccion in_bd = get(clave);
 
@@ -53,7 +52,7 @@ public class SeccionServicio implements SeccionServicioMetodos {
     }
 
     @Override
-    public int delete(String clave) throws SeccionNoEncontradaException {
+    public int delete(String clave) throws ResourceNotFoundException {
         Seccion in_bd = get(clave);
         repositorio.delete(in_bd);
         return 1;
