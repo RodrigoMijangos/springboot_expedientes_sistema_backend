@@ -1,10 +1,15 @@
 package com.sistema_expedientes.expediente.dto.request.specific;
 
 import com.sistema_expedientes.expediente.dto.request.base.ExpedienteRequest;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class CreateExpedienteRequestDTO extends ExpedienteRequest {
 
+    @NotNull
     private Short identificadorSerieDocumental;
+    @NotNull
+    @NotBlank
     private String unidadAdministrativaGeneradora;
 
     public CreateExpedienteRequestDTO() {

@@ -6,121 +6,124 @@ CREATE TABLE IF NOT EXISTS usuarios(
                                        clave_acceso VARCHAR NOT NULL,
                                        nombre_usuario VARCHAR NOT NULL UNIQUE,
                                        CONSTRAINT PK_USUARIOS
-                                       PRIMARY KEY(identificador)
-    );
+                                           PRIMARY KEY(identificador)
+);
 
 CREATE TABLE IF NOT EXISTS roles(
                                     identificador BIGSERIAL NOT NULL,
                                     nivel_acceso VARCHAR NOT NULL UNIQUE,
                                     CONSTRAINT PK_ROLES
-                                    PRIMARY KEY(identificador)
-    );
+                                        PRIMARY KEY(identificador)
+);
 
 CREATE TABLE IF NOT EXISTS roles_usuario(
                                             usuario_identificador BIGINT NOT NULL,
                                             rol_identificador BIGINT NOT NULL,
                                             CONSTRAINT FK_USUARIOS
-                                            FOREIGN KEY(usuario_identificador) REFERENCES usuarios(identificador),
-    CONSTRAINT FK_ROLES
-    FOREIGN KEY(rol_identificador) REFERENCES roles(identificador)
-    );
+                                                FOREIGN KEY(usuario_identificador) REFERENCES usuarios(identificador),
+                                            CONSTRAINT FK_ROLES
+                                                FOREIGN KEY(rol_identificador) REFERENCES roles(identificador)
+);
 
 CREATE TABLE IF NOT EXISTS entidades(
                                         identificador INTEGER NOT NULL UNIQUE,
                                         nombre_entidad VARCHAR NOT NULL UNIQUE,
                                         CONSTRAINT PK_ENTIDADES
-                                        PRIMARY KEY (identificador)
+                                            PRIMARY KEY (identificador)
 
-    );
+);
 
 CREATE TABLE IF NOT EXISTS permisos_roles(
                                              identificador_rol BIGINT NOT NULL,
                                              identificador_entidad INTEGER NOT NULL,
                                              accion_permitida SMALLINT NOT NULL,
                                              CONSTRAINT FK_ROLES
-                                             FOREIGN KEY(identificador_rol) REFERENCES roles(identificador),
-    CONSTRAINT FK_ENTIDADES
-    FOREIGN KEY(identificador_entidad) REFERENCES entidades(identificador)
-    );
+                                                 FOREIGN KEY(identificador_rol) REFERENCES roles(identificador),
+                                             CONSTRAINT FK_ENTIDADES
+                                                 FOREIGN KEY(identificador_entidad) REFERENCES entidades(identificador)
+);
 
 CREATE TABLE IF NOT EXISTS secciones(
                                         clave VARCHAR NOT NULL,
                                         nombre VARCHAR NOT NULL,
                                         descripcion VARCHAR NULL DEFAULT '',
+                                        fecha_borrado timestamptz NULL DEFAULT NULL,
                                         CONSTRAINT PK_SECCIONES
-                                        PRIMARY KEY (clave)
-    );
+                                            PRIMARY KEY (clave)
+);
 
 CREATE TABLE IF NOT EXISTS tecnicas_seleccion(
                                                  identificador SMALLINT NOT NULL,
                                                  tecnica_seleccion VARCHAR NOT NULL,
                                                  descripcion VARCHAR NOT NULL DEFAULT '',
                                                  CONSTRAINT PK_TECNICAS_SELECCION
-                                                 PRIMARY KEY (identificador)
-    );
+                                                     PRIMARY KEY (identificador)
+);
 
 CREATE TABLE IF NOT EXISTS series_documentales(
                                                   identificador SMALLSERIAL NOT NULL,
                                                   serie_documental_padre SMALLINT NULL DEFAULT NULL,
                                                   clave VARCHAR(5) NOT NULL,
-    seccion VARCHAR NULL DEFAULT NULL,
-    nombre VARCHAR NOT NULL,
-    valor_documental_administrativo BOOLEAN NOT NULL DEFAULT FALSE,
-    valor_documental_legal BOOLEAN NOT NULL DEFAULT FALSE,
-    valor_documental_contable BOOLEAN NOT NULL DEFAULT FALSE,
-    periodos_conservacion_tramite SMALLINT NOT NULL,
-    periodos_conservacion_concentracion SMALLINT NOT NULL,
-    tecnica_seleccion SMALLINT NOT NULL,
-    observaciones VARCHAR NOT NULL,
-    CONSTRAINT PK_SERIES_DOCUMENTALES
-    PRIMARY KEY (identificador),
-    CONSTRAINT FK_SECCIONES
-    FOREIGN KEY (seccion) REFERENCES secciones(clave),
-    CONSTRAINT FK_TECNICAS_SELECCION
-    FOREIGN KEY (tecnica_seleccion) REFERENCES tecnicas_seleccion(identificador),
-    CONSTRAINT FK_SUBSERIE
-    FOREIGN KEY (serie_documental_padre) REFERENCES series_documentales(identificador)
-    );
+                                                  seccion VARCHAR NULL DEFAULT NULL,
+                                                  nombre VARCHAR NOT NULL,
+                                                  valor_documental_administrativo BOOLEAN NOT NULL DEFAULT FALSE,
+                                                  valor_documental_legal BOOLEAN NOT NULL DEFAULT FALSE,
+                                                  valor_documental_contable BOOLEAN NOT NULL DEFAULT FALSE,
+                                                  periodos_conservacion_tramite SMALLINT NOT NULL,
+                                                  periodos_conservacion_concentracion SMALLINT NOT NULL,
+                                                  tecnica_seleccion SMALLINT NOT NULL,
+                                                  fecha_borrado timestamptz NULL DEFAULT NULL,
+                                                  observaciones VARCHAR NOT NULL,
+                                                  CONSTRAINT PK_SERIES_DOCUMENTALES
+                                                      PRIMARY KEY (identificador),
+                                                  CONSTRAINT FK_SECCIONES
+                                                      FOREIGN KEY (seccion) REFERENCES secciones(clave),
+                                                  CONSTRAINT FK_TECNICAS_SELECCION
+                                                      FOREIGN KEY (tecnica_seleccion) REFERENCES tecnicas_seleccion(identificador),
+                                                  CONSTRAINT FK_SUBSERIE
+                                                      FOREIGN KEY (serie_documental_padre) REFERENCES series_documentales(identificador)
+);
 
 CREATE TABLE IF NOT EXISTS unidades_administrativas(
-    clave VARCHAR(5) NOT NULL,
-    nombre VARCHAR NOT NULL,
-    unidad_principal VARCHAR(5) NULL DEFAULT 0,
-    piso VARCHAR(2) NOT NULL,
-    extension_telefonica VARCHAR(5) NOT NULL,
-    google_drive_folder_id VARCHAR NOT NULL,
-    CONSTRAINT PK_UNIDADES_ADMINISTRATIVAS
-    PRIMARY KEY (clave),
-    CONSTRAINT FK_UNIDAD_PRINCIPAL
-    FOREIGN KEY (unidad_principal) REFERENCES unidades_administrativas(clave)
-    );
+                                                       clave VARCHAR(5) NOT NULL,
+                                                       nombre VARCHAR NOT NULL,
+                                                       unidad_principal VARCHAR(5) NULL DEFAULT 0,
+                                                       piso VARCHAR(2) NOT NULL,
+                                                       extension_telefonica VARCHAR(5) NOT NULL,
+                                                       google_drive_folder_id VARCHAR NOT NULL,
+                                                       fecha_borrado timestamptz NULL DEFAULT NULL,
+                                                       CONSTRAINT PK_UNIDADES_ADMINISTRATIVAS
+                                                           PRIMARY KEY (clave),
+                                                       CONSTRAINT FK_UNIDAD_PRINCIPAL
+                                                           FOREIGN KEY (unidad_principal) REFERENCES unidades_administrativas(clave)
+);
 
 CREATE TABLE IF NOT EXISTS expedientes(
                                           serie_documental SMALLINT NOT NULL,
                                           unidad_administrativa_generadora VARCHAR(5) NOT NULL,
-    numero_expediente SMALLINT NOT NULL,
-    fecha_apertura DATE NOT NULL DEFAULT CURRENT_DATE,
-    periodo_cierre SMALLINT NULL DEFAULT NULL,
-    asunto VARCHAR NOT NULL,
-    tipo_expediente SMALLINT NULL,
-    numero_proyecto VARCHAR NOT NULL,
-    nombre_proyecto VARCHAR NOT NULL,
-    acronimo_institucion VARCHAR NOT NULL,
-    nombre_institucion VARCHAR NOT NULL,
-    numero_contrato VARCHAR NOT NULL,
-    cantidad_hojas SMALLINT NOT NULL,
-    tipo_formato SMALLINT NOT NULL,
-    condicion_acceso SMALLINT NOT NULL,
-    tradicion_documental SMALLINT NOT NULL,
-    tipo_informacion SMALLINT NOT NULL,
-    google_drive_folder_id VARCHAR NOT NULL,
-    CONSTRAINT PK_EXPEDIENTES
-    PRIMARY KEY (serie_documental, unidad_administrativa_generadora, numero_expediente, fecha_apertura),
-    CONSTRAINT FK_SERIE_DOCUMENTAL
-    FOREIGN KEY (serie_documental) REFERENCES series_documentales(identificador),
-    CONSTRAINT FK_UNIDADES_ADMINISTRATIVAS
-    FOREIGN KEY (unidad_administrativa_generadora) REFERENCES unidades_administrativas(clave)
-    );
+                                          numero_expediente SMALLINT NOT NULL,
+                                          fecha_apertura DATE NOT NULL DEFAULT CURRENT_DATE,
+                                          periodo_cierre SMALLINT NULL DEFAULT NULL,
+                                          asunto VARCHAR NOT NULL,
+                                          tipo_expediente SMALLINT NULL,
+                                          numero_proyecto VARCHAR NOT NULL,
+                                          nombre_proyecto VARCHAR NOT NULL,
+                                          acronimo_institucion VARCHAR NOT NULL,
+                                          nombre_institucion VARCHAR NOT NULL,
+                                          numero_contrato VARCHAR NOT NULL,
+                                          cantidad_hojas SMALLINT NOT NULL,
+                                          tipo_formato SMALLINT NOT NULL,
+                                          condicion_acceso SMALLINT NOT NULL,
+                                          tradicion_documental SMALLINT NOT NULL,
+                                          tipo_informacion SMALLINT NOT NULL,
+                                          google_drive_folder_id VARCHAR NOT NULL,
+                                          CONSTRAINT PK_EXPEDIENTES
+                                              PRIMARY KEY (serie_documental, unidad_administrativa_generadora, numero_expediente, fecha_apertura),
+                                          CONSTRAINT FK_SERIE_DOCUMENTAL
+                                              FOREIGN KEY (serie_documental) REFERENCES series_documentales(identificador),
+                                          CONSTRAINT FK_UNIDADES_ADMINISTRATIVAS
+                                              FOREIGN KEY (unidad_administrativa_generadora) REFERENCES unidades_administrativas(clave)
+);
 
 CREATE TABLE IF NOT EXISTS documentos(
                                          identificador BIGSERIAL NOT NULL,
@@ -128,9 +131,9 @@ CREATE TABLE IF NOT EXISTS documentos(
                                          url_web_view VARCHAR NULL,
                                          google_drive_file_id VARCHAR NOT NULL,
                                          fecha_creacion timestamptz NOT NULL DEFAULT now(),
-    fecha_edicion timestamptz NOT NULL DEFAULT now(),
-    CONSTRAINT PK_DOCUMENTOS PRIMARY KEY (identificador)
-    );
+                                         fecha_edicion timestamptz NOT NULL DEFAULT now(),
+                                         CONSTRAINT PK_DOCUMENTOS PRIMARY KEY (identificador)
+);
 
 /**
   Codigo Permisos
@@ -155,11 +158,11 @@ CREATE TABLE IF NOT EXISTS legajos(
                                       letra_bateria VARCHAR NOT NULL,
                                       google_drive_folder_id VARCHAR NOT NULL,
                                       CONSTRAINT PK_LEGAJOS
-                                      PRIMARY KEY (serie_documental_expediente, unidad_administrativa_generadora_expediente, numero_expediente, fecha_apertura_expediente, numero_legajo),
-    CONSTRAINT FK_EXPEPEDIENTES
-    FOREIGN KEY (serie_documental_expediente, unidad_administrativa_generadora_expediente, numero_expediente, fecha_apertura_expediente)
-    REFERENCES expedientes(serie_documental, unidad_administrativa_generadora, numero_expediente, fecha_apertura)
-    );
+                                          PRIMARY KEY (serie_documental_expediente, unidad_administrativa_generadora_expediente, numero_expediente, fecha_apertura_expediente, numero_legajo),
+                                      CONSTRAINT FK_EXPEPEDIENTES
+                                          FOREIGN KEY (serie_documental_expediente, unidad_administrativa_generadora_expediente, numero_expediente, fecha_apertura_expediente)
+                                              REFERENCES expedientes(serie_documental, unidad_administrativa_generadora, numero_expediente, fecha_apertura)
+);
 
 CREATE TABLE IF NOT EXISTS contenido_legajo(
                                                serie_documental_expediente SMALLINT NOT NULL,
@@ -169,21 +172,10 @@ CREATE TABLE IF NOT EXISTS contenido_legajo(
                                                numero_legajo SMALLINT NOT NULL,
                                                identificador_documento BIGINT NOT NULL,
                                                CONSTRAINT FK_LEGAJOS
-                                               FOREIGN KEY (serie_documental_expediente, unidad_administrativa_generadora_expediente, numero_expediente, fecha_apertura_expediente, numero_legajo)
-    REFERENCES legajos(serie_documental_expediente, unidad_administrativa_generadora_expediente, numero_expediente, fecha_apertura_expediente, numero_legajo),
-    CONSTRAINT FK_DOCUMENTOS FOREIGN KEY (identificador_documento) REFERENCES documentos(identificador)
-    );
-
-GRANT SELECT, INSERT, UPDATE, DELETE ON secciones TO spring_app_usr;
-GRANT SELECT, INSERT, UPDATE, DELETE ON tecnicas_seleccion TO spring_app_usr;
-GRANT SELECT, INSERT, UPDATE, DELETE ON series_documentales TO spring_app_usr;
-GRANT USAGE ON series_documentales_identificador_seq to spring_app_usr;
-GRANT SELECT, INSERT, UPDATE, DELETE ON unidades_administrativas TO spring_app_usr;
-GRANT SELECT, INSERT, UPDATE, DELETE ON expedientes TO spring_app_usr;
-GRANT USAGE ON documentos_identificador_seq to spring_app_usr;
-GRANT SELECT, INSERT, UPDATE, DELETE ON documentos TO spring_app_usr;
-GRANT SELECT, INSERT, UPDATE, DELETE ON legajos TO spring_app_usr;
-GRANT SELECT, INSERT, UPDATE, DELETE ON contenido_legajo to spring_app_usr;
+                                                   FOREIGN KEY (serie_documental_expediente, unidad_administrativa_generadora_expediente, numero_expediente, fecha_apertura_expediente, numero_legajo)
+                                                       REFERENCES legajos(serie_documental_expediente, unidad_administrativa_generadora_expediente, numero_expediente, fecha_apertura_expediente, numero_legajo),
+                                               CONSTRAINT FK_DOCUMENTOS FOREIGN KEY (identificador_documento) REFERENCES documentos(identificador)
+);
 
 INSERT INTO secciones(clave, nombre, descripcion) VALUES
                                                       ('1C', 'LEGISLACIÓN', ''), ('2C', 'ASUNTOS JURIDICOS', ''), ('1S', 'GOBIERNO', '');

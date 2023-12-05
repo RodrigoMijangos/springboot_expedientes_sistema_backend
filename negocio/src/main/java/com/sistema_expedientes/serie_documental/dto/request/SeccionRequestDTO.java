@@ -8,10 +8,8 @@ import org.hibernate.validator.constraints.UniqueElements;
 public class SeccionRequestDTO extends _DTO {
 
     @NotBlank(message = "La clave es obligatoria")
-    @UniqueElements(message = "La clave debe ser única")
     private String clave;
     @NotBlank(message = "El nombre es obligatorio")
-    @UniqueElements(message = "El nombre debe ser único")
     private String nombre;
     @Nullable
     private String descripcion;

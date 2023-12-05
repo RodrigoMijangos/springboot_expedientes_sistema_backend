@@ -32,18 +32,22 @@ public class GoogleDriveServiceConfiguration {
     }
 
     @Bean
-    public HttpRequestInitializer httpRequestInitializer() throws IOException{
+    public HttpRequestInitializer httpRequestInitializer() throws Exception{
         final List<String> SCOPES =
                 Collections.singletonList(DriveScopes.DRIVE);
 
-        final InputStream in = new FileInputStream(
-                new FileSystemResource(
-                        this.googleDriveConfigurationProperties.serviceAccountAuthenticationKey())
-                        .getFile()
-        );
+        try{
+            final InputStream in = new FileInputStream(
+                    new FileSystemResource(
+                            this.googleDriveConfigurationProperties.serviceAccountAuthenticationKey())
+                            .getFile()
+            );
 
-        return new HttpCredentialsAdapter(GoogleCredentials.fromStream(in)
-                .createScoped(SCOPES));
+            return new HttpCredentialsAdapter(GoogleCredentials.fromStream(in)
+                    .createScoped(SCOPES));
+        }catch (IOException exception){
+            throw new Exception("El archivo de clave de autenticación de Google no se encuentra disponible o no existe");
+        }
     }
 
     @Bean

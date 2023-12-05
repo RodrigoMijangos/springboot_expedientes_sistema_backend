@@ -1,15 +1,23 @@
 package com.sistema_expedientes.expediente.composite_key;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
 public class ExpedienteCompositeKey implements Serializable {
 
+    @Max(Short.MAX_VALUE)
+    @Min(1)
     private Short numeroExpediente;
-
+    @NotNull
     private LocalDate fechaApertura;
-
+    @NotNull
+    @NotBlank
     private String unidadAdministrativaGeneradora;
 
     private Short identificadorSerieDocumental;

@@ -4,6 +4,7 @@ import com.sistema_expedientes.documento.Documento;
 import com.sistema_expedientes.documento.dto.request.base.DocumentoRequest;
 import com.sistema_expedientes.services.documento.DocumentoServicio;
 import com.sistema_expedientes.services.exceptions.ResourceNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

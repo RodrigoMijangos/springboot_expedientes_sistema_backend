@@ -12,8 +12,11 @@ import java.util.List;
 @RestController
 public class SerieDocumentalControlador {
 
-    @Autowired
-    private SerieDocumentalServicio servicio;
+    private final SerieDocumentalServicio servicio;
+
+    public SerieDocumentalControlador(SerieDocumentalServicio servicio){
+        this.servicio = servicio;
+    }
 
     @GetMapping("api/v1/series_documentales/listar")
     public ResponseEntity<List<SerieDocumental>> list(){

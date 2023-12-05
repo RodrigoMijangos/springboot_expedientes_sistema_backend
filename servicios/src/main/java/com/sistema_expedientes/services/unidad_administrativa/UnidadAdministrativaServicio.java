@@ -83,4 +83,8 @@ public class UnidadAdministrativaServicio implements UnidadAdministrativaMetodos
 
         return this.repositorio.save(in_bd);
     }
+
+    public void delete(String clave) throws ResourceNotFoundException {
+        this.repositorio.delete(this.get(clave));
+    }
 }
