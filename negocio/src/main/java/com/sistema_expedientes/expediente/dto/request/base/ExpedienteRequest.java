@@ -9,44 +9,32 @@ import jakarta.validation.constraints.NotNull;
 public class ExpedienteRequest extends _DTO {
     @Max(2100)
     @Min(2000)
-    @NotNull
     protected Short periodoCierre;
-    @NotNull
     @NotBlank
     protected String asunto;
-    @NotNull
+    @NotBlank
     protected String tipoExpediente;
-    @NotNull
     @NotBlank
     protected String numeroProyecto;
-    @NotNull
     @NotBlank
     protected String nombreProyecto;
-    @NotNull
     @NotBlank
     protected String acronimoInstitucion;
-    @NotNull
     @NotBlank
     protected String nombreInstitucion;
-    @NotNull
     @NotBlank
     protected String numeroContacto;
-    @NotNull
     @Min(1)
     protected Short cantidadHojas;
-    @NotNull
     @Min(1)
     @Max(3)
     protected Byte formatoExpediente;
-    @NotNull
     @Min(1)
     @Max(3)
     protected Byte condicionAcceso;
-    @NotNull
     @Min(1)
     @Max(3)
     protected Byte tradicionDocumental;
-    @NotNull
     @Min(1)
     @Max(3)
     protected Byte tipoInformacion;

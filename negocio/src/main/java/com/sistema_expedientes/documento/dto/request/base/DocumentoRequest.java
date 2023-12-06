@@ -7,7 +7,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class DocumentoRequest extends _DTO {
     @NotBlank
-    @NotNull
     private String nombre;
 
     public DocumentoRequest() {

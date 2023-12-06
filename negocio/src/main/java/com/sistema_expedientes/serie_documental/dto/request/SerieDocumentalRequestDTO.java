@@ -1,17 +1,39 @@
 package com.sistema_expedientes.serie_documental.dto.request;
 
+import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import org.aspectj.lang.annotation.After;
+import org.springframework.context.annotation.Conditional;
+
 public class SerieDocumentalRequestDTO {
 
+    @Nullable
     private Short serie_padre;
+    @Nullable
     private String seccion;
+    @NotBlank
     private String clave;
+    @NotBlank
     private String nombre;
+    @NotNull
     private Boolean valorDocumentalAdministrativo;
+    @NotNull
     private Boolean valorDocumentalLegal;
+    @NotNull
     private Boolean valorDocumentalContable;
+    @Min(1)
+    @Max(Short.MAX_VALUE)
     private Short periodosEnConcentracion;
+    @Min(1)
+    @Max(Short.MAX_VALUE)
     private Short periodosEnTramite;
+    @Min(1)
+    @Max(Byte.MAX_VALUE)
     private Byte tecnicaSeleccion;
+    @NotNull
     private String observaciones;
 
     public SerieDocumentalRequestDTO() {
@@ -31,19 +53,21 @@ public class SerieDocumentalRequestDTO {
         this.observaciones = observaciones;
     }
 
+    @Nullable
     public Short getSerie_padre() {
         return serie_padre;
     }
 
-    public void setSerie_padre(Short serie_padre) {
+    public void setSerie_padre(@Nullable Short serie_padre) {
         this.serie_padre = serie_padre;
     }
 
+    @Nullable
     public String getSeccion() {
         return seccion;
     }
 
-    public void setSeccion(String seccion) {
+    public void setSeccion(@Nullable String seccion) {
         this.seccion = seccion;
     }
 

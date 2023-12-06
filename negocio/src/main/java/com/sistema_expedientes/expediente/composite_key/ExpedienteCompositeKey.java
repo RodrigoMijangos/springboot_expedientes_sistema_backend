@@ -19,7 +19,8 @@ public class ExpedienteCompositeKey implements Serializable {
     @NotNull
     @NotBlank
     private String unidadAdministrativaGeneradora;
-
+    @Min(1)
+    @Max(Short.MAX_VALUE)
     private Short identificadorSerieDocumental;
 
     public ExpedienteCompositeKey() {

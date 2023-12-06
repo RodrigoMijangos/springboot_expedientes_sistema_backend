@@ -1,6 +1,10 @@
 package com.sistema_expedientes.legajo.composite_key;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -9,13 +13,21 @@ import java.time.LocalDate;
 public class LegajoCompositeKey implements Serializable {
 
     @Column(name = "serie_documental_expediente")
+    @Min(1)
+    @Max(Short.MAX_VALUE)
     private Short identificadorSerieDocumental;
+    @NotBlank
     @Column(name = "unidad_administrativa_generadora_expediente")
     private String unidadAdministrativaGeneradora;
+    @Min(1)
+    @Max(Short.MAX_VALUE)
     @Column(name = "numero_expediente")
     private Short numeroExpediente;
+    @NotNull
     @Column(name = "fecha_apertura_expediente")
     private LocalDate fechaApertura;
+    @Min(1)
+    @Max(Short.MAX_VALUE)
     @Column(name = "numero_legajo")
     private Short numeroLegajo;
 

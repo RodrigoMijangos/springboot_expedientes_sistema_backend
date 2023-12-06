@@ -1,14 +1,16 @@
 package com.sistema_expedientes.expediente.dto.request.specific;
 
 import com.sistema_expedientes.expediente.dto.request.base.ExpedienteRequest;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public class CreateExpedienteRequestDTO extends ExpedienteRequest {
 
-    @NotNull
+    @Min(1)
+    @Max(Short.MAX_VALUE)
     private Short identificadorSerieDocumental;
-    @NotNull
     @NotBlank
     private String unidadAdministrativaGeneradora;
 

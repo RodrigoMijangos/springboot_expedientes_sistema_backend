@@ -2,13 +2,17 @@ package com.sistema_expedientes.legajo.dto.request.specific;
 
 import com.sistema_expedientes.documento.dto.request.base.DocumentoRequest;
 import com.sistema_expedientes.legajo.composite_key.LegajoCompositeKey;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.util.List;
 
 public class ListaDocumentosLegajoRequestDTO {
 
+    @Valid
     private LegajoCompositeKey legajo;
-    private List<DocumentoRequest> documentos;
+    @NotEmpty
+    private List<@Valid DocumentoRequest> documentos;
 
     public ListaDocumentosLegajoRequestDTO() {
     }

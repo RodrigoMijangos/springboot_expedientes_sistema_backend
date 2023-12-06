@@ -3,6 +3,7 @@ package com.sistema_expedientes.expediente.dto.request.specific;
 import com.sistema_expedientes.expediente.composite_key.ExpedienteCompositeKey;
 import com.sistema_expedientes.legajo.dto.request.specific.CreateLegajoRequestDTO;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
@@ -11,7 +12,8 @@ public class ListaLegajosExpedienteRequestDTO {
 
     @Valid
     private ExpedienteCompositeKey expediente;
-    private List<CreateLegajoRequestDTO> legajos;
+    @NotEmpty
+    private List<@Valid CreateLegajoRequestDTO> legajos;
 
     public ListaLegajosExpedienteRequestDTO() {
     }

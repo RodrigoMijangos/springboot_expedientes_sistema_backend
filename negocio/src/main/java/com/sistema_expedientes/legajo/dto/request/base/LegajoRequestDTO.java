@@ -1,12 +1,17 @@
 package com.sistema_expedientes.legajo.dto.request.base;
 
 import com.sistema_expedientes.base.request._DTO;
+import jakarta.validation.constraints.NotBlank;
 
 public class LegajoRequestDTO extends _DTO {
 
+    @NotBlank
     private String numeroMueble;
+    @NotBlank
     private String letraEstante;
+    @NotBlank
     private String numeroPasillo;
+    @NotBlank
     private String letraBateria;
 
     public LegajoRequestDTO() {

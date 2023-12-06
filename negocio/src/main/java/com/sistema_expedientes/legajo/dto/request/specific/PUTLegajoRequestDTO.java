@@ -2,9 +2,11 @@ package com.sistema_expedientes.legajo.dto.request.specific;
 
 import com.sistema_expedientes.legajo.composite_key.LegajoCompositeKey;
 import com.sistema_expedientes.legajo.dto.request.base.LegajoRequestDTO;
+import jakarta.validation.Valid;
 
 public class PUTLegajoRequestDTO extends LegajoRequestDTO {
 
+    @Valid
     private LegajoCompositeKey id;
 
     public PUTLegajoRequestDTO() {

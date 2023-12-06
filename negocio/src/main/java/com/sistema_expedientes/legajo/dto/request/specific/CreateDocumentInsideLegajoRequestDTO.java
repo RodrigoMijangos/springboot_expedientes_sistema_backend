@@ -3,10 +3,13 @@ package com.sistema_expedientes.legajo.dto.request.specific;
 import com.sistema_expedientes.documento.dto.request.base.DocumentoRequest;
 import com.sistema_expedientes.base.request._DTO;
 import com.sistema_expedientes.legajo.composite_key.LegajoCompositeKey;
+import jakarta.validation.Valid;
 
 public class CreateDocumentInsideLegajoRequestDTO extends _DTO {
 
+    @Valid
     private LegajoCompositeKey legajo;
+    @Valid
     private DocumentoRequest documento;
 
     public CreateDocumentInsideLegajoRequestDTO(LegajoCompositeKey legajo, DocumentoRequest documento) {

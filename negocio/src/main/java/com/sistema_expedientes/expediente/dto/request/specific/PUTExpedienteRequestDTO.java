@@ -2,9 +2,11 @@ package com.sistema_expedientes.expediente.dto.request.specific;
 
 import com.sistema_expedientes.expediente.composite_key.ExpedienteCompositeKey;
 import com.sistema_expedientes.expediente.dto.request.base.ExpedienteRequest;
+import jakarta.validation.Valid;
 
 public class PUTExpedienteRequestDTO extends ExpedienteRequest {
 
+    @Valid
     private ExpedienteCompositeKey id;
 
     public PUTExpedienteRequestDTO() {
