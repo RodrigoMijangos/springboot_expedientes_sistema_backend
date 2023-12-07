@@ -82,11 +82,11 @@ public class LegajoServicio implements LegajoServicioMetodos {
     }
 
     @Override
-    public void delete(LegajoCompositeKey request) throws Exception{
+    public void delete(LegajoCompositeKey request) throws ResourceNotFoundException, IOException {
         if(registroEstaPresente(request)){
             this.googleDriveService.deleteFileFromId(this.get(request).getGoogleDriveFolderId());
             repositorio.deleteById(request);
-        }else throw new Exception();
+        }
     }
 
     @Override

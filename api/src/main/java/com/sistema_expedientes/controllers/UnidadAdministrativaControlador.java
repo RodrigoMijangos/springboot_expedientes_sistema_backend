@@ -44,7 +44,7 @@ public class UnidadAdministrativaControlador {
 
     }
 
-    @DeleteMapping("api/v1/unidades_administrativas/put/{clave}")
+    @DeleteMapping("api/v1/unidades_administrativas/delete/{clave}")
     public ResponseEntity<String> delete(@PathVariable @Size(max = 5) String clave) throws ResourceNotFoundException {
         this.servicio.delete(clave);
         return ResponseEntity.ok("El recurso ha sido eliminado");
