@@ -91,16 +91,15 @@ public class ExpedienteServicio implements ExpedienteServicioMetodos {
 
     @Override
     public Expediente create(CreateExpedienteRequestDTO request) throws Exception {
-        LocalDate today = LocalDate.now();
-        LocalDate dateFilter1 = LocalDate.of(today.getYear(), 1, 1);
-        LocalDate dateFilter2 = LocalDate.of(today.getYear(), 12, 31);
+        LocalDate dateFilter1 = LocalDate.of(request.getFechaApertura().getYear(), 1, 1);
+        LocalDate dateFilter2 = LocalDate.of(request.getFechaApertura().getYear(), 12, 31);
 
         Optional<Short> to_check = repositorio.numeroExpedienteMasProximo(request.getUnidadAdministrativaGeneradora(), request.getIdentificadorSerieDocumental(), dateFilter1, dateFilter2);
 
         Expediente to_bd = mapeoServicio.dtoToEntityExpediente(request);
 
         to_bd.setNumeroExpediente((short) (to_check.orElse((short)0) + 1));
-        to_bd.setFechaApertura(today);
+        to_bd.setFechaApertura(request.getFechaApertura());
 
         UnidadAdministrativa unidadAdministrativa = this.unidadAdministrativaServicio.get(request.getUnidadAdministrativaGeneradora());
 
