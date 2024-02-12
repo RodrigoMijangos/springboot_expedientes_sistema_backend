@@ -11,13 +11,16 @@ import com.sistema_expedientes.legajo.Legajo;
 import com.sistema_expedientes.legajo.dto.request.specific.CreateLegajoRequestDTO;
 import com.sistema_expedientes.services.exceptions.ResourceNotFoundException;
 import com.sistema_expedientes.services.expediente.mapeo.MapeoExpedienteServicio;
+import com.sistema_expedientes.services.expediente.reports.ExpedienteReportGenerator;
 import com.sistema_expedientes.services.formatter.FolderInstanceNameFormatter;
 import com.sistema_expedientes.services.legajo.LegajoServicio;
 import com.sistema_expedientes.services.serie_documental.SerieDocumentalServicio;
 import com.sistema_expedientes.services.unidad_administrativa.UnidadAdministrativaServicio;
 import com.sistema_expedientes.unidad_administrativa.UnidadAdministrativa;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.stereotype.Service;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -34,6 +37,7 @@ public class ExpedienteServicio implements ExpedienteServicioMetodos {
     private final UnidadAdministrativaServicio unidadAdministrativaServicio;
     private final FolderInstanceNameFormatter folderInstanceNameFormatter;
     private final GoogleDriveService googleDriveService;
+    private final ExpedienteReportGenerator expedienteReportGenerator;
 
     public ExpedienteServicio(
             ExpedienteRepositorio repositorio,
@@ -41,7 +45,8 @@ public class ExpedienteServicio implements ExpedienteServicioMetodos {
             LegajoServicio legajoServicio,
             UnidadAdministrativaServicio unidadAdministrativaServicio,
             FolderInstanceNameFormatter folderInstanceNameFormatter,
-            GoogleDriveService googleDriveService
+            GoogleDriveService googleDriveService,
+            ExpedienteReportGenerator expedienteReport
     ) {
         this.repositorio = repositorio;
         this.mapeoServicio = mapeoServicio;
@@ -49,6 +54,7 @@ public class ExpedienteServicio implements ExpedienteServicioMetodos {
         this.unidadAdministrativaServicio = unidadAdministrativaServicio;
         this.folderInstanceNameFormatter = folderInstanceNameFormatter;
         this.googleDriveService = googleDriveService;
+        this.expedienteReportGenerator = expedienteReport;
     }
 
     @Override
@@ -119,6 +125,11 @@ public class ExpedienteServicio implements ExpedienteServicioMetodos {
         return repositorio.save(mapped);
     }
 
+    @Override
+    public byte[] exportPdf() throws JRException, FileNotFoundException {
+        return expedienteReportGenerator.exportToPdf(repositorio.findAll());
+    }
+
     public void delete(ExpedienteCompositeKey id) throws Exception {
         Expediente expediente = this.get(id);
 
@@ -137,6 +148,7 @@ public class ExpedienteServicio implements ExpedienteServicioMetodos {
         this.googleDriveService.deleteFileFromId(expediente.getGoogleDriveFolderId());
 
     }
+
 
     private boolean registroEstaPresente(ExpedienteCompositeKey id){
         return this.repositorio.existsById(id);

@@ -4,7 +4,9 @@ import com.sistema_expedientes.expediente.Expediente;
 import com.sistema_expedientes.expediente.composite_key.ExpedienteCompositeKey;
 import com.sistema_expedientes.expediente.dto.request.specific.CreateExpedienteRequestDTO;
 import com.sistema_expedientes.expediente.dto.request.specific.PUTExpedienteRequestDTO;
+import net.sf.jasperreports.engine.JRException;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 public interface ExpedienteServicioMetodos {
@@ -19,4 +21,5 @@ public interface ExpedienteServicioMetodos {
 
     public Expediente put(PUTExpedienteRequestDTO request) throws Exception;
 
+    byte[] exportPdf() throws JRException, FileNotFoundException;
 }

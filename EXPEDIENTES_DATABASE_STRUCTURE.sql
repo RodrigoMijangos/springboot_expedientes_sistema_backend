@@ -175,7 +175,47 @@ CREATE TABLE IF NOT EXISTS contenido_legajo(
                                                    FOREIGN KEY (serie_documental_expediente, unidad_administrativa_generadora_expediente, numero_expediente, fecha_apertura_expediente, numero_legajo)
                                                        REFERENCES legajos(serie_documental_expediente, unidad_administrativa_generadora_expediente, numero_expediente, fecha_apertura_expediente, numero_legajo),
                                                CONSTRAINT FK_DOCUMENTOS FOREIGN KEY (identificador_documento) REFERENCES documentos(identificador)
-);
+
+    );
+
+
+CREATE TABLE IF NOT EXISTS roles
+(
+    role_id BIGSERIAL PRIMARY KEY,
+    authority VARCHAR(255)
+    );
+
+CREATE TABLE IF NOT EXISTS users
+(
+    user_id BIGSERIAL PRIMARY KEY,
+    email VARCHAR(255),
+    password VARCHAR(255),
+    username VARCHAR(255),
+    UNIQUE (email),
+    UNIQUE (username)
+    );
+
+CREATE TABLE IF NOT EXISTS user_role_function
+(
+    role_id BIGINT NOT NULL,
+    user_id BIGINT NOT NULL,
+    PRIMARY KEY (role_id, user_id),
+    FOREIGN KEY (role_id)
+    REFERENCES roles (role_id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+    FOREIGN KEY (user_id)
+    REFERENCES users (user_id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+    );
+
+
+select * from users;
+
+INSERT INTO roles (role_id, authority) VALUES (1, 'ADMIN');
+INSERT INTO roles (role_id, authority) VALUES (2, 'USER');
+
 
 INSERT INTO secciones(clave, nombre, descripcion) VALUES
                                                       ('1C', 'LEGISLACIÓN', ''), ('2C', 'ASUNTOS JURIDICOS', ''), ('1S', 'GOBIERNO', '');
