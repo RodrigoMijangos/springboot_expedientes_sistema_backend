@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.0.final using JasperReports Library version 6.21.0-4f56c4f36cd19e17675219a9ac4692d5f0f13b06  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dfbb822b-f34f-48a9-9bff-d7ef8657b065">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="proyectoName" class="java.lang.String"/>
+	<parameter name="unidadAdministrativa" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="95" splitType="Stretch">
+			<image>
+				<reportElement x="40" y="20" width="130" height="40" uuid="f88e0502-3164-4069-aed2-7816239ade05"/>
+				<imageExpression><![CDATA["infotec.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="204" y="17" width="151" height="41" uuid="307559a3-3b07-42c0-b172-b4372e97b8aa"/>
+				<imageExpression><![CDATA["gobierno-logo.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="380" y="20" width="151" height="41" uuid="6c759444-5597-4c8e-8c25-44847206b683"/>
+				<imageExpression><![CDATA["conacyt.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="92" splitType="Stretch">
+			<textField>
+				<reportElement x="7" y="15" width="537" height="46" uuid="86b79b7f-66b1-49b4-8202-c46198878d73"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{unidadAdministrativa}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="200" splitType="Stretch">
+			<textField>
+				<reportElement x="7" y="130" width="540" height="70" uuid="bf1a4ed0-8756-434e-ab6d-fc400fb02721"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{proyectoName}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
