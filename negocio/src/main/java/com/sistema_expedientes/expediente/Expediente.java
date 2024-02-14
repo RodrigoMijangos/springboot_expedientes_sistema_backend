@@ -12,6 +12,7 @@ import com.sistema_expedientes.expediente.enumerates.FormatoExpediente;
 import com.sistema_expedientes.expediente.enumerates.TipoInformacionExpediente;
 import com.sistema_expedientes.expediente.enumerates.TradicionDocumentalExpediente;
 import com.sistema_expedientes.legajo.Legajo;
+import com.sistema_expedientes.tipos.tipo_expediente.TipoExpediente;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -36,8 +37,9 @@ public class Expediente {
     @Column(name = "periodo_cierre")
     private Short periodoCierre;
     private String asunto;
-    @Column(name = "tipo_expediente")
-    private Short tipoExpediente;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "tipo_expediente", referencedColumnName = "identificador")
+    private TipoExpediente tipoExpediente;
     @Column(name = "numero_proyecto")
     private String numeroProyecto;
     @Column(name = "nombre_proyecto")
@@ -72,7 +74,7 @@ public class Expediente {
     public Expediente() {
     }
 
-    public Expediente(Short identificadorSerieDocumental, String unidadAdministrativaGeneradora, Short numeroExpediente, LocalDate fechaApertura, Short periodoCierre, String asunto, Short tipoExpediente, String numeroProyecto, String nombreProyecto, String acronimoInstitucion, String nombreInstitucion, String numeroContacto, Short cantidadHojas, FormatoExpediente formatoExpediente, CondicionAccesoExpediente condicionAcceso, TradicionDocumentalExpediente tradicionDocumental, TipoInformacionExpediente tipoInformacion, String googleDriveFolderId, Set<Legajo> legajos) {
+    public Expediente(Short identificadorSerieDocumental, String unidadAdministrativaGeneradora, Short numeroExpediente, LocalDate fechaApertura, Short periodoCierre, String asunto, TipoExpediente tipoExpediente, String numeroProyecto, String nombreProyecto, String acronimoInstitucion, String nombreInstitucion, String numeroContacto, Short cantidadHojas, FormatoExpediente formatoExpediente, CondicionAccesoExpediente condicionAcceso, TradicionDocumentalExpediente tradicionDocumental, TipoInformacionExpediente tipoInformacion, String googleDriveFolderId, Set<Legajo> legajos) {
         this.identificadorSerieDocumental = identificadorSerieDocumental;
         this.unidadAdministrativaGeneradora = unidadAdministrativaGeneradora;
         this.numeroExpediente = numeroExpediente;
@@ -142,11 +144,11 @@ public class Expediente {
         this.asunto = asunto;
     }
 
-    public Short getTipoExpediente() {
+    public TipoExpediente getTipoExpediente() {
         return tipoExpediente;
     }
 
-    public void setTipoExpediente(Short tipoExpediente) {
+    public void setTipoExpediente(TipoExpediente tipoExpediente) {
         this.tipoExpediente = tipoExpediente;
     }
 

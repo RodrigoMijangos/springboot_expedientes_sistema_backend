@@ -1,15 +1,20 @@
 package com.sistema_expedientes.serie_documental.seccion;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sistema_expedientes.serie_documental.SerieDocumental;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jdk.jfr.BooleanFlag;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.SQLDelete;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.util.Set;
 
 @Entity
-@Table(name = "secciones")
+@Table(name = "secciones_docuemntales")
 public class Seccion {
 
     @Id
@@ -21,6 +26,9 @@ public class Seccion {
     private String nombre;
     @Nullable
     private String descripcion;
+    @Column(name = "vigente")
+    @JsonIgnore
+    private Boolean vigente;
     @OneToMany(mappedBy = "seccion")
     @JsonManagedReference
     private Set<SerieDocumental> series;
@@ -28,10 +36,11 @@ public class Seccion {
     public Seccion() {
     }
 
-    public Seccion(String clave, String nombre, @Nullable String descripcion, Set<SerieDocumental> series) {
+    public Seccion(String clave, String nombre, @Nullable String descripcion, Boolean vigente, Set<SerieDocumental> series) {
         this.clave = clave;
         this.nombre = nombre;
         this.descripcion = descripcion;
+        this.vigente = vigente;
         this.series = series;
     }
 
@@ -58,6 +67,14 @@ public class Seccion {
 
     public void setDescripcion(@Nullable String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public Boolean isVigente() {
+        return vigente;
+    }
+
+    public void setVigente(Boolean vigente) {
+        this.vigente = vigente;
     }
 
     public Set<SerieDocumental> getSeries() {

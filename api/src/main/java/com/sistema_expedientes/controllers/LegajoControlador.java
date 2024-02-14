@@ -28,7 +28,7 @@ public class LegajoControlador {
     }
 
     @PutMapping("api/v1/legajos/editar")
-    public ResponseEntity<Legajo> put(@RequestBody PUTLegajoRequestDTO request) throws Exception{
+    public ResponseEntity<Legajo> put(@Valid @RequestBody PUTLegajoRequestDTO request) throws Exception{
         return ResponseEntity.ok(this.servicio.put(request));
     }
 

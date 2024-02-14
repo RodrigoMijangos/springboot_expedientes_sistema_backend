@@ -3,6 +3,7 @@ package com.sistema_expedientes.documento;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sistema_expedientes.legajo.Legajo;
+import com.sistema_expedientes.tipos.tipo_documento.TipoDocumento;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -23,6 +24,9 @@ public class Documento {
     private String googleDriveFileId;
     @Column(name = "url_web_view")
     private String urlWebView;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "tipo_documento", referencedColumnName = "identificador")
+    private TipoDocumento tipoDocumento;
     @Column(name = "fecha_creacion")
     @CreationTimestamp(source = SourceType.DB)
     private LocalDateTime fechaCreacion;
@@ -49,11 +53,12 @@ public class Documento {
     public Documento() {
     }
 
-    public Documento(Long identificador, String nombre, String googleDriveFileId, String urlWebView, LocalDateTime fechaCreacion, LocalDateTime fechaEdicion, List<Legajo> legajo) {
+    public Documento(Long identificador, String nombre, String googleDriveFileId, String urlWebView, TipoDocumento tipoDocumento, LocalDateTime fechaCreacion, LocalDateTime fechaEdicion, List<Legajo> legajo) {
         this.identificador = identificador;
         this.nombre = nombre;
         this.googleDriveFileId = googleDriveFileId;
         this.urlWebView = urlWebView;
+        this.tipoDocumento = tipoDocumento;
         this.fechaCreacion = fechaCreacion;
         this.fechaEdicion = fechaEdicion;
         this.legajo = legajo;
@@ -89,6 +94,14 @@ public class Documento {
 
     public void setUrlWebView(String urlWebView) {
         this.urlWebView = urlWebView;
+    }
+
+    public TipoDocumento getTipoDocumento() {
+        return tipoDocumento;
+    }
+
+    public void setTipoDocumento(TipoDocumento tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
     }
 
     public LocalDateTime getFechaCreacion() {
