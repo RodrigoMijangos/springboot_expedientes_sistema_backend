@@ -56,6 +56,7 @@ public class SecurityConfig {
 
     private static final String[] USER_ACCESS = {
             "/api/v1/expedientes/get",
+            "/api/v1/expedientes/caratula",
             "/api/v1/documentos/list",
             "/api/v1/documentos/get/{id}",
             "/api/v1/secciones/listar",
