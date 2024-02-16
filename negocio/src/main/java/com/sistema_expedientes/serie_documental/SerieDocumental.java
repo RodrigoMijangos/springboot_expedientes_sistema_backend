@@ -32,6 +32,9 @@ public class SerieDocumental{
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
     property = "identificador")
     private CatalagoTecnicaSeleccion tecnicaSeleccion;
+    @Column(name = "vigente")
+    @JsonIgnore
+    private Boolean vigente;
     private String observaciones;
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @JoinColumn(name = "seccion")
@@ -50,7 +53,7 @@ public class SerieDocumental{
     public SerieDocumental() {
     }
 
-    public SerieDocumental(Short identificador, String clave, String nombre, Boolean valorDocumentalAdministrativo, Boolean valorDocumentalLegal, Boolean valorDocumentalContable, Short periodosEnTramite, Short periodosEnConcentracion, CatalagoTecnicaSeleccion tecnicaSeleccion, String observaciones, @Nullable Seccion seccion, @Nullable SerieDocumental seriePadre, Set<SerieDocumental> subseries) {
+    public SerieDocumental(Short identificador, String clave, String nombre, Boolean valorDocumentalAdministrativo, Boolean valorDocumentalLegal, Boolean valorDocumentalContable, Short periodosEnTramite, Short periodosEnConcentracion, CatalagoTecnicaSeleccion tecnicaSeleccion, Boolean vigente, String observaciones, @Nullable Seccion seccion, @Nullable SerieDocumental seriePadre, Set<SerieDocumental> subseries) {
         this.identificador = identificador;
         this.clave = clave;
         this.nombre = nombre;
@@ -60,6 +63,7 @@ public class SerieDocumental{
         this.periodosEnTramite = periodosEnTramite;
         this.periodosEnConcentracion = periodosEnConcentracion;
         this.tecnicaSeleccion = tecnicaSeleccion;
+        this.vigente = vigente;
         this.observaciones = observaciones;
         this.seccion = seccion;
         this.seriePadre = seriePadre;
@@ -132,6 +136,14 @@ public class SerieDocumental{
 
     public void setTecnicaSeleccion(CatalagoTecnicaSeleccion tecnicaSeleccion) {
         this.tecnicaSeleccion = tecnicaSeleccion;
+    }
+
+    public Boolean getVigente() {
+        return vigente;
+    }
+
+    public void setVigente(Boolean vigente) {
+        this.vigente = vigente;
     }
 
     public String getObservaciones() {

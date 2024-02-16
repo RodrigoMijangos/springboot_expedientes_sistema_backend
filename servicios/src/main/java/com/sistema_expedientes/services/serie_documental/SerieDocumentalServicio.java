@@ -27,6 +27,10 @@ public class SerieDocumentalServicio implements SerieDocumentalMetodos {
         return repositorio.findAll();
     }
 
+    public List<SerieDocumental> listarSoloVigentes(){
+        return this.repositorio.findAllByVigenteIsTrue();
+    }
+
     @Override
     public SerieDocumental get(Short id) throws ResourceNotFoundException {
         return repositorio.findById(id).orElseThrow(() -> new ResourceNotFoundException(
@@ -34,15 +38,25 @@ public class SerieDocumentalServicio implements SerieDocumentalMetodos {
         ));
     }
 
+    public SerieDocumental getSerieDocumentalVigente(Short identificador) throws ResourceNotFoundException{
+        return this.repositorio.findByIdentificadorAndVigenteIsTrue(identificador).orElseThrow(() -> new ResourceNotFoundException(
+                new Throwable("La serie documental no es vigente o no existe")
+        ));
+    }
+
     @Override
     public SerieDocumental create(SerieDocumentalRequestDTO request) throws ResourceNotFoundException {
 
         SerieDocumental to_bd = dtoToEntity(request);
-        if (request.getSerie_padre() > 0)
-            to_bd.setSeriePadre(get(request.getSerie_padre()));
+        if (request.getSerie_padre() != null && request.getSerie_padre() != 0)
+            to_bd.setSeriePadre(
+                    getSerieDocumentalVigente(request.getSerie_padre())
+            );
 
         if (request.getSeccion() != null)
-            to_bd.setSeccion(seccionServicio.get(request.getSeccion()));
+            to_bd.setSeccion(
+                    seccionServicio.getSeccionVigente(request.getSeccion())
+            );
 
         if(request.getObservaciones() == null)
             to_bd.setObservaciones("");
