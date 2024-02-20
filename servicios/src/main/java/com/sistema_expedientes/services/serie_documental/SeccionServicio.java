@@ -84,6 +84,14 @@ public class SeccionServicio implements SeccionServicioMetodos {
         return this.repositorio.save(in_bd);
     }
 
+    public Seccion restore(String clave) throws ResourceNotFoundException {
+        Seccion in_bd = this.get(clave);
+
+        in_bd.setActive(true);
+
+        return this.repositorio.save(in_bd);
+    }
+
     public int setSeccionNoActive(String clave) throws ResourceNotFoundException {
         repositorio.setSeccionNoActive(clave);
         Seccion in_bd = get(clave);
