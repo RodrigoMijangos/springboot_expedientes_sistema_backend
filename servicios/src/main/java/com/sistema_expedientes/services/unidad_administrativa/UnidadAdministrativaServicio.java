@@ -40,6 +40,17 @@ public class UnidadAdministrativaServicio implements UnidadAdministrativaMetodos
     }
 
     @Override
+    public List<UnidadAdministrativa> findByActiveTrue() {
+        return repositorio.findByActiveTrue();
+    }
+
+    @Override
+    public List<UnidadAdministrativa> findByActiveFalse() {
+        return repositorio.findByActiveFalse();
+    }
+
+
+    @Override
     public UnidadAdministrativa create(UnidadAdministrativaRequestDTO request) throws ResourceNotFoundException, IOException {
 
         UnidadAdministrativa to_bd = this.mapper.map(request, UnidadAdministrativa.class);
@@ -86,5 +97,14 @@ public class UnidadAdministrativaServicio implements UnidadAdministrativaMetodos
 
     public void delete(String clave) throws ResourceNotFoundException {
         this.repositorio.delete(this.get(clave));
+    }
+
+
+    public UnidadAdministrativa softDelete(String clave) throws ResourceNotFoundException {
+        UnidadAdministrativa in_bd = this.get(clave);
+
+        in_bd.setActive(false);
+
+        return this.repositorio.save(in_bd);
     }
 }

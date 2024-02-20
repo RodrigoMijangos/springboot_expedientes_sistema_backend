@@ -27,6 +27,17 @@ public class UnidadAdministrativaControlador {
         return ResponseEntity.ok(servicio.list());
     }
 
+
+    @GetMapping("api/v1/unidades_administrativas/list_active")
+    public ResponseEntity<List<UnidadAdministrativa>> activeUnidades(){
+        return ResponseEntity.ok(servicio.findByActiveTrue());
+    }
+
+    @GetMapping("api/unidades_administrativas/list_deleted")
+    public ResponseEntity<List<UnidadAdministrativa>> deletedUnidades(){
+        return ResponseEntity.ok(servicio.findByActiveFalse());
+    }
+
     @GetMapping("api/v1/unidades_administrativas/get/{clave}")
     public ResponseEntity<UnidadAdministrativa> get(@PathVariable @Size(max = 5) String clave) throws ResourceNotFoundException {
         return ResponseEntity.ok(servicio.get(clave));
@@ -48,6 +59,12 @@ public class UnidadAdministrativaControlador {
     public ResponseEntity<String> delete(@PathVariable @Size(max = 5) String clave) throws ResourceNotFoundException {
         this.servicio.delete(clave);
         return ResponseEntity.ok("El recurso ha sido eliminado");
+    }
+
+    @DeleteMapping("api/v1/unidades_administrativas/softDelete/{clave}")
+    public ResponseEntity<String> softDelete(@PathVariable @Size(max = 5) String clave) throws ResourceNotFoundException {
+        this.servicio.softDelete(clave);
+        return ResponseEntity.ok("Unidad dada de baja con exito");
     }
 
 }

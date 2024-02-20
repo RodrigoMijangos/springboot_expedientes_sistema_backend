@@ -4,7 +4,9 @@ import com.sistema_expedientes.serie_documental.SerieDocumental;
 import com.sistema_expedientes.serie_documental.dto.request.SerieDocumentalRequestDTO;
 import com.sistema_expedientes.services.exceptions.ResourceNotFoundException;
 import com.sistema_expedientes.services.serie_documental.SerieDocumentalServicio;
+import com.sistema_expedientes.unidad_administrativa.UnidadAdministrativa;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Size;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +30,16 @@ public class SerieDocumentalControlador {
 
     }
 
+
+    @GetMapping("api/v1/series_documentales/list_active")
+    public ResponseEntity<List<SerieDocumental>> activeUnidades(){
+        return ResponseEntity.ok(servicio.findByActiveTrue());
+    }
+
+    @GetMapping("api/series_documentales/list_deleted")
+    public ResponseEntity<List<SerieDocumental>> deletedUnidades(){
+        return ResponseEntity.ok(servicio.findByActiveFalse());
+    }
     @GetMapping("api/v1/series_documentales/get/{id}")
     public ResponseEntity<SerieDocumental> get(@PathVariable Short id) throws ResourceNotFoundException {
         SerieDocumental response = servicio.get(id);
@@ -50,5 +62,13 @@ public class SerieDocumentalControlador {
         return response == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(response);
 
     }
+
+    @DeleteMapping("api/v1/series_documentales/delete/{clave}")
+    public ResponseEntity<String> softDelete(@PathVariable Short clave) throws ResourceNotFoundException {
+        this.servicio.softDelete(clave);
+        return ResponseEntity.ok("Serie documental dada de baja con exito");
+    }
+
+
 
 }

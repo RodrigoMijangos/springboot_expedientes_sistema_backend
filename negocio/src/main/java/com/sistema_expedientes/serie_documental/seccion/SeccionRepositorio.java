@@ -1,5 +1,6 @@
 package com.sistema_expedientes.serie_documental.seccion;
 
+import com.sistema_expedientes.unidad_administrativa.UnidadAdministrativa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -8,13 +9,16 @@ import java.util.Optional;
 
 public interface SeccionRepositorio extends JpaRepository<Seccion, String> {
 
-    List<Seccion> findAllByVigenteIsTrue();
+    List<Seccion> findAllByActiveIsTrue();
 
-    Optional<Seccion> findFirstByIdAndVigenteIsTrue(String clave);
+    Optional<Seccion> findFirstByClaveAndActiveIsTrue(String clave);
 
-    @Query("UPDATE Seccion s SET s.vigente = false WHERE s.clave = :clave AND s.vigente = true")
-    void setSeccionNoVigente(String clave);
+    @Query("UPDATE Seccion s SET s.active = false WHERE s.clave = :clave AND s.active = true")
+    void setSeccionNoActive(String clave);
 
-    @Query("UPDATE Seccion s SET s.vigente = true WHERE s.clave = :clave AND s.vigente = false")
-    void setSeccionVigente(String clave);
+    @Query("UPDATE Seccion s SET s.active = true WHERE s.clave = :clave AND s.active = false")
+    void setSeccionActive(String clave);
+
+    List<Seccion> findByActiveTrue();
+    List<Seccion> findByActiveFalse();
 }

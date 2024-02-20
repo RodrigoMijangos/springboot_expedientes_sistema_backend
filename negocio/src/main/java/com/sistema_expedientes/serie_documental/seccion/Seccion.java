@@ -14,7 +14,7 @@ import org.springframework.boot.context.properties.bind.DefaultValue;
 import java.util.Set;
 
 @Entity
-@Table(name = "secciones_docuemntales")
+@Table(name = "secciones_documentales")
 public class Seccion {
 
     @Id
@@ -26,9 +26,9 @@ public class Seccion {
     private String nombre;
     @Nullable
     private String descripcion;
-    @Column(name = "vigente")
+    @Column(name = "active")
     @JsonIgnore
-    private Boolean vigente;
+    private Boolean active = true;
     @OneToMany(mappedBy = "seccion")
     @JsonManagedReference
     private Set<SerieDocumental> series;
@@ -36,11 +36,11 @@ public class Seccion {
     public Seccion() {
     }
 
-    public Seccion(String clave, String nombre, @Nullable String descripcion, Boolean vigente, Set<SerieDocumental> series) {
+    public Seccion(String clave, String nombre, @Nullable String descripcion, Boolean active, Set<SerieDocumental> series) {
         this.clave = clave;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.vigente = vigente;
+        this.active = active;
         this.series = series;
     }
 
@@ -69,12 +69,12 @@ public class Seccion {
         this.descripcion = descripcion;
     }
 
-    public Boolean isVigente() {
-        return vigente;
+    public Boolean isActive() {
+        return active;
     }
 
-    public void setVigente(Boolean vigente) {
-        this.vigente = vigente;
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     public Set<SerieDocumental> getSeries() {

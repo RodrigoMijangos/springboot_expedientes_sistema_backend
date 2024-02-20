@@ -1,6 +1,6 @@
 CREATE DATABASE expedientes_origen_database;
 
-CREATE TABLE IF NOT EXISTS usuarios(
+/*CREATE TABLE IF NOT EXISTS usuarios(
                                        identificador BIGSERIAL NOT NULL ,
                                        email VARCHAR NOT NULL UNIQUE ,
                                        clave_acceso VARCHAR NOT NULL,
@@ -23,9 +23,9 @@ CREATE TABLE IF NOT EXISTS roles_usuario(
                                                 FOREIGN KEY(usuario_identificador) REFERENCES usuarios(identificador),
                                             CONSTRAINT FK_ROLES
                                                 FOREIGN KEY(rol_identificador) REFERENCES roles(identificador)
-);
+);*/
 
-CREATE TABLE IF NOT EXISTS entidades(
+/*CREATE TABLE IF NOT EXISTS entidades(
                                         identificador INTEGER NOT NULL UNIQUE,
                                         nombre_entidad VARCHAR NOT NULL UNIQUE,
                                         CONSTRAINT PK_ENTIDADES
@@ -41,13 +41,14 @@ CREATE TABLE IF NOT EXISTS permisos_roles(
                                                  FOREIGN KEY(identificador_rol) REFERENCES roles(identificador),
                                              CONSTRAINT FK_ENTIDADES
                                                  FOREIGN KEY(identificador_entidad) REFERENCES entidades(identificador)
-);
+);*/
 
 CREATE TABLE IF NOT EXISTS secciones(
                                         clave VARCHAR NOT NULL,
                                         nombre VARCHAR NOT NULL,
                                         descripcion VARCHAR NULL DEFAULT '',
                                         fecha_borrado timestamptz NULL DEFAULT NULL,
+                                        active BOOLEAN NOT NULL DEFAULT TRUE,
                                         CONSTRAINT PK_SECCIONES
                                             PRIMARY KEY (clave)
 );
@@ -74,6 +75,7 @@ CREATE TABLE IF NOT EXISTS series_documentales(
                                                   tecnica_seleccion SMALLINT NOT NULL,
                                                   fecha_borrado timestamptz NULL DEFAULT NULL,
                                                   observaciones VARCHAR NOT NULL,
+                                                  active BOOLEAN NOT NULL DEFAULT TRUE,
                                                   CONSTRAINT PK_SERIES_DOCUMENTALES
                                                       PRIMARY KEY (identificador),
                                                   CONSTRAINT FK_SECCIONES
@@ -92,6 +94,7 @@ CREATE TABLE IF NOT EXISTS unidades_administrativas(
                                                        extension_telefonica VARCHAR(5) NOT NULL,
                                                        google_drive_folder_id VARCHAR NOT NULL,
                                                        fecha_borrado timestamptz NULL DEFAULT NULL,
+                                                       active BOOLEAN NOT NULL DEFAULT TRUE,
                                                        CONSTRAINT PK_UNIDADES_ADMINISTRATIVAS
                                                            PRIMARY KEY (clave),
                                                        CONSTRAINT FK_UNIDAD_PRINCIPAL

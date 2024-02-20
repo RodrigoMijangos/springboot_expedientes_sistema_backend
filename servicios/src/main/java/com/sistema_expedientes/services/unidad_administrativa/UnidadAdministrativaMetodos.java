@@ -10,6 +10,8 @@ public interface UnidadAdministrativaMetodos {
     UnidadAdministrativa get(String id) throws Exception;
 
     List<UnidadAdministrativa> list();
+    List<UnidadAdministrativa> findByActiveTrue();
+    List<UnidadAdministrativa> findByActiveFalse();
 
     UnidadAdministrativa create(UnidadAdministrativaRequestDTO request) throws Exception;
 

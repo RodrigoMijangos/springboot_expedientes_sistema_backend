@@ -2,7 +2,10 @@ package com.sistema_expedientes.controllers;
 
 import com.sistema_expedientes.serie_documental.seccion.Seccion;
 import com.sistema_expedientes.serie_documental.dto.request.SeccionRequestDTO;
+import com.sistema_expedientes.services.exceptions.ResourceNotFoundException;
 import com.sistema_expedientes.services.serie_documental.SeccionServicio;
+import com.sistema_expedientes.unidad_administrativa.UnidadAdministrativa;
+import jakarta.validation.constraints.Size;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +31,16 @@ public class SeccionControlador {
         return request.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(request);
     }
 
+    @GetMapping("api/v1/secciones/list_active")
+    public ResponseEntity<List<Seccion>> activeSecciones(){
+        return ResponseEntity.ok(servicio.findByActiveTrue());
+    }
+
+    @GetMapping("api/secciones/list_deleted")
+    public ResponseEntity<List<Seccion>> deletedSecciones(){
+        return ResponseEntity.ok(servicio.findByActiveFalse());
+    }
+
     @PostMapping("api/v1/secciones/crear")
     public ResponseEntity<Seccion> create(@RequestBody SeccionRequestDTO request){
         return ResponseEntity.status(201).body(servicio.create(request));
@@ -36,6 +49,12 @@ public class SeccionControlador {
     @PutMapping("api/v1/secciones/detalles/{clave}/editar")
     public ResponseEntity<Seccion> put(@PathVariable String clave, @RequestBody SeccionRequestDTO request) throws Exception {
         return ResponseEntity.ok(servicio.put(clave, request));
+    }
+
+    @DeleteMapping("api/v1/secciones/delete/{clave}")
+    public ResponseEntity<String> softDelete(@PathVariable String clave) throws ResourceNotFoundException {
+        this.servicio.softDelete(clave);
+        return ResponseEntity.ok("Sección dada de baja con exito");
     }
 
 }
