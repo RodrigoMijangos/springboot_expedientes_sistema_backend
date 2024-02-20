@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+@Tag(name = "Controlador de Administrador")
 @RestController
 @RequestMapping("/api/admin")
-@Tag(name = "Admin Controller")
 public class AdminController {
 
     private final UserService userService;
@@ -27,7 +27,7 @@ public class AdminController {
         return "Admin level";
     }
 
-    @Operation(summary = "Modificar el rol de los usuarios")
+    @Operation(summary = "Modificar el rol de los usuarios por username")
     @PutMapping("/{username}/role")
     public ResponseEntity<String> changueRole(@PathVariable String username, @RequestBody Role role){
         Optional<User> existUser = userService.findUserByUsername(username);

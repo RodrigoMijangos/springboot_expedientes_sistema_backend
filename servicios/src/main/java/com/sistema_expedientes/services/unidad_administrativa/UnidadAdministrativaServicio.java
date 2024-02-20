@@ -107,4 +107,12 @@ public class UnidadAdministrativaServicio implements UnidadAdministrativaMetodos
 
         return this.repositorio.save(in_bd);
     }
+
+    public UnidadAdministrativa restore(String clave) throws ResourceNotFoundException {
+        UnidadAdministrativa in_bd = this.get(clave);
+
+        in_bd.setActive(true);
+
+        return this.repositorio.save(in_bd);
+    }
 }

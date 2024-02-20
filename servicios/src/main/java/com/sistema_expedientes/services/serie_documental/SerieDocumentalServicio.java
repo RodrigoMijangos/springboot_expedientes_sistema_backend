@@ -95,4 +95,12 @@ public class SerieDocumentalServicio implements SerieDocumentalMetodos {
         return this.repositorio.save(in_bd);
     }
 
+    public SerieDocumental restore(Short clave) throws ResourceNotFoundException {
+        SerieDocumental in_bd = this.get(clave);
+
+        in_bd.setActive(true);
+
+        return this.repositorio.save(in_bd);
+    }
+
 }

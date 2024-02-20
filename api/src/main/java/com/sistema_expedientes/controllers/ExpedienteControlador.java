@@ -92,6 +92,7 @@ public class ExpedienteControlador {
         return ResponseEntity.ok("Ha sido eliminado");
     }
 
+    @Operation(summary = "Genera la caratula del expediente por id")
     @PostMapping("api/v1/expedientes/caratula")
     public ResponseEntity<byte[]> generarCaratulaPDF(@RequestBody ExpedienteCompositeKey id) throws ResourceNotFoundException {
         Expediente expediente = servicio.get(id);
