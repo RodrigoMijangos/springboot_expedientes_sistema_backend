@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface TipoExpedienteRepositorio extends JpaRepository<TipoExpediente, Short> {
 
-    List<TipoExpediente> findAllByVigenteIsTrue();
+    /*List<TipoExpediente> findAllByVigenteIsTrue();
 
     Optional<TipoExpediente> findByIdentificadorAndVigenteIsTrue(Short identificador);
 
@@ -21,6 +21,6 @@ public interface TipoExpedienteRepositorio extends JpaRepository<TipoExpediente,
     void setTipoExpedienteVigente(Short identificador);
 
     @Query("SELECT TipoExpediente.vigente FROM TipoExpediente te WHERE te.identificador = :identificador")
-    Optional<Boolean> isTipoExpedienteVigente(Short identificador);
+    Optional<Boolean> isTipoExpedienteVigente(Short identificador);*/
 
 }

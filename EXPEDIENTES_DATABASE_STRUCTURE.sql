@@ -128,6 +128,14 @@ CREATE TABLE IF NOT EXISTS expedientes(
                                               FOREIGN KEY (unidad_administrativa_generadora) REFERENCES unidades_administrativas(clave)
 );
 
+CREATE TABLE IF NOT EXISTS tipos_expediente (
+                                                identificador SMALLINT NOT NULL,
+                                                tipo_expediente VARCHAR(255),
+                                                vigente BOOLEAN,
+                                                descripcion VARCHAR(255),
+                                                PRIMARY KEY (identificador)
+);
+
 CREATE TABLE IF NOT EXISTS documentos(
                                          identificador BIGSERIAL NOT NULL,
                                          nombre VARCHAR NOT NULL,
@@ -236,3 +244,9 @@ INSERT INTO series_documentales(
 
 INSERT INTO series_documentales (serie_documental_padre, clave, seccion, nombre, valor_documental_administrativo, valor_documental_legal, valor_documental_contable, periodos_conservacion_tramite, periodos_conservacion_concentracion, tecnica_seleccion, observaciones) VALUES
     (4, '1', NULL, 'Comité Técnico', '1', '0', '0', 2, 5, 2, '');
+
+INSERT INTO tipos_expediente (identificador, tipo_expediente, vigente, descripcion)
+VALUES
+    (1, 'Expediente Tipo 1', true, 'Descripción del Expediente Tipo 1'),
+    (2, 'Expediente Tipo 2', true, 'Descripción del Expediente Tipo 2'),
+    (3, 'Expediente Tipo 3', false, 'Descripción del Expediente Tipo 3');
