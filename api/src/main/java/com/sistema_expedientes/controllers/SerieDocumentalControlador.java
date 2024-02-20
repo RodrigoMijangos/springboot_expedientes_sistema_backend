@@ -65,10 +65,10 @@ public class SerieDocumentalControlador {
     }
 
     @Operation(summary = "Restaura una serie documental por id")
-    @DeleteMapping("api/v1/series_documentales/restore/{id}")
+    @PostMapping("api/v1/series_documentales/restore/{id}")
     public ResponseEntity<String> restore(@PathVariable Short id) throws ResourceNotFoundException {
-        this.servicio.softDelete(id);
-        return ResponseEntity.ok("Serie documental dada de baja con exito");
+        this.servicio.restore(id);
+        return ResponseEntity.ok("Serie documental restaurada con exito");
     }
 
     @Operation(summary = "Actualziacion de una serie documental por id")

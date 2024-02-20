@@ -57,7 +57,7 @@ public class SeccionControlador {
     @Operation(summary = "Restauracion de una seccion eliminada logicamente")
     @PostMapping("api/v1/secciones/restore/{clave}")
     public ResponseEntity<String> restore(@PathVariable String clave) throws ResourceNotFoundException {
-        this.servicio.softDelete(clave);
+        this.servicio.restore(clave);
         return ResponseEntity.ok("Sección restaurada con exito");
     }
 
