@@ -15,6 +15,8 @@ import com.sistema_expedientes.services.expediente.reports.PDFService;
 import com.sistema_expedientes.services.legajo.LegajoServicio;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -46,9 +48,7 @@ public class ExpedienteControlador {
     @GetMapping("api/v1/expedientes/list")
     public ResponseEntity<List<Expediente>> list(){
         List<Expediente> response = servicio.list();
-
         return response.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(response);
-
     }
 
     @Operation(summary = "Muestra un expediente por id")
@@ -59,7 +59,7 @@ public class ExpedienteControlador {
 
     @Operation(summary = "Creacion de un nuevo expediente")
     @PostMapping("api/v1/expedientes/create")
-    public ResponseEntity<Expediente> create(@RequestBody CreateExpedienteRequestDTO request) throws Exception {
+    public ResponseEntity<Expediente> create(@Valid @RequestBody CreateExpedienteRequestDTO request) throws Exception {
         Expediente to_bd = servicio.create(request);
 
         return to_bd == null ? ResponseEntity.badRequest().build() : ResponseEntity.status(201).body(to_bd);
@@ -101,7 +101,7 @@ public class ExpedienteControlador {
                 byte[] pdfBytes = pdfService.generarCaratulaPDF(expediente);
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_PDF);
-                headers.setContentDispositionFormData("attachment", "caratula.pdf");
+                headers.setContentDispositionFormData("attachment", "caratula_" + System.currentTimeMillis() + ".pdf");
                 return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
             } catch (DocumentException e) {
                 e.printStackTrace();

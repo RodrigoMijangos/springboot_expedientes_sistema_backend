@@ -25,7 +25,7 @@ public class UnidadAdministrativaRequestDTO extends _DTO {
 
     @NotBlank
     @Size(min = 1, max = 5)
-    @Pattern(regexp = "[0-9]", message = "Solo puede usar numeros")
+    @Pattern(regexp = "[0-9]*", message = "Solo puede usar numeros")
     private String extensionTelefonica;
 
     public UnidadAdministrativaRequestDTO() {
