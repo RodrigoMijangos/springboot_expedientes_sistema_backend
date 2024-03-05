@@ -38,7 +38,11 @@ public class SecurityConfig {
     private final RSAKeyProperties keys;
 
     private static final String[] AUTH_WHITELIST = {
-            "/api/auth/**"
+            "/api/auth/**",
+            "/swagger-ui/**",
+            "/api-docs/**",
+            "/swagger-resources/*",
+            "/v3/api-docs/**"
     };
 
     private static final String[] USER_WHITELIST = {
@@ -52,6 +56,7 @@ public class SecurityConfig {
 
     private static final String[] USER_ACCESS = {
             "/api/v1/expedientes/get",
+            "/api/v1/expedientes/caratula",
             "/api/v1/documentos/list",
             "/api/v1/documentos/get/{id}",
             "/api/v1/secciones/listar",

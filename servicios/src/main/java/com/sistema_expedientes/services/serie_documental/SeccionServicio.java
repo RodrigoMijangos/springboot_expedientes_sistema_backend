@@ -4,6 +4,7 @@ import com.sistema_expedientes.serie_documental.seccion.Seccion;
 import com.sistema_expedientes.serie_documental.dto.request.SeccionRequestDTO;
 import com.sistema_expedientes.serie_documental.seccion.SeccionRepositorio;
 import com.sistema_expedientes.services.exceptions.ResourceNotFoundException;
+import com.sistema_expedientes.unidad_administrativa.UnidadAdministrativa;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,8 +28,18 @@ public class SeccionServicio implements SeccionServicioMetodos {
         return repositorio.findAll();
     }
 
+    @Override
+    public List<Seccion> findByActiveTrue() {
+        return repositorio.findByActiveTrue();
+    }
+
+    @Override
+    public List<Seccion> findByActiveFalse() {
+        return repositorio.findByActiveFalse();
+    }
+
     public List<Seccion> getAllSeccionVigente(){
-        return this.repositorio.findAllByVigenteIsTrue();
+        return this.repositorio.findAllByActiveIsTrue();
     }
 
     @Override
@@ -39,7 +50,7 @@ public class SeccionServicio implements SeccionServicioMetodos {
     }
 
     public Seccion getSeccionVigente(String clave) throws ResourceNotFoundException {
-        return this.repositorio.findFirstByIdAndVigenteIsTrue(clave).orElseThrow(() -> new ResourceNotFoundException(
+        return this.repositorio.findFirstByClaveAndActiveIsTrue(clave).orElseThrow(() -> new ResourceNotFoundException(
                 new Throwable("La sección no es vigente o no existe")
         ));
     }
@@ -65,16 +76,32 @@ public class SeccionServicio implements SeccionServicioMetodos {
         return 1;
     }
 
-    public int setSeccionNoVigente(String clave) throws ResourceNotFoundException {
-        repositorio.setSeccionNoVigente(clave);
-        Seccion in_bd = get(clave);
-        return in_bd.isVigente() ? 0 : 1;
+    public Seccion softDelete(String clave) throws ResourceNotFoundException {
+        Seccion in_bd = this.get(clave);
+
+        in_bd.setActive(false);
+
+        return this.repositorio.save(in_bd);
     }
 
-    public int setSeccionVigente(String clave) throws ResourceNotFoundException {
-        repositorio.setSeccionVigente(clave);
+    public Seccion restore(String clave) throws ResourceNotFoundException {
+        Seccion in_bd = this.get(clave);
+
+        in_bd.setActive(true);
+
+        return this.repositorio.save(in_bd);
+    }
+
+    public int setSeccionNoActive(String clave) throws ResourceNotFoundException {
+        repositorio.setSeccionNoActive(clave);
         Seccion in_bd = get(clave);
-        return !in_bd.isVigente() ? 0 : 1;
+        return in_bd.isActive() ? 0 : 1;
+    }
+
+    public int setSeccionActive(String clave) throws ResourceNotFoundException {
+        repositorio.setSeccionActive(clave);
+        Seccion in_bd = get(clave);
+        return !in_bd.isActive() ? 0 : 1;
     }
 
     private Seccion dtoToEntity(SeccionRequestDTO dto){

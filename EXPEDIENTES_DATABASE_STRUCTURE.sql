@@ -1,6 +1,6 @@
 CREATE DATABASE expedientes_origen_database;
 
-CREATE TABLE IF NOT EXISTS usuarios(
+/*CREATE TABLE IF NOT EXISTS usuarios(
                                        identificador BIGSERIAL NOT NULL ,
                                        email VARCHAR NOT NULL UNIQUE ,
                                        clave_acceso VARCHAR NOT NULL,
@@ -23,9 +23,9 @@ CREATE TABLE IF NOT EXISTS roles_usuario(
                                                 FOREIGN KEY(usuario_identificador) REFERENCES usuarios(identificador),
                                             CONSTRAINT FK_ROLES
                                                 FOREIGN KEY(rol_identificador) REFERENCES roles(identificador)
-);
+);*/
 
-CREATE TABLE IF NOT EXISTS entidades(
+/*CREATE TABLE IF NOT EXISTS entidades(
                                         identificador INTEGER NOT NULL UNIQUE,
                                         nombre_entidad VARCHAR NOT NULL UNIQUE,
                                         CONSTRAINT PK_ENTIDADES
@@ -41,13 +41,14 @@ CREATE TABLE IF NOT EXISTS permisos_roles(
                                                  FOREIGN KEY(identificador_rol) REFERENCES roles(identificador),
                                              CONSTRAINT FK_ENTIDADES
                                                  FOREIGN KEY(identificador_entidad) REFERENCES entidades(identificador)
-);
+);*/
 
 CREATE TABLE IF NOT EXISTS secciones(
                                         clave VARCHAR NOT NULL,
                                         nombre VARCHAR NOT NULL,
                                         descripcion VARCHAR NULL DEFAULT '',
                                         fecha_borrado timestamptz NULL DEFAULT NULL,
+                                        active BOOLEAN NOT NULL DEFAULT TRUE,
                                         CONSTRAINT PK_SECCIONES
                                             PRIMARY KEY (clave)
 );
@@ -74,6 +75,7 @@ CREATE TABLE IF NOT EXISTS series_documentales(
                                                   tecnica_seleccion SMALLINT NOT NULL,
                                                   fecha_borrado timestamptz NULL DEFAULT NULL,
                                                   observaciones VARCHAR NOT NULL,
+                                                  active BOOLEAN NOT NULL DEFAULT TRUE,
                                                   CONSTRAINT PK_SERIES_DOCUMENTALES
                                                       PRIMARY KEY (identificador),
                                                   CONSTRAINT FK_SECCIONES
@@ -92,6 +94,7 @@ CREATE TABLE IF NOT EXISTS unidades_administrativas(
                                                        extension_telefonica VARCHAR(5) NOT NULL,
                                                        google_drive_folder_id VARCHAR NOT NULL,
                                                        fecha_borrado timestamptz NULL DEFAULT NULL,
+                                                       active BOOLEAN NOT NULL DEFAULT TRUE,
                                                        CONSTRAINT PK_UNIDADES_ADMINISTRATIVAS
                                                            PRIMARY KEY (clave),
                                                        CONSTRAINT FK_UNIDAD_PRINCIPAL
@@ -125,14 +128,33 @@ CREATE TABLE IF NOT EXISTS expedientes(
                                               FOREIGN KEY (unidad_administrativa_generadora) REFERENCES unidades_administrativas(clave)
 );
 
+CREATE TABLE IF NOT EXISTS tipos_expediente (
+                                                identificador SMALLINT NOT NULL,
+                                                tipo_expediente VARCHAR(255),
+                                                vigente BOOLEAN,
+                                                descripcion VARCHAR(255),
+                                                PRIMARY KEY (identificador)
+);
+
 CREATE TABLE IF NOT EXISTS documentos(
                                          identificador BIGSERIAL NOT NULL,
+                                         tipo_documento SMALLINT NOT NULL,
                                          nombre VARCHAR NOT NULL,
                                          url_web_view VARCHAR NULL,
                                          google_drive_file_id VARCHAR NOT NULL,
                                          fecha_creacion timestamptz NOT NULL DEFAULT now(),
                                          fecha_edicion timestamptz NOT NULL DEFAULT now(),
-                                         CONSTRAINT PK_DOCUMENTOS PRIMARY KEY (identificador)
+                                         CONSTRAINT PK_DOCUMENTOS PRIMARY KEY (identificador),
+                                         CONSTRAINT FK_TIPO_DOCUMENTO
+                                             FOREIGN KEY (tipo_documento) REFERENCES tipos_expediente(identificador)
+);
+
+
+CREATE TABLE tipos_documento (
+                                 identificador SMALLINT NOT NULL PRIMARY KEY,
+                                 tipo_documento VARCHAR(255),
+                                 vigente BOOLEAN,
+                                 descripcion VARCHAR(255)
 );
 
 /**
@@ -233,3 +255,34 @@ INSERT INTO series_documentales(
 
 INSERT INTO series_documentales (serie_documental_padre, clave, seccion, nombre, valor_documental_administrativo, valor_documental_legal, valor_documental_contable, periodos_conservacion_tramite, periodos_conservacion_concentracion, tecnica_seleccion, observaciones) VALUES
     (4, '1', NULL, 'Comité Técnico', '1', '0', '0', 2, 5, 2, '');
+
+INSERT INTO tipos_expediente (identificador, tipo_expediente, vigente, descripcion)
+VALUES
+    (1, 'Expediente Tipo 1', true, 'Descripción del Expediente Tipo 1'),
+    (2, 'Expediente Tipo 2', true, 'Descripción del Expediente Tipo 2'),
+    (3, 'Expediente Tipo 3', false, 'Descripción del Expediente Tipo 3');
+
+INSERT INTO tipos_documento (identificador, tipo_documento, vigente, descripcion) VALUES
+  (1, 'Tipo Documento 1', TRUE, 'Descripción Tipo Documento 1'),
+  (2, 'Tipo Documento 2', TRUE, 'Descripción Tipo Documento 2'),
+  (3, 'Tipo Documento 3', TRUE, 'Descripción Tipo Documento 3'),
+  (4, 'Tipo Documento 4', TRUE, 'Descripción Tipo Documento 4'),
+  (5, 'Tipo Documento 5', TRUE, 'Descripción Tipo Documento 5'),
+  (6, 'Tipo Documento 6', TRUE, 'Descripción Tipo Documento 6'),
+  (7, 'Tipo Documento 7', TRUE, 'Descripción Tipo Documento 7'),
+  (8, 'Tipo Documento 8', TRUE, 'Descripción Tipo Documento 8'),
+  (9, 'Tipo Documento 9', TRUE, 'Descripción Tipo Documento 9'),
+  (10, 'Tipo Documento 10', TRUE, 'Descripción Tipo Documento 10');
+
+
+INSERT INTO tipos_expediente (identificador, tipo_expediente, vigente, descripcion) VALUES
+  (1, 'Tipo Expediente 1', TRUE, 'Descripción Tipo Expediente 1'),
+  (2, 'Tipo Expediente 2', TRUE, 'Descripción Tipo Expediente 2'),
+  (3, 'Tipo Expediente 3', TRUE, 'Descripción Tipo Expediente 3'),
+  (4, 'Tipo Expediente 4', TRUE, 'Descripción Tipo Expediente 4'),
+  (5, 'Tipo Expediente 5', TRUE, 'Descripción Tipo Expediente 5'),
+  (6, 'Tipo Expediente 6', TRUE, 'Descripción Tipo Expediente 6'),
+  (7, 'Tipo Expediente 7', TRUE, 'Descripción Tipo Expediente 7'),
+  (8, 'Tipo Expediente 8', TRUE, 'Descripción Tipo Expediente 8'),
+  (9, 'Tipo Expediente 9', TRUE, 'Descripción Tipo Expediente 9'),
+  (10, 'Tipo Expediente 10', TRUE, 'Descripción Tipo Expediente 10');

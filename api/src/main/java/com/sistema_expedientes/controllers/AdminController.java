@@ -3,11 +3,14 @@ package com.sistema_expedientes.controllers;
 import com.sistema_expedientes.auth.Role;
 import com.sistema_expedientes.auth.User;
 import com.sistema_expedientes.services.auth.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+@Tag(name = "Controlador de Administrador")
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {
@@ -18,11 +21,13 @@ public class AdminController {
         this.userService = userService;
     }
 
+    @Operation(summary = "Regresa el nivel de acceso conforme al rol admin")
     @GetMapping
     public String getLevel(){
         return "Admin level";
     }
 
+    @Operation(summary = "Modificar el rol de los usuarios por username")
     @PutMapping("/{username}/role")
     public ResponseEntity<String> changueRole(@PathVariable String username, @RequestBody Role role){
         Optional<User> existUser = userService.findUserByUsername(username);

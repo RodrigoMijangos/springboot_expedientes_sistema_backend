@@ -30,10 +30,14 @@ public class UnidadAdministrativa {
     @JsonManagedReference
     private Set<UnidadAdministrativa> unidadesGeneradoras;
 
+    @Column(name = "active")
+    @JsonIgnore
+    private Boolean active = true;
+
     public UnidadAdministrativa() {
     }
 
-    public UnidadAdministrativa(String clave, String nombre, @Nullable UnidadAdministrativa unidadPrincipal, String piso, String extensionTelefonica, String googleDriveFolderId, Set<UnidadAdministrativa> unidadesGeneradoras) {
+    public UnidadAdministrativa(String clave, String nombre, @Nullable UnidadAdministrativa unidadPrincipal, String piso, String extensionTelefonica, String googleDriveFolderId, Set<UnidadAdministrativa> unidadesGeneradoras, Boolean active) {
         this.clave = clave;
         this.nombre = nombre;
         this.unidadPrincipal = unidadPrincipal;
@@ -41,6 +45,7 @@ public class UnidadAdministrativa {
         this.extensionTelefonica = extensionTelefonica;
         this.googleDriveFolderId = googleDriveFolderId;
         this.unidadesGeneradoras = unidadesGeneradoras;
+        this.active = active;
     }
 
     public String getClave() {
@@ -98,5 +103,13 @@ public class UnidadAdministrativa {
 
     public void setUnidadesGeneradoras(Set<UnidadAdministrativa> unidadesGeneradoras) {
         this.unidadesGeneradoras = unidadesGeneradoras;
+    }
+
+    public Boolean isActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

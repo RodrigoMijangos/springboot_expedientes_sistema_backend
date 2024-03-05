@@ -5,6 +5,8 @@ import com.sistema_expedientes.auth.dto.LoginResponseDTO;
 import com.sistema_expedientes.auth.dto.RegistrationRequestDTO;
 import com.sistema_expedientes.services.auth.AuthenticationService;
 import com.sistema_expedientes.services.exceptions.UsernameNotFoundException;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
+@Tag(name = "Controlador de Autenticacion")
 @RestController
 @RequestMapping("/api/auth")
 @CrossOrigin("*")
@@ -25,6 +28,7 @@ public class AuthenticationController {
         this.authenticationService = authenticationService;
     }
 
+    @Operation(summary = "Registro de un nuevo usuario")
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody RegistrationRequestDTO registrationRequestDTO){
         try{
@@ -35,6 +39,7 @@ public class AuthenticationController {
         }
     }
 
+    @Operation(summary = "Login para inicio de sesion")
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> loginUser(@Validated @RequestBody LoginRequestDTO loginRequestDTO){
         try {
