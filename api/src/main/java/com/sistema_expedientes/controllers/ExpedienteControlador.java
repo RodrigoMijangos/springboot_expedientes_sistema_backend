@@ -17,6 +17,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -49,6 +51,13 @@ public class ExpedienteControlador {
     public ResponseEntity<List<Expediente>> list(){
         List<Expediente> response = servicio.list();
         return response.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(response);
+    }
+
+    @GetMapping("api/v1/expedientes/pageable")
+    public ResponseEntity<?> listExpedientes(@RequestParam(name = "page", defaultValue = "0") int page) {
+        PageRequest pageable = PageRequest.of(page, 10);
+        Page<Expediente> expedientes = servicio.getAllExpedientes(pageable);
+        return new ResponseEntity<>(expedientes, HttpStatus.OK);
     }
 
     @Operation(summary = "Muestra un expediente por id")

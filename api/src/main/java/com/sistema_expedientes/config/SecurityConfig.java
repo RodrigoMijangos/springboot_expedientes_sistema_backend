@@ -51,7 +51,8 @@ public class SecurityConfig {
             "/api/v1/documentos/**",
             "/api/v1/legajos/**",
             "/api/v1/secciones/**",
-            "/api/v1/series_documentales/**"
+            "/api/v1/series_documentales/**",
+            "/api/v1/dashboard/**"
     };
 
     private static final String[] USER_ACCESS = {

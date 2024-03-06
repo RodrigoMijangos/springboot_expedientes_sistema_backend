@@ -15,6 +15,8 @@ import com.sistema_expedientes.services.formatter.FolderInstanceNameFormatter;
 import com.sistema_expedientes.services.legajo.LegajoServicio;
 import com.sistema_expedientes.services.unidad_administrativa.UnidadAdministrativaServicio;
 import com.sistema_expedientes.unidad_administrativa.UnidadAdministrativa;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -61,6 +63,11 @@ public class ExpedienteServicio implements ExpedienteServicioMetodos {
     @Override
     public List<Expediente> list() {
         return repositorio.findAll();
+    }
+
+    @Override
+    public Page<Expediente> getAllExpedientes(Pageable pageable) {
+        return repositorio.findAll(pageable);
     }
 
     @Override
