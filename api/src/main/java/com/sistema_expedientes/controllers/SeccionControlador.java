@@ -32,7 +32,7 @@ public class SeccionControlador {
     @Operation(summary = "Listado de todas las secciones")
     @GetMapping("api/v1/secciones/listar")
     public ResponseEntity<List<Seccion>> listAll(){
-        List<Seccion> request = servicio.getAll();
+        List<Seccion> request = servicio.findByActiveTrue();
         return request.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(request);
     }
 

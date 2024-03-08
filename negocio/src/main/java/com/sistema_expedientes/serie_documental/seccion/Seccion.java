@@ -14,7 +14,7 @@ import org.springframework.boot.context.properties.bind.DefaultValue;
 import java.util.Set;
 
 @Entity
-@Table(name = "secciones_documentales")
+@Table(name = "secciones")
 public class Seccion {
 
     @Id
